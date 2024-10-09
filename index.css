@@ -1,26 +1,123 @@
-nav{
-    background-color: rgba(0, 0, 0 ,1);
-    
+*{
+    text-decoration: none;
+    color: white;
+}
+@font-face{
+    font-family: Batangas;
+    src: url(Batangas-Bold.woff);
+}
+body{
+    background-color: black;
+}
+.header{
+        position: fixed;
+        top:0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        padding: 1rem 12% 1rem;
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        display: flex;
+        justify-content: space-between;
+        /* align-items: center; */
+        z-index: 5;
     }
-    .nav-link{
-        color: white;
-        margin: -30px 0px 0px 0px ;
-        background-color: rgba(93, 23, 235);
-        border-radius: 300px;
-    
+    .logo{
+        cursor: pointer;
+        transition: 0.3s ease;
+        margin-left: -180px;
+        margin-top: -10px;
+        height: 50px;
     }
-    .nav-link:hover{
-        color: white;
-        transform: scale(1.2);
+    .logo:hover{
+        transform: scale(1.1);
+    }
+    .navbar{
+        height: 100px;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .navbar a{
+        color: black;
+        font-family: Batangas;
+    }
+    .btn1{
+        height: 30px;
+        width: 100px;
         
-        
-        
+        display: inline;
+        align-items: center;
+        margin-left: 15%;
+        margin-top: 10px;
+        border-radius: 40% 0% 40% 0%;
+        background-color: blueviolet;
+        color: black;
+        font-size: large;
+        transition: 0.3s ease-in-out;
     }
-    .navbar-brand{
-        margin: -30px 0px 0px -30px ;
+    .dropdown-box {
+        display: none; /* hide the dropdown box initially */
+        position: absolute;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        padding: 10px;
+        width: 150px;
+      }
+    .btn1:hover {
+        transform: scale(1.1);
+        background-color: black;
+        color: #5d17eb;
+        border: 2px solid #5d17eb;
+        box-shadow: 0px 0px 25px #5d17eb,
+                    0px 0px 50px #8c52ff,
+                    0px 0px 100px #b477fe;
+
     }
-    li{
-    padding: 40px;
-    
-    
+    .navbar a:hover{
+        color: #5d17eb;
     }
+    .btn2{
+        height: 30px;
+        width: 300px;
+        margin-left: 15%;
+        margin-top: 10px;
+        border-radius: 40% 0% 40% 0%;
+        background-color: blueviolet;
+        color: black;
+        font-size: large;
+        transition: 0.3s ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .btn2:hover{
+        transform: scale(1.1);
+        background-color: black;
+        border: 2px solid #5d17eb;
+        box-shadow: 0px 0px 25px #5d17eb,
+                    0px 0px 50px #8c52ff,
+                    0px 0px 100px #b477fe;
+    }
+    .btn2 a{
+        width: auto;
+        /* display: inline-block; */
+    }
+    .bg1{
+        margin-top: 3%;
+        height: 700px;
+        width: 1000px;
+        z-index: 1;
+    }
+    .bg{
+        display: inline-flex;
+    }
+    .bg2{
+        height: 500px;
+        width: 500px;
+        margin-top: 9.5%;
+        transition: 0.5s ease-in-out;
+    }
+      .bg2:hover {
+        transform: scale(1.1) skew(5deg); /* apply scale and skew transformations */
+      }
