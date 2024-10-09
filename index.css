@@ -1,0 +1,26 @@
+nav{
+    background-color: rgba(0, 0, 0 ,1);
+    
+    }
+    .nav-link{
+        color: white;
+        margin: -30px 0px 0px 0px ;
+        background-color: rgba(93, 23, 235);
+        border-radius: 300px;
+    
+    }
+    .nav-link:hover{
+        color: white;
+        transform: scale(1.2);
+        
+        
+        
+    }
+    .navbar-brand{
+        margin: -30px 0px 0px -30px ;
+    }
+    li{
+    padding: 40px;
+    
+    
+    }
