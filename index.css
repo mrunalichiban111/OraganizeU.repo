@@ -6,15 +6,21 @@
     font-family: Batangas;
     src: url(Batangas-Bold.woff);
 }
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 400;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+}
 body{
     background-color: black;
 }
 .header{
+        overflow: visible;
         position: fixed;
         top:0;
         left: 0;
         width: 100%;
-        height: 60px;
+        height: 10%;
         padding: 1rem 12% 1rem;
         background: rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(10px);
@@ -24,8 +30,9 @@ body{
         z-index: 5;
     }
     #content{
-        font-size: 1.5rem;
-        font-family: sans-serif;
+        font-size: large;
+        font-family: "San Francisco";
+        font-weight: 700;
         color: white;
         margin-left: 12%;
         margin-top: 1rem;
@@ -68,7 +75,7 @@ body{
         transform: scale(1.1);
     }
     .navbar{
-        
+       
         display: flex;
         justify-content: space-evenly;
     }
@@ -146,9 +153,9 @@ body{
       }
       #db{
         color: white;
-        font-size: 1.5rem;
-        font-family: sans-serif;
-        font-weight: 500;
+        font-size: large;
+        font-family: "San Francisco";
+        font-weight: 1000;
 
       }
       #db:hover{
@@ -206,7 +213,7 @@ body{
         border-radius: 40% 0% 40% 0%;
         background-color: blueviolet;
         color: black;
-        font-size: large;
+        font-size: medium;
         transition: 0.3s ease-in-out;
         display: flex;
         align-items: center;
@@ -232,19 +239,108 @@ body{
     }
     .bg1{
         margin-top: 3%;
-        height: 700px;
-        width: 1000px;
+        height: 100%;
+        width: 100%;
         z-index: 1;
+        object-fit: cover;
     }
     .bg{
         display: inline-flex;
     }
     .bg2{
-        height: 500px;
-        width: 500px;
+        height: 50%;
+        width: 50%;
         margin-top: 9.5%;
         transition: 0.5s ease-in-out;
     }
       .bg2:hover {
         transform: scale(1.1) skew(5deg); /* apply scale and skew transformations */
+      }
+    
+    #background-video {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      object-fit: cover;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: -1;
+      }
+      #tagline{
+        margin-left: 7%;
+        margin-top: 10%;
+      }
+      #tags{
+        font-family: batangas;
+        color: white;
+        font-size: 75px;
+      }
+      #text-and-art
+      {
+        margin-top: 7.5%;
+        margin-bottom: 7.5%;
+        display: flex;
+        justify-content: space-between;
+      }
+      img{
+        /* size: 10%; */
+        width: 50%;
+        height: 50%;
+        /* height: 600px; */
+      }
+      .typewriter{
+        margin-left: 11%;
+      }
+      #text{
+        display: inline-block;
+      }
+      
+      #hello-user {
+        margin-bottom: -20px;
+        color: white;
+        font-family: "San Francisco";
+        font-weight: 650;
+        font-size: 45px;
+        white-space: nowrap;
+        overflow: hidden;
+        animation: typewriter 2s steps(18) infinite alternate,
+            blink 800ms steps(18) infinite normal;
+        border-right: 5px solid white;
+      }
+      @keyframes typewriter {
+        from {
+            width: 0%;
+        }
+      
+        to {
+            width: 60%;
+        }
+      }
+      
+      @keyframes blink {
+        from {
+            border-color: white;
+        }
+      
+        to {
+            border-color: transparent;
+        }
+      }
+      #start-text{
+        color: white;
+        font-size: 30px;
+        font-family: "San Francisco";
+        font-weight: 650;
+        animation: fromleft 3s  1s 1  normal;
+      }
+      @keyframes fromleft{
+        0%{
+          translate:-300px;
+        }
+        50%{
+          translate:0px
+        }
       }
