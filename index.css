@@ -60,8 +60,8 @@ body{
         cursor: pointer;
         transition: 0.3s ease;
         margin-left: -16%;
-        margin-top: -10px;
-        height: 90px;
+        margin-top: -2%;
+        height: 150%;
 
     }
     .logo:hover{
@@ -76,7 +76,7 @@ body{
         color: black;
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     } */
-    .btn1{
+    /* .btn1{
         height: 30px;
         width: 100px;
         
@@ -89,7 +89,7 @@ body{
         color: black;
         font-size: large;
         transition: 0.3s ease-in-out;
-    }
+    } */
     .dropdown-box {
         display: none; /* hide the dropdown box initially */
         margin-top: 4%;
@@ -186,7 +186,7 @@ body{
       .dropdown-box2:hover{
         display: block;
       }
-    .btn1:hover {
+    /* .btn1:hover {
         transform: scale(1.1);
         background-color: black;
         color: #5d17eb;
@@ -195,7 +195,7 @@ body{
                     0px 0px 50px #8c52ff,
                     0px 0px 100px #b477fe;
 
-    }
+    } */
     
     .btn2{
         height: 35px;
