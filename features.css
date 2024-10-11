@@ -1,9 +1,11 @@
 @font-face {
     font-family: "San Francisco";
-    font-weight: 400;
+    font-weight: 1600;
     src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
 }
 #feature-section{
+    margin-top: -55%;
+    margin-bottom: 5%;
     background-color: black;
     justify-content: center;
     display: flex;
