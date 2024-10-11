@@ -99,7 +99,7 @@ body{
     } */
     .dropdown-box {
         display: none; /* hide the dropdown box initially */
-        margin-top: 4%;
+        margin-top: 3%;
         position: absolute;
         background-color: black;
         border: 1px solid #ccc;
@@ -112,7 +112,7 @@ body{
       }
       .dropdown-box1 {
         display: none; /* hide the dropdown box initially */
-        margin-top: 4%;
+        margin-top: 3%;
         position: absolute;
         background-color: black;
         border: 1px solid #ccc;
@@ -125,7 +125,7 @@ body{
       }
       .dropdown-box2 {
         display: none; /* hide the dropdown box initially */
-        margin-top: 4%;
+        margin-top: 3%;
         position: absolute;
         background-color: black;
         border: 1px solid #ccc;
