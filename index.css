@@ -221,6 +221,7 @@ body{
         align-items: center;
         justify-content: center;
         
+        
     }
     .btn2:hover{
         transform: scale(1.1);
@@ -505,9 +506,16 @@ ul li a:hover {
   background-color:rgb(127, 54, 190);
   
 }
-
+.add-animation1{
+  animation:reveal 2s ease forwards;
+}
+.add-animation2{
+  background-color:black;
+  animation:base 2s ease forwards;
+}
 .box h1::before{
   animation:reveal 2s ease forwards;
+  
 }
 .box h1::after{
   background-color:black;

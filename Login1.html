@@ -13,6 +13,16 @@
             margin: 0;
             background-color: black;
         }
+        @font-face{
+            font-family: Batangas;
+            src: url(Batangas-Bold.woff);
+        }
+        
+        @font-face {
+            font-family: "San Francisco";
+            font-weight: 400;
+            src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+        }
 
         .container {
             height: 200vh;
@@ -58,7 +68,7 @@
 
         .content {
             width: auto;
-            max-width: 650px;
+            max-width: 670px;
             text-align: center;
             color: white;
             margin-top: 40px;
@@ -73,6 +83,7 @@
             overflow: hidden;
             border-right: 0.15em solid white;
             animation: typing 3s steps(30, end), blink-caret 0.75s step-end infinite, fadeIn 2s 0s forwards;
+            font-family: Batangas;
         }
 
         .description {
@@ -83,6 +94,7 @@
             max-width: 80%;
             margin: 20px auto;
             color: #8d3af3;
+            font-family:"San Francisco";
         }
 
         #buttons {
@@ -116,7 +128,8 @@
             background-color: #f1f1f1;
             color: black;
             border-top-left-radius: 50px;
-            border-bottom-right-radius: 50px
+            border-bottom-right-radius: 50px;
+            width:233px;
         }
 
         .btn:hover {
@@ -135,6 +148,7 @@
             box-shadow: 0px 0px 25px #5d17eb,
                 0px 0px 50px #8c52ff,
                 0px 0px 100px #b477fe;
+            white-space:nowrap;
 
         }
 
@@ -196,10 +210,10 @@
         <div id="buttons">
             <button class="btn btn-primary" onclick="window.location.href='index.html';">Continue to
                 Site</button>
-            <button class="btn btn-secondary" onclick="window.location.href='https://www.youtube.com';">Become
-                Contributor</button>
+            <button class="btn btn-secondary" onclick="window.location.href='https://www.youtube.com';">Sign Up</button>
         </div>
     </div>
+
 </body>
 
 </html>
