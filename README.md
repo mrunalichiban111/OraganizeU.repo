@@ -4,15 +4,15 @@
 <br><br>
 <h2>Project Demo</h2>
 
-
-https://github.com/user-attachments/assets/3a514367-67e0-475d-9db6-943070818599
-
+https://github.com/user-attachments/assets/4a94c1a0-55b9-4f7f-9ee8-c50d0e86e7bf
 
 <br><br>
 <h2>Project Screenshots</h2>
 
 <img width="894" alt="image" src="https://github.com/user-attachments/assets/eddc6ad6-3393-4de3-9e67-23c3057b21fb"><br>
 <img width="579" alt="image" src="https://github.com/user-attachments/assets/a7de0924-9488-420e-b938-18652de88c59"><br>
+<img width="909" alt="image" src="https://github.com/user-attachments/assets/937801cf-adf4-430b-8e4c-328d1172a3cd"><br>
+
 <img width="942" alt="image" src="https://github.com/user-attachments/assets/4c41780c-1582-43ab-b48f-c14b780bd5f8"><br>
 <img width="914" alt="image" src="https://github.com/user-attachments/assets/414b9672-3e29-4c20-8e6f-656bda1a826d"><br>
 <img width="396" alt="image" src="https://github.com/user-attachments/assets/a010aba1-004b-4651-939c-ea9c8fe78154"><br>
