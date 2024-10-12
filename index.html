@@ -252,7 +252,16 @@ Stay Ahead.</pre>
         <a href="#">Manage Cookies</a>
       </div>
     </footer>
-
+    <script>
+        $(window).on('scroll' , function(){
+        scroll_pos = $(window).scrollTop() + $(window).height();
+        element_pos = $('#schedule').offset().top + $('#schedule').height() ;
+        if (scroll_pos > element_pos) {
+            $('#schedule').addClass('.box h1::before');
+        };
+    
+    })
+    </script>
 </body>
 
 </html>
