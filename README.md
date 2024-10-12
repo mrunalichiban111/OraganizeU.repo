@@ -1,4 +1,4 @@
-<h1 align="center" id="title">OrganizeU</h1>
+<h1 align="center" id="title">OrganizeU G4 (WebDev Wizards) </h1>
 
 <p id="description">OrganizeU is a smart personal productivity website designed to simplify life and keep you organized. It helps you manage tasks set goals and track progress effortlessly.It is a one stop solution to create your schedule manage your time and stay productive.</p>
 <br><br>
@@ -42,17 +42,17 @@ Technologies used in the project:
 
 <h2>👥 Team Members</h2>
 <h3>🎨 Design  Team</h3>
-•  Harshita<br>
 •  Suhani<br>
+•  Harshita<br>
 •  Srushti<br>
 •  Parteek<br>
 
 
 <h3>💻 Coding Team</h3>
-•   Sambhav <br>
 •   Mrunal<br>
-•   Surendra<br>
+•   Sambhav <br>
 •   Suhani<br>
+•   Surendra<br>
 •   Devang<br>
 •   Janmesh<br> 
 •   Khushi<br>
