@@ -1,0 +1,58 @@
+@font-face{
+    font-family: Batangas;
+    src: url(../OraganizeU.repo/Batangas-Bold.woff);
+}
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 400;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+}
+
+#mynav {
+    font-family: San Francisco;
+    font-weight: 500;
+    background-color: rgba(0,0,0,0.5);
+}
+#brand-logo{
+    padding-left: -300px;
+}
+#navcont{
+    color: #8c52ff !important;
+    margin-left: 80px;
+    font-size: larger;
+}
+.nav-link{
+    color: white;
+    transition: 0.3s ease;
+}
+.nav-link:hover{
+    transform: scale(1.2);
+    color: #8c52ff;
+    border-bottom: 3px solid #8c52ff;
+    text-shadow:0px 0px 25px #8c52ff,
+                0px 0px 50px #8c52ff,
+                0px 0px 100px #8c52ff ;
+}   
+.profilebtn{
+    height: 35px;
+    width: 150px;
+    font-weight: 700;
+    border-top-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background-color: blueviolet;
+    color: black;
+    font-size: medium;
+    transition: 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.profilebtn:hover{
+    transform: scale(1.1);
+    background-color: black;
+    border: 2px solid #5d17eb;
+    color: #8c52ff;
+    box-shadow: 0px 0px 25px #5d17eb,
+                0px 0px 50px #8c52ff,
+                0px 0px 100px #b477fe;
+}
