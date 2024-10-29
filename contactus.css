@@ -40,7 +40,7 @@
 }
 #name{
     border-radius: 10px;
-    width: 400px;
+    width: 300px;
     margin-bottom: 10%;
     padding: 10px;
     
@@ -50,7 +50,7 @@
 }
 #e-mail{
     border-radius: 10px;
-    width: 400px;
+    width: 300px;
     margin-bottom: 10%;
     padding: 10px;
     height: 30px;
@@ -59,7 +59,7 @@
 }
 #message{
     border-radius: 10px;
-    width: 400px;
+    width: 300px;
     text-wrap: wrap;
     height: 100px;
     background-color: rgb(232, 210, 244);
