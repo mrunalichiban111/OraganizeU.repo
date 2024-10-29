@@ -13,15 +13,16 @@
     font-weight: 500;
     background-color: rgba(0,0,0,0.5);
 }
-#brand-logo{
-    padding-left: -300px;
-}
+
 #navcont{
+    margin-left: 12vw;
+    /* margin-right: ; */
     color: #8c52ff !important;
-    margin-left: 5vw;
     font-size: larger;
 }
 .nav-link{
+    margin-left: 1vw;
+
     color: white;
     transition: 0.3s ease;
 }

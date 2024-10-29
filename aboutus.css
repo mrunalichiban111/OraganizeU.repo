@@ -378,3 +378,28 @@ img.in-view{
     margin-bottom: 0.5rem;
 }
 /* Feedback Ends */
+/* Contact Us Begins */
+#contactus{
+    text-align: center;
+}
+#contactus .container{
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+}
+#contactus h1{
+    font-family: Batangas;
+}
+#contactus p,a{
+    font-family: San Francisco;
+    font-weight: 700;
+}
+#contactus a{
+    transition: all 0.5s ease-in-out;
+}
+#contactus a:hover{
+    transform: scale(1.2);
+    background-color: black;
+    color: #8c52ff;
+    box-shadow: 0 0 5px white;
+}
+/* Contact Us Ends */
