@@ -1,6 +1,6 @@
  @font-face{
     font-family: Batangas;
-    src: url(D:\OrganizeU\OraganizeU.repo\Batangas-Bold.woff);
+    src: url(Batangas-Bold.woff);
 }
 @font-face {
     font-family: "San Francisco";
@@ -60,7 +60,7 @@
 #message{
     border-radius: 10px;
     width: 400px;
-    
+    text-wrap: wrap;
     height: 100px;
     background-color: rgb(232, 210, 244);
     border-style: outset;
