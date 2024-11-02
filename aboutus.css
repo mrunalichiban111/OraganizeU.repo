@@ -14,7 +14,7 @@ body{
 }
 /* About us styling beings */
 #about{
-    background-image: url('../OraganizeU.repo/aboutbg.jpg');
+    background-image: url('../OraganizeU.repo/assets/media/aboutbg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     max-height: 80vh;
@@ -216,7 +216,7 @@ img.in-view{
 #ourteam .container{
     font-family: Batangas;
     outline: 2px solid rgb(172, 25, 236); 
-    background-image: url(conbg1.jpg);
+    background-image: url(../OraganizeU.repo/assets/media/conbg1.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
