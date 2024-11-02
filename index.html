@@ -50,13 +50,13 @@
     </header>
     <!-- WELCOME SECTION STARTS -->
     <section>
-        <video id="background-video" autoplay loop muted>
+        <video id="background-video" autoplay loop muted class="bgvideo animate">
             <source src="../OraganizeU.repo/assets/media/video3.mp4" type="video/mp4">
         </video>
         <div id="text-and-art">
             <div id="text">
                 <div id="tagline">
-                    <pre id="tags">
+                    <pre id="tags" class="animate">
 Stay Organized.
 Stay Ahead.</pre>
                 </div>
@@ -66,7 +66,7 @@ Stay Ahead.</pre>
                 </div>
             </div>
             <!-- bg22 -->
-            <img src="../OraganizeU.repo/assets/media/BG22.png" alt="vectorart" id="sideimg">
+            <img src="../OraganizeU.repo/assets/media/BG22.png" alt="vectorart" id="sideimg" class="animate">
         </div>
     </section>
     <!-- Welcome Section Ends -->
@@ -77,8 +77,8 @@ Stay Ahead.</pre>
 
         <div class="container">
 
-            <div class="box">
-                <h1 class="vert1">Schedule<br>Today's</h1>
+            <div class="box animate">
+                <h1 class="vert1 animate">Schedule<br>Today's</h1>
                 
             </div>
 
@@ -87,13 +87,13 @@ Stay Ahead.</pre>
         <div class="content">
             
             <div id="schedule"> 
-                <p class="schedule_text_one" id="schedule_text"><span style="color: #8c52ff;">9:00 AM </span> DBMS CLASS</p>
+                <p class="schedule_text_one animate" id="schedule_text"><span style="color: #8c52ff;">9:00 AM </span> DBMS CLASS</p>
                 <hr>
-                <p class="schedule_text_two" id="schedule_text"><span style="color: #8c52ff;">10:00 AM</span> WDA CLASS</p>
+                <p class="schedule_text_two animate" id="schedule_text"><span style="color: #8c52ff;">10:00 AM</span> WDA CLASS</p>
                 <hr>
-                <p class="schedule_text_three" id="schedule_text"><span style="color: #8c52ff;">3:00 PM</span> CTP CLASS</p>
+                <p class="schedule_text_three animate" id="schedule_text"><span style="color: #8c52ff;">3:00 PM</span> CTP CLASS</p>
                 <hr>
-                <p class="schedule_text_four" id="schedule_text"><span style="color: #8c52ff;">9:00 PM </span>PROJ MEET</p>
+                <p class="schedule_text_four animate" id="schedule_text"><span style="color: #8c52ff;">9:00 PM </span>PROJ MEET</p>
                 <hr>
             </div>
 
@@ -108,7 +108,7 @@ Stay Ahead.</pre>
     <div class="feature-container">
         <h1 id="feature-title">Features</h1>
         <div class="mygrid">
-        <div class="card1">
+        <div class="card1 animate">
             <div class="class-1-title">
             <img src="../OraganizeU.repo/assets/media/clock.png" alt="clock-icon" class="icon">
             <a href="#">Day Scheduler</a>
@@ -121,7 +121,7 @@ Stay Ahead.</pre>
             </a>
         </div>
     </div>
-        <div class="card2">
+        <div class="card2 animate">
             <div class="class-2-title">
                 <!-- student -->
             <img src="../OraganizeU.repo/assets/media/student.svg" alt="clock-icon" class="icon">
@@ -135,7 +135,7 @@ Stay Ahead.</pre>
             </a>
             </div>
         </div>
-        <div class="card3">
+        <div class="card3 animate">
             <div class="class-2-title">
                 <!-- cal 277 -->
             <img src="../OraganizeU.repo/assets/media/calendar_2773319.png" alt="clock-icon" class="icon">
@@ -148,7 +148,7 @@ Stay Ahead.</pre>
             </div>
             </div>
         </div>
-        <div class="card4">
+        <div class="card4 animate">
             <div class="class-2-title">
                 <!-- icon8 folder -->
             <img src="../OraganizeU.repo/assets/media/icons8-folder.svg" alt="clock-icon" class="icon">
@@ -162,7 +162,7 @@ Stay Ahead.</pre>
             </a>
             </div>
 
-        <div class="card5">
+        <div class="card5 animate">
             <div class="class-2-title">
             <img src="../OraganizeU.repo/assets/media/goals.svg" alt="clock-icon" class="icon">
             <a href="#">Goal Progress Tracker</a>
@@ -260,19 +260,19 @@ Stay Ahead.</pre>
       </div>
     </footer>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", () => {
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('in-view');
-      return;
-    }
-    entry.target.classList.remove('in-view');
-  });
-});
-const allAnimatedElements = document.querySelectorAll('.animate');
-allAnimatedElements.forEach((element) => observer.observe(element));
+    const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            return;
+        }
+        entry.target.classList.remove('in-view');
+    });
+    });
+    const allAnimatedElements = document.querySelectorAll('.animate');
+    allAnimatedElements.forEach((element) => observer.observe(element));
 }); 
     </script>
 </body>

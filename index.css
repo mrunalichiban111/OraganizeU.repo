@@ -506,18 +506,18 @@ ul li a:hover {
   background-color:rgb(127, 54, 190);
   
 }
-.add-animation1{
+.add-animation1.in-view{
   animation:reveal 2s ease forwards;
 }
-.add-animation2{
+.add-animation2.in-view{
   background-color:black;
   animation:base 2s ease forwards;
 }
-.box h1::before{
+.box.in-view h1::before{
   animation:reveal 2s ease forwards;
-  
+
 }
-.box h1::after{
+.box.in-view h1::after{
   background-color:black;
   animation:base 2s ease forwards;
 }
@@ -572,25 +572,25 @@ hr{
 }
 
 
-p.schedule_text_one {
+p.schedule_text_one.in-view {
  
   animation-name: movement;
-  animation-delay: 2s; 
+  animation-delay: 0.5s; 
 }
 
-p.schedule_text_two {
+p.schedule_text_two.in-view {
   animation-name: movement;
-  animation-delay: 2.25s; 
+  animation-delay: 0.75s; 
 }
 
-p.schedule_text_three {
+p.schedule_text_three.in-view {
   animation-name: movement;
-  animation-delay: 2.75s; 
+  animation-delay: 1s; 
 }
 
-p.schedule_text_four {
+p.schedule_text_four.in-view {
   animation-name: movement;
-  animation-delay: 3s; 
+  animation-delay: 1.25s; 
 }
 
 @keyframes movement {
@@ -605,4 +605,51 @@ p.schedule_text_four {
     opacity: 1;          
     transform: translateX(100px);
 }
+}
+#sideimg.in-view{
+  animation: fadeIn 1s ease-in-out;
+}
+#tags.in-view{
+  animation: fadeIn 1.5s ease-in-out;
+}
+@keyframes fadeIn{
+  0%{
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  100%{
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+.bgvideo.in-view{
+  animation: fadeUp 5s ease-in-out;
+}
+@keyframes fadeUp{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+.card1.in-view{
+  animation: fadeIn 1s ease-in-out;
+}
+.card2.in-view{
+  animation: fadeIn 1s ease-in-out;
+
+}
+.card3.in-view{
+  animation: fadeIn 1s ease-in-out;
+
+
+} 
+.card4.in-view{
+  animation: fadeIn 1s ease-in-out;
+
+}
+.card5.in-view{
+  animation: fadeIn 1s ease-in-out;
+
 }
