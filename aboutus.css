@@ -1,6 +1,6 @@
 @font-face{
     font-family: Batangas;
-    src: url(../Batangas-Bold.woff);
+    src: url(Batangas-Bold.woff);
 }
 @font-face {
   font-family: "San Francisco";
@@ -14,7 +14,7 @@ body{
 }
 /* About us styling beings */
 #about{
-    background-image: url('../assets/media/aboutbg.jpg');
+    background-image: url('assets/media/aboutbg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     max-height: 80vh;
@@ -216,7 +216,7 @@ img.in-view{
 #ourteam .container{
     font-family: Batangas;
     outline: 2px solid rgb(172, 25, 236); 
-    background-image: url(../assets/media/conbg1.jpg);
+    background-image: url(assets/media/conbg1.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
