@@ -8,7 +8,8 @@
     <link rel="shortcut icon" type="image/png" href="favicon OU.png">
     <link rel="icon" href="assets/media/favicon.png">
     <script src="https://kit.fontawesome.com/5e711c2383.js" crossorigin="anonymous"> </script>
-    <style>
+    <!-- <script src="login2.js"></script>-->
+    <style> 
         h2{
     margin: 30px;
     color:hsl(214, 87%, 40%);
@@ -88,11 +89,11 @@ h1{
     <h1 style="color: white;">Sign In</h1>
     <p  style="color: white; margin-left: 17%;">Stay Organized. Stay Ahead.</p>
     
-        <form class="login" align="center">
-            <input type="text" class="logintext" placeholder="Email or Phone" id="input1" ><br>
+         <form class="login" align="center">
+            <input type="text" class="logintext" placeholder="Username" id="input1" ><br>
             <input type="text" class="logintext" placeholder="Password" id="input1" ><br>
             <a href="" id="forgotpassword">Forgot Password?</a><br><br>
-            <button id="Signin">Sign In</button><br><br>
+            <a href="index.html"><button id="Signin" onclick= "updateGreeting()">Sign In</button></a><br><br>
             <span style="color: white;">or</span>
             <p style="color:white;">By clicking Continue, you agree to OrganizeU's</p>
             <a href="" id="forgotpassword">User Agreement, Privacy Policy </a><span style="color: white;"> and</span>
@@ -104,6 +105,7 @@ h1{
         </form>
     </div><br><br>
     <div id="new">New to OrganizeU ?<a href="" id="forgotpassword">Join now</a></div>
+   <script src="login2.js"></script> 
 </body>
 <!---->
 </html>

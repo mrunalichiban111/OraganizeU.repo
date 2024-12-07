@@ -13,6 +13,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="features.css">
     <link rel="icon" href="assets/media/favicon.png">
+   
 </head>
 
 <body>
@@ -61,7 +62,7 @@ Stay Organized.
 Stay Ahead.</pre>
                 </div>
                 <div class="typewriter">
-                    <p id="hello-user">Hello <span style="color: #b477fe;">User</span></p>
+                    <p id="hello-user">Hello <span id="userName" style="color: #b477fe;">User</span></p>
                     <p class="fromleft" id="start-text">Lets get started</p>
                 </div>
             </div>
@@ -273,8 +274,15 @@ Stay Ahead.</pre>
     });
     const allAnimatedElements = document.querySelectorAll('.animate');
     allAnimatedElements.forEach((element) => observer.observe(element));
-}); 
+  }); 
+      if(localStorage.length !== 0){
+      const greetingElement = document.getElementById('userName');
+      const greetings=localStorage.getItem('greeting')
+      greetingElement.innerHTML= greetings;
+      localStorage.removeItem('greeting')
+      }
     </script>
+    
 </body>
 
 </html>
