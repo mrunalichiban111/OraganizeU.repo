@@ -1,0 +1,410 @@
+@font-face{
+    font-family: Batangas;
+    src: url(../assets/Batangas-Bold.woff);
+}
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 400;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+}
+
+body{
+    background-color: black;
+
+}
+/* About us styling beings */
+#about{
+    background-image: url('../assets/aboutbg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    max-height: 80vh;
+    color: white;
+}
+#aboutus{
+    font-family: Batangas;
+}
+#aboutus_desc{
+    font-family: San Francisco;
+    font-weight: 700;
+    color: black;
+    font-size:14px ;
+    max-width: 450px;
+    white-space: wrap;
+    text-shadow: 2px 2px 7px white
+}
+#aboutgr{
+    transition: ease-in 0.1s;
+}
+#aboutgr:hover{
+    transform: scale(1.2);
+}
+#about_desc.in-view{
+    animation: zoomIn 1s ease-in-out;
+}
+div.in-view{
+    animation: zoomIn 1s ease-in-out;
+}
+img.in-view{
+    animation: fadeIn 2s ease-in-out;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+@keyframes zoomIn {
+    from{
+        transform: scale(0.8);
+    }
+    to{
+        transform: scale(1);
+    }
+}
+/* About us styling ends */
+
+/* Progress Bar CSS Starts */
+
+#progress {
+    position: fixed;
+    top: 0;
+    left: 1;
+    rotate: 90deg;
+    width: 100vh; height: 1.5rem;
+    background: #8c52ff;
+  
+    transform-origin: 0 50%;
+    animation: grow-progress auto linear;
+    animation-timeline: scroll();
+}
+@keyframes grow-progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+}
+/* Progress Bar CSS Ends */
+/* Our Vision CSS Begins */
+#vison{
+    margin-top: 25vh;
+}
+#vison .card{
+    background-image: radial-gradient(at top right, #b477fe
+    , #8c52ff, #5d17eb);
+    font-family: San Francisco;
+    font-weight: 700;
+    border-radius: 20px;
+    border: 1px black solid;
+}
+#ourvision{
+    font-family: Batangas;
+}
+.first.in-view{
+    animation: comeUp 2s ease-in-out;
+}
+.second.in-view{
+    animation: comeDown 2s ease-in;
+
+}
+@keyframes comeUp {
+    0%{
+        opacity: 0;
+        transform: translateY(-10%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+@keyframes comeDown  {
+    0%{
+        opacity: 0;
+        transform: translateY(10%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+/* Our Vision CSS Ends */
+/* Testimonials Starts */
+#testimonials{
+    margin-top: 10vh;
+    font-family: San Francisco;
+}
+#testimonials .card{
+    background-color: #5d17eb;
+    color: white;
+}
+#addt{
+    background-color:#5d17eb;
+    color: white;
+    font-family: Batangas;
+}
+
+/* Testimonials Ends */
+/* Our Team Begins */
+
+.body{
+    background-color: black;
+}
+.text-mute{
+    color: rgb(98, 98, 99);
+    
+}
+.flip-box{
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    cursor: pointer;
+
+    /* box-shadow: 0px 0px 40px rgb(79, 21, 104); */
+    border-radius: 10px;
+    
+
+}
+.flip-box-front,.flip-box-back{
+    background-size:contain;
+    background-position: center;
+    border-radius: 8px;
+    min-height: 350px;
+    transition: transform 0.7s cubic-bezier(.4,.2,.2,1);
+    backface-visibility: hidden;
+}
+.flip-box-front{
+    transform: rotateY(0deg);
+    transform-style: preserve-3d;
+
+}
+.flip-box:hover .flip-box-front{
+    transform: rotateY(-180deg);
+}
+.flip-box-back{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: rotateY(180deg);
+    color: black;
+
+}
+#image1{
+    display: block;
+    width: 128px;
+    height: 128px;
+    margin: 0 auto 30px;
+    border-radius: 50%;
+    border:5px solid rgb(87, 15, 135);
+    object-fit: cover;
+}
+.flip-box:hover .flip-box-back{
+    transform: rotateY(0deg);
+    transform-style: preserve-3d;
+}
+.flip-box .inner{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    /* padding: 60px; */
+    outline: 1px solid transparent;
+    perspective: inherit;
+    z-index: 2;
+    transform: translateY(-50%)translateZ(60px) scale(0.94);
+    top: 50%;
+    backface-visibility: hidden;
+}
+.memname{
+    font-family: Batangas;
+    font-weight: 1000;
+    font-size: 28px;
+}
+#ourteam .container{
+    font-family: Batangas;
+    outline: 2px solid rgb(172, 25, 236); 
+    background-image: url(../assets/conbg1.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    box-shadow: 0px 0px 100px rgb(79, 21, 104);
+    
+}
+.flip-box .linkedin-logo{
+    width: 30px;
+    height: 30px;
+    border: 2px solid white;
+    background-color: white;
+}
+.social-icons a{
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    height: 3rem;
+    width: 3rem;
+    font-size: 2rem;
+    border-radius: 50%;
+    color: black;
+    transition: 0.3s ease-in-out;
+}
+.flip-box.in-view{
+    animation: littleUp 0.5s ease-in-out;
+}
+@keyframes littleUp {
+    0%{
+        transform: translateY(10%);
+        opacity: 0.3;
+    }
+    100%{
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+.backtext{
+    color: black;
+    font-family: sans-serif ;
+    font-weight: 600;
+    white-space: wrap;
+}
+
+/* Our Team Ends */
+/* Timeline Begins */
+#timeblocks{
+    overflow-x: scroll;
+}
+#timeblocks::-webkit-scrollbar {
+    width: 1px;
+    height: 1px;
+}
+#timeblocks::-webkit-scrollbar-track {
+    background: black;
+}
+#timeblocks::-webkit-scrollbar-thumb {
+    background: white;
+}
+#timeblocks::-webkit-scrollbar-thumb:hover {
+    background: #8c52ff;
+}
+
+#timeblocks .card{
+    background-color: black;
+    min-width: 80vw;
+}
+.card-text{
+    white-space: wrap;
+}
+.tltitle{
+    font-family: Batangas;
+    color: #8c52ff;
+}
+.tlbody{
+    text-align: left;
+    white-space: wrap;
+    font-family: San Francisco;
+    font-size: larger;
+}
+.card-text.in-view{
+    animation: myFade 2s ease-in-out;
+}
+.card-title.in-view{
+    animation: myFade 2s ease-in-out;
+}
+@keyframes myFade {
+    0%{
+        opacity: 0;
+        transform: translateY(-5%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+/* Timeline Ends */
+/* Feedback Begins */
+
+#fbform h1{
+    margin-top: 20px;
+}
+.feedback-form {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.form-name {
+    color: #a78bfa;
+    margin-bottom: 1.5rem;
+}
+.brief-form {
+    font-size: medium;
+    color: #b6b6b6;
+    
+}
+.form-control, .form-select {
+    background-color: rgba(167, 139, 250, 0.1);
+    border: 1px solid #a78bfa;
+    color: #fff;
+}
+
+#satisf {
+    background-color: #000;
+    border-color: #000;
+    border: none;
+    transition: all ease-in-out;
+}
+#satisf:hover{
+    transform: scale(1.2);
+}
+#satisf:focus{
+    box-shadow: 0 0 10px white;
+}
+
+
+.satisfaction-text {
+    font-size: small;
+    color: #b6b6b6;
+}
+.btn-submit {
+    background-color: #a78bfa;
+    
+    padding: 8px 24px;
+}
+.btn-submit:hover {
+    background-color: #9061f9;
+}
+.satisfaction-options {
+    display: flex;
+    gap: 2rem;
+    margin: 1rem 0;
+}
+.satisfaction-option {
+    text-align: center;
+}
+.satisfaction-emoji {
+    border: none;
+    font-size: 150%;
+    margin-bottom: 0.5rem;
+}
+/* Feedback Ends */
+/* Contact Us Begins */
+#contactus{
+    text-align: center;
+}
+#contactus .container{
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+}
+#contactus h1{
+    font-family: Batangas;
+}
+#contactus p,a{
+    font-family: San Francisco;
+    font-weight: 700;
+}
+#contactus a{
+    transition: all 0.5s ease-in-out;
+}
+#contactus a:hover{
+    transform: scale(1.2);
+    background-color: black;
+    color: #8c52ff;
+    box-shadow: 0 0 5px white;
+}
+/* Contact Us Ends */

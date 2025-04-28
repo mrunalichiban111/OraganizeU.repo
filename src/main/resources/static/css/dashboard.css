@@ -1,0 +1,434 @@
+body {
+    background-color: #000;
+}
+
+.dark-theme {
+    background-color: #1a1c23;
+    color: #ffffff;
+}
+
+.task-card {
+    background-color: #2a2c35;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+    color: #ffffff;
+    margin-bottom: 0;
+}
+
+.table thead th {
+    border-bottom: 1px solid #3a3c45;
+    border-top: none;
+    font-weight: 500;
+    color: #a0a0a0;
+}
+
+.table td, 
+.table th {
+    border: none;
+    padding: 12px 8px;
+    vertical-align: middle;
+}
+
+.table tbody tr {
+    transition: background-color 0.2s ease-in-out;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.status-pending {
+    color: #ffd700;
+}
+
+.status-completed {
+    color: #4caf50;
+}
+
+.status-declined {
+    color: #f44336;
+}
+
+.details-link {
+    color: #6c7ae0;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.details-link:hover {
+    color: #8390e5;
+}
+
+@media (max-width: 768px) {
+    .task-card {
+        padding: 15px;
+        margin: 10px 0;
+    }
+
+    .table td, 
+    .table th {
+        padding: 10px 6px;
+    }
+}
+
+/* CSS of Goals */
+:root{
+    --color-white: black;
+    --color-card: rgb(34, 33, 33);
+    --color-purple: rgb(149, 108, 246);
+    --color-dark: white;
+    --color-light: rgba(75, 75, 75, 0.4);
+
+
+}
+body{
+    background-color: var(--color-white);
+}
+.dark-theme-variables{
+    --color-white: black;
+    --color-card: rgb(34, 33, 33);
+    --color-purple: rgb(149, 108, 246);
+    --color-dark: white;
+    --color-light: rgba(0,0,0,0.4);
+} 
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    color: var(--color-dark);
+}
+main .date{
+    display: inline-block;
+    background-color: rgb(188, 117, 254);
+    border-radius: 1.4rem;
+    margin-top: 1rem;
+    padding: 0.5rem 1.6rem;
+}
+main .insights{
+     display: flex;
+     flex-direction: row;
+}
+main .insights >div{
+    background-color: whitesmoke;
+    padding: 1.8rem;
+    border-radius: 2 rem;
+    margin-top: 1rem;
+}
+.card{
+    box-shadow: 0 2rem 3rem var(--color-light);
+    
+    padding: 1.8rem;
+    border-radius: 2.5rem;
+    margin-top: 5px;
+}
+#stats{
+    background-color: var(--color-card);
+}
+#dropdownMenuButton{
+    color: var(--color-dark);
+}
+.card:hover{
+    box-shadow: none;
+}
+#icon{
+    font-size: 2rem;
+    padding: 0.5rem;
+    background-color: rgb(149, 108, 246);
+    border-radius: 50%;
+    color: white;
+}
+
+main .insights > div .middle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+h3{
+    font-size: 1.5rem;
+}
+h1{
+    font-size: 3rem;
+}
+
+main .insights h3{
+    margin: 1rem 0 0.6rem;
+    font-size: 1rem;
+}
+
+main .insights .progres {
+    position: relative;
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+}
+
+main .insights svg{
+    
+    width: 7rem;
+    height: 7rem;
+}
+
+main .insights svg circle{
+    fill:none;
+    stroke: rgb(149, 108, 246);
+    stroke-width: 12;
+    stroke-linecap: round;
+    transform: translate(5px, 5px);
+    stroke-dasharray: 200;
+    stroke-dashoffset: -30;
+}
+#goal{
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+}
+
+
+main .insights .progres .number{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+#icon2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    color: var(--color-dark);
+    font-size: 4rem;
+}
+
+/* Upcomgin gaols */
+
+
+
+  body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    background-color: #1e1e2f;
+    color: #fff;
+  }
+
+  .goals-notification {
+    width: 90%;
+    max-width: 400px;
+    background: #2d2d44;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+
+  .goals-notification h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .goals-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .goals-list li {
+    background: #3c3b5c;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .goals-list li span {
+    flex: 1;
+    text-align: left;
+  }
+
+  .goals-list li button {
+    background: transparent;
+    border: none;
+    color: #ff6b6b;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  @media (max-width: 480px) {
+    .goals-notification {
+      padding: 15px;
+    }
+
+    .goals-notification h2 {
+      font-size: 20px;
+    }
+
+    .goals-list li {
+      font-size: 14px;
+      padding: 8px;
+    }
+  }
+/* To do list */
+
+
+
+.to-do-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+    margin-top:3rem;
+    padding:1rem;
+    width:90%;
+    max-width:422px;
+    background-color: rgb(30, 27, 49);
+    border-radius:0.65rem;
+}
+
+@media(max-width:527px){
+    .to-do-contianer{
+        width:90%;
+        max-width:348px;
+
+    }   
+}
+
+.stats-container{
+    border: 2px solid #af99ff;
+    padding: 2rem;
+    border-radius: 0.6rem;
+    display:flex;
+    gap:1.5rem;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:1.1rem;
+    width:100%;
+    justify-content:space-between;
+}
+
+.text_line{
+    width:65%;
+}
+#numbers{
+    width: 5rem;
+    height:5rem;
+    background-color:#af99ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    font-size:1.25rem;
+    font-weight:bold;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: larger;
+}
+
+
+#progress-bar{
+    width: 100%;
+    height:0.4rem;
+    background-color:rgb(61, 48, 102);
+    border-radius:0.6rem;
+    margin-top:1rem;
+}
+
+#prog-line{
+    width: 0%;
+    height:100%;
+    border-radius:0.6rem;
+    background-color:#d283ff;
+
+    transition: all 0.3s ease;
+}
+
+.task-entry{
+    /* border:2px solid grey; */
+    margin-top:1.2rem;
+    width:100%;
+    display:flex;
+    gap:0.7rem;
+
+}
+
+#enter_task{
+    width: 90%;
+    padding:0.5rem;
+    background-color:#1c122d;
+    border-radius:0.6rem;
+    border:2px solid #7364d2;
+    color:#9883ff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:larger;
+}
+
+
+
+#add_task{
+    width:45px;
+    border-radius:50%;
+    border:1px solid #af99ff;
+    background-color:#af99ff;
+    color:white;
+    font-size:2rem;
+
+}
+#add_task:hover{
+    border:1px solid #8f73f1;
+    background-color:#8f73f1;
+}
+
+.task-list{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    width:100%;
+    list-style:none;
+}
+
+.taskItem{
+    display:flex;
+    background-color:rgb(61, 48, 102);
+    padding:0.6rem;
+    border-radius:0.6rem;
+    justify-content:space-between;
+    align-items:center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:1.1rem;
+}
+
+.task{
+    display:flex;
+    align-items:center;
+    gap:0.6rem;
+}
+
+
+.task input[type="checkbox"] {
+    appearance: none; 
+    width: 1.3rem;      
+    height:1.3rem;     
+    border: 2px solid #af99ff;
+    border-radius: 50%; 
+    cursor: pointer; 
+}
+
+  
+.task input[type="checkbox"]:checked {
+    content: url("../assets/checked.svg");
+    background-color: #9883ff; 
+    border-color: #7573f1; 
+    
+}
+
+
+

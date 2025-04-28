@@ -1,0 +1,83 @@
+ @font-face{
+    font-family: Batangas;
+    src: url(../assets/Batangas-Bold.woff);
+}
+@font-face {
+    font-family: "San Francisco";
+    font-weight: 400;
+    src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+  }
+*{
+  font-family: Batangas;
+}
+.body{
+    background-color: black;
+    background-image: url(https://lightleader.in/wp-content/uploads/2018/11/contactus-background-1024x566.png);
+    background-size: cover;
+    /*background-position: center;
+    background-repeat: no-repeat; */
+}
+.container{
+    outline: 2px solid rgb(175, 104, 241);
+    border-radius: 30px;
+}
+.home-icon{
+    font-size: 4rem;
+    color: rgb(150, 67, 227);
+}
+#des{
+    font-family: San Francisco;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 2rem;
+    text-shadow: 2px 2px 7px rgb(150, 67, 227);
+}
+.form{
+    background-color: white;
+    border-radius: 20px;
+    border: 3px solid rgb(150, 67, 227);
+    box-shadow: 0px 0px 15px rgb(150, 67, 227);    
+}
+#name{
+    border-radius: 10px;
+    width: 300px;
+    margin-bottom: 10%;
+    padding: 10px;
+    
+    height: 30px;
+    background-color: rgb(232, 210, 244);
+    border-style: outset;
+}
+#e-mail{
+    border-radius: 10px;
+    width: 300px;
+    margin-bottom: 10%;
+    padding: 10px;
+    height: 30px;
+    background-color: rgb(232, 210, 244);
+    border-style: outset;
+}
+#message{
+    border-radius: 10px;
+    width: 300px;
+    text-wrap: wrap;
+    height: 100px;
+    background-color: rgb(232, 210, 244);
+    border-style: outset;
+}
+.btn-send{
+    width: 200px;
+    height: 40px;
+    background-color: rgb(163, 91, 231);
+    border-top-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    font-size: 1.5rem;
+    transition: 0,3s ease-in-out;
+}
+.btn-send:hover{
+    transform: scale(1.1);
+    background-color: rgb(150, 67, 227);
+    color: white;
+}
+
+

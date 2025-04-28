@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="favicon OU.png">
+    <link rel="icon" href="assets/media/favicon.png">
+    <script src="/js/login2.js"></script>
+    <title>OrganizeU</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background-color: black;
+        }
+        @font-face{
+            font-family: Batangas;
+            src: url(/assets/Batangas-Bold.woff);
+        }
+        
+        @font-face {
+            font-family: "San Francisco";
+            font-weight: 400;
+            src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+        }
+
+        .container {
+            height: 200vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        #logo {
+            /* background: url('start-logo.jpg') no-repeat center center; */
+
+            background-size: contain;
+            width: 100%;
+            height: 65vh;
+            margin-bottom: 10px;
+        }
+
+        .image {
+            margin-top: 30%;
+            height: 65vh;
+            display: block;
+            margin: auto;
+            width: 60vw;
+            box-shadow: 0px 0px 25px;
+            cursor: pointer;
+
+        }
+
+        .image:hover {
+            transform: scale(1.1);
+
+        }
+
+        .slogan {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        .content {
+            width: auto;
+            max-width: 670px;
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+        }
+
+        .welcome { 
+            
+            font-size: 4em;
+            margin-bottom: 20px;
+            opacity: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 0.15em solid white;
+            animation: typing 3s steps(30, end), blink-caret 0.75s step-end infinite, fadeIn 2s 0s forwards;
+            font-family: Batangas;
+        }
+
+        .description {
+            font-size: 2em;
+            opacity: 0;
+            animation: fadeIn 2s 4s forwards;
+            line-height: 1.5;
+            max-width: 80%;
+            margin: 20px auto;
+            color: #8d3af3;
+            font-family:"San Francisco";
+        }
+
+        #buttons {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background-color: #8d3af3;
+            width: 223px;
+            color: white;
+            border-top-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+            transition: 0.3s ease-in;
+        }
+
+        .btn-secondary {
+            margin-left: 30px;
+            background-color: #f1f1f1;
+            color: black;
+            border-top-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+            width:233px;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+            color: #fff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+
+            font-size: 1.4em;
+            transform: scale(1.1);
+            background-color: black;
+            border: 2px solid #5d17eb;
+            color: #8c52ff;
+            box-shadow: 0px 0px 25px #5d17eb,
+                0px 0px 50px #8c52ff,
+                0px 0px 100px #b477fe;
+            white-space:nowrap;
+
+        }
+
+        .btn-secondary:hover {
+            font-size: 1.4em;
+            transform: scale(1.1);
+            background-color: black;
+            border: 2px solid #f7f6fa;
+            color: #fff;
+            box-shadow: 0px 0px 25px white,
+                        0px 0px 50px rgb(237, 237, 237),
+                        0px 0px 100px rgb(192, 191, 191);
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent;
+            }
+
+            50% {
+                border-color: white;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="logo">
+            <img class="image" src="assets/media/start-logo.jpg">
+        </div>
+        <br>
+        <div class="slogan">
+            Designed to Declutter, Built for Balance, Amplify your Potential.
+        </div>
+        <div class="content">
+            <h1 class="welcome">Welcome to OrganizeU oha</h1>
+            <p class="description">OrganizeU is a smart personal productivity app designed to simplify your life and
+                keep you organized. It helps you manage tasks, set goals, and track progress effortlessly.</p>
+        </div>
+        <div id="buttons">
+            <button class="btn btn-primary" onclick="window.location.href='index.html';">Continue to
+                Site</button>
+            <button class="btn btn-secondary" onclick="window.location.href='login2.html';">Login</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
