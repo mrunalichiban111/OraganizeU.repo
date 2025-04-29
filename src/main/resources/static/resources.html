@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/navbar.css">
+<link rel="stylesheet" href="/css/dashboard.css">
+<link rel="icon" href="assets/favicon.png">
+<link rel="stylesheet" href="/css/footer.css">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <!-- Navbar Starts -->
+    <nav id="mynav" class="navbar sticky-top navbar-expand-lg navbar-dark d-flex justify-content-between">
+        <a class="navbar-brand" href="#">
+            <img src="assets/logo2.png" width="200" height="100" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse mx-3" id="navbarSupportedContent">
+            <ul class="navbar-nav" id="navcont">
+                <li class="nav-item mx-5">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item mx-5">
+                    <a class="nav-link" href="#">Schedule</a>
+                </li>
+                <li class="nav-item dropdown mx-5">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Resources
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Research Papers</a>
+                        <a class="dropdown-item" href="#">Book Recoommendation</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Codeforces Problems</a>
+                    </div>
+                <li class="nav-item mx-5">
+                    <a class="nav-link" href="#">Goals</a>
+                </li>
+                <li class="nav-item mx-5">
+                    <a class="nav-link" href="aboutus.html">About Us</a>
+                </li>
+            </ul>
+        </div>
+        <a class="profilebtn mr-5" href="dashboard.html">Profile</a>
+
+    </nav>
+    <!-- Nav Ends  -->
+
+
+<!-- Footer Begins -->
+<footer class="text-white pt-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-6 footer-section text-center text-md-left mb-4">
+                <a href='index.html' target='_blank'>
+                    <img src='assets/image.png' alt='Logo' id="footer-logo" />
+                </a>
+                <p id="copywrite">&copy; 2024 OrganizeU, Inc</p>
+            </div>
+
+            <div class="col-md-2 col-6 footer-section mb-4">
+                <h5 style="color: blueviolet;font-weight: bold;">Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Home</a></li>
+                    <li><a href="#" class="text-white">About</a></li>
+                    <li><a href="#" class="text-white">Services</a></li>
+                    <li><a href="#" class="text-white">Our Goals</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 col-6 footer-section mb-4">
+                <h5 style="color: blueviolet;font-weight: bold;">Customer Support</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">FAQs</a></li>
+                    <li><a href="#" class="text-white">Contact Us</a></li>
+                    <li><a href="#" class="text-white">Blogs</a></li>
+                    <li><a href="#" class="text-white">Student Queries</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 col-6 footer-section mb-4">
+                <h5 style="color: blueviolet;font-weight: bold;">Team Members</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li><a href="https://www.linkedin.com/in/mrunal-kulkarni-16b44b314/">
+                                    <img class="linkedin-logo"
+                                        src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+                                        alt="LinkedIn" /> Mrunal</a></li>
+                            <li><a href="https://www.linkedin.com/in/sambhav-sharma-680403324/">
+                                    <img class="linkedin-logo"
+                                        src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+                                        alt="LinkedIn" /> Sambhav</a></li>
+                            <li><a href="https://www.linkedin.com/in/suhani-thakur-2a5365325/">
+                                    <img class="linkedin-logo"
+                                        src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+                                        alt="LinkedIn" /> Suhani</a></li>
+                            <li><a href="https://www.linkedin.com/in/devang-vaishnav-0680a3327">
+                                    <img class="linkedin-logo"
+                                        src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+                                        alt="LinkedIn" /> Devang</a></li>
+                            <li><a href="https://www.linkedin.com/in/parteek-babal-721735314/">
+                                    <img class="linkedin-logo"
+                                        src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+                                        alt="LinkedIn" /> Parteek</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li><a href="https://www.linkedin.com/in/janmesh-shewale-8a7389325/">
+                                    <img class="linkedin-logo"
+                                        src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+                                        alt="LinkedIn" /> Janmesh</a></li>
+                            <li><a href="https://www.linkedin.com/in/khushi-singh-b38653323">
+                                    <img class="linkedin-logo"
+                                        src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+                                        alt="LinkedIn" /> Khushi</a></li>
+                            <li><a href="https://www.linkedin.com/in/surendra-vishnoi-9898481b8">
+                                    <img class="linkedin-logo"
+                                        src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+                                        alt="LinkedIn" /> Surendra</a></li>
+                            <li><a href="https://www.linkedin.com/in/srushti-vispute-6a4528321">
+                                    <img class="linkedin-logo"
+                                        src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+                                        alt="LinkedIn" /> Srushti</a></li>
+                            <li><a href="https://www.linkedin.com/in/harshita-patel-930287323/">
+                                    <img class="linkedin-logo"
+                                        src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+                                        alt="LinkedIn" /> Harshita</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="legal mt-3">
+        <a href="#" class="text-white">Legal Stuff</a> |
+        <a href="#" class="text-white">Privacy Policy</a> |
+        <a href="#" class="text-white">Security</a> |
+        <a href="#" class="text-white">Manage Cookies</a>
+    </div>
+</footer>
+<!-- Footer Ends -->
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+</body>
+</html>
