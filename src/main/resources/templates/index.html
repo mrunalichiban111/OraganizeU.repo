@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OrganizeU - Student Productivity Suite</title>
+
+  <!-- Core CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link th:href="@{/css/navbar.css}"  href="/css/navbar.css"  rel="stylesheet">
+  <link th:href="@{/css/sections.css}" href="/css/sections.css" rel="stylesheet">
+  <link th:href="@{/css/footer.css}"  href="/css/footer.css"  rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <div th:insert="fragments/navbar :: navbar"></div>
+
+
+  <!-- Hero Section -->
+  <section id="hero" class="d-flex align-items-center">
+    <video autoplay loop muted class="hero-video">
+      <source th:src="@{assets/video3.mp4}" src="assets/video3.mp4" type="video/mp4">
+    </video>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 animate" style="animation-delay: 0.2s;">
+          <h1 class="hero-heading mb-4">
+            Stay <span style="color: #8c52ff;">Organized</span>.<br>
+            Stay <span style="color: #8c52ff;">Ahead</span>.
+          </h1>
+          <div class="typewriter">
+            <p class="h3 mb-3">Hello <span class="text-purple">User</span></p>
+            <br>
+            <p class="lead">Let's get started</p>
+          </div>
+        </div>
+        <div class="col-lg-6 animate" style="animation-delay: 0.4s;">
+          <img th:src="@{assets/BG22.png}" alt="Visual" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Schedule Section -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 mb-4 animate">
+          <h2 class="text-uppercase text-purple mb-0">Today's<br>Schedule</h2>
+        </div>
+        <div class="col-md-9">
+          <div class="schedule-list">
+            <!-- 1. DBMS Class -->
+            <div class="schedule-item p-3 mb-3 animate">
+              <div class="d-flex align-items-center gap-4">
+                <div class="schedule-time">09:00 AM – 10:00 AM</div>
+                <div class="flex-grow-1">
+                  <h5 class="mb-1">DBMS Class</h5>
+                  <small class="text-muted">Virtual Classroom</small>
+                </div>
+                <i class='bx bx-chevron-right'></i>
+              </div>
+            </div>
+            <!-- 2. Computer Org Lecture -->
+            <div class="schedule-item p-3 mb-3 animate">
+              <div class="d-flex align-items-center gap-4">
+                <div class="schedule-time">10:30 AM – 11:30 AM</div>
+                <div class="flex-grow-1">
+                  <h5 class="mb-1">Computer Org Lecture</h5>
+                  <small class="text-muted">Lecture Hall</small>
+                </div>
+                <i class='bx bx-chevron-right'></i>
+              </div>
+            </div>
+            <!-- 3. Choir Practice -->
+            <div class="schedule-item p-3 mb-3 animate">
+              <div class="d-flex align-items-center gap-4">
+                <div class="schedule-time">12:00 PM – 01:30 PM</div>
+                <div class="flex-grow-1">
+                  <h5 class="mb-1">Choir Practice</h5>
+                  <small class="text-muted">Music Room</small>
+                </div>
+                <i class='bx bx-chevron-right'></i>
+              </div>
+            </div>
+            <!-- 4. Bitcoin Protocol Dev -->
+            <div class="schedule-item p-3 mb-3 animate">
+              <div class="d-flex align-items-center gap-4">
+                <div class="schedule-time">02:00 PM – 04:00 PM</div>
+                <div class="flex-grow-1">
+                  <h5 class="mb-1">Bitcoin Protocol Dev</h5>
+                  <small class="text-muted">Lab Session</small>
+                </div>
+                <i class='bx bx-chevron-right'></i>
+              </div>
+            </div>
+            <!-- 5. COA Study Session -->
+            <div class="schedule-item p-3 mb-3 animate">
+              <div class="d-flex align-items-center gap-4">
+                <div class="schedule-time">04:30 PM – 06:00 PM</div>
+                <div class="flex-grow-1">
+                  <h5 class="mb-1">COA Study Session</h5>
+                  <small class="text-muted">Library</small>
+                </div>
+                <i class='bx bx-chevron-right'></i>
+              </div>
+            </div>
+            <!-- 6. C++ Optimization Task -->
+            <div class="schedule-item p-3 mb-3 animate">
+              <div class="d-flex align-items-center gap-4">
+                <div class="schedule-time">06:30 PM – 08:00 PM</div>
+                <div class="flex-grow-1">
+                  <h5 class="mb-1">C++ Optimization Task</h5>
+                  <small class="text-muted">Home Office</small>
+                </div>
+                <i class='bx bx-chevron-right'></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+  <!-- Features Section -->
+  <section class="container py-5">
+    <div class="row g-4">
+      <!-- Left Column -->
+      <div class="col-md-4">
+        <div class="card card-feature bg-gradient-green p-4 h-100">
+          <div class="feature-card-body">
+            <div>
+              <h2 class="h4">
+                <i class="bx bx-calendar-event me-2"></i>
+                Week and Month Planner
+              </h2>
+              <p>
+                Plan ahead with OrganiseU's weekly and monthly scheduling features.
+                It gives you a clear overview of all upcoming tasks, deadlines,
+                and events, making it easy to manage long-term commitments without missing a beat.
+              </p>
+            </div>
+            <div class="text-end">
+              <button class="feature-btn">&rarr;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Grid -->
+      <div class="col-md-8">
+        <div class="row g-4">
+          <!-- Day Scheduler -->
+          <div class="col-sm-6">
+            <div class="card card-feature bg-gradient-purple p-4 h-100">
+              <div class="feature-card-body">
+                <div>
+                  <h3 class="h5">
+                    <i class="bx bx-time-five me-2"></i>
+                    Day Scheduler
+                  </h3>
+                  <p>
+                    OrganiseU helps you structure your day efficiently by scheduling tasks,
+                    classes, and personal activities. With a simple interface, it ensures
+                    you stay on top of everything, from assignments to study breaks.
+                  </p>
+                </div>
+                <div class="text-end">
+                  <button class="feature-btn">&rarr;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Resource Hub -->
+          <div class="col-sm-6">
+            <div class="card card-feature bg-gradient-violet p-4 h-100">
+              <div class="feature-card-body">
+                <div>
+                  <h3 class="h5">
+                    <i class="bx bx-folder me-2"></i>
+                    Resource Hub
+                  </h3>
+                  <p>
+                    Store your favorite learning materials and resources in one place
+                    with OrganiseU's Resource Hub. Plus, explore and access resources
+                    shared by classmates and peers to enhance your study experience.
+                  </p>
+                </div>
+                <div class="text-end">
+                  <button class="feature-btn">&rarr;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Student-Centric Scheduling -->
+          <div class="col-sm-6">
+            <div class="card card-feature bg-gradient-black p-4 h-100">
+              <div class="feature-card-body">
+                <div>
+                  <h3 class="h5">
+                    <i class="bx bx-user-graduate me-2"></i>
+                    Student-Centric Scheduling
+                  </h3>
+                  <p>
+                    Designed with students in mind, OrganiseU allows Professors or Class
+                    Representatives to schedule classes directly, streamlining your academic
+                    calendar. Stay updated on class timings, changes, and important announcements
+                    with ease.
+                  </p>
+                </div>
+                <div class="text-end">
+                  <button class="feature-btn">&rarr;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Goal Progress Tracker -->
+          <div class="col-sm-6">
+            <div class="card card-feature bg-gradient-black p-4 h-100">
+              <div class="feature-card-body">
+                <div>
+                  <h3 class="h5">
+                    <i class="bx bx-target-lock me-2"></i>
+                    Goal Progress Tracker
+                  </h3>
+                  <p>
+                    Keep track of your personal and academic goals with OrganiseU's built-in
+                    progress bar. Prioritize and organize your goals in your daily schedule,
+                    ensuring steady progress and better time management for what matters most.
+                  </p>
+                </div>
+                <div class="text-end">
+                  <button class="feature-btn">&rarr;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div th:insert="fragments/footer :: footer"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Intersection Observer for scroll-triggered animations
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+  
+        // If it's a schedule item, stagger by index
+        if (el.classList.contains('schedule-item')) {
+          // find its zero-based index among all schedule-items
+          const items = Array.from(document.querySelectorAll('.schedule-item'));
+          const idx   = items.indexOf(el);
+  
+          // 0.5s between each: 0, 0.5, 1.0, 1.5, ...
+          const delay = idx * 0.5;
+          el.style.setProperty('--delay', `${delay}s`);
+        }
+  
+        // Always add .animate and unobserve
+        el.classList.add('animate');
+        obs.unobserve(el);
+      });
+    }, { threshold: 0.1 });
+  
+    // Observe hero video, schedule items, feature cards
+    document.querySelectorAll('.hero-video, .schedule-item, .card-feature')
+      .forEach(el => observer.observe(el));
+  </script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tw = document.querySelector('.typewriter p');
+      let text = tw.textContent.trim();  // grab whatever text is already there
+      let idx = 0, forward = true;
+      tw.textContent = '';
+      tw.classList.add('caret');
+  
+      setInterval(() => {
+        if (forward) {
+          if (idx <= text.length) {
+            tw.textContent = text.slice(0, idx++);
+          } else {
+            forward = false;
+            idx = text.length;
+          }
+        } else {
+          if (idx >= 0) {
+            tw.textContent = text.slice(0, idx--);
+          } else {
+            forward = true;
+            idx = 0;
+          }
+        }
+      }, 150);
+    });
+  </script>
+  
+</body>
+</html>

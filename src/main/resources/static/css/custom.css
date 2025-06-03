@@ -1,0 +1,25 @@
+/* Theme colors */
+:root {
+    --purple: #8c52ff;
+  }
+  
+  /* Utility overrides */
+  .text-purple { color: var(--purple) !important; }
+  .object-fit-cover { object-fit: cover; }
+  .animate-scale { transition: transform .3s ease; }
+  .animate-scale:hover { transform: scale(1.05); }
+  
+  /* Buttons */
+  .btn-purple {
+    background-color: var(--purple);
+    color: #000;
+  }
+  .btn-purple:hover {
+    background-color: #5d17eb;
+    color: #fff;
+  }
+  
+  /* Feature card gradients */
+  .bg-gradient-purple {
+    background-image: radial-gradient(at bottom right, #712dc5, #2f154f, #19082d);
+  }

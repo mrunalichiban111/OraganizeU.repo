@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <!-- Define the fragment named “navbar” -->
+    <div th:fragment="navbar">
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" th:href="@{/}">
+            <img th:src="@{/assets/logo2.png}"
+                 src="assets/logo2.png"
+                 alt="Logo"
+                 style="height: 40px;">
+          </a>
+          <button class="navbar-toggler"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/schedule}">Schedule</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle"
+                   th:href="@{/resources}"
+                   role="button"
+                   data-bs-toggle="dropdown">
+                  Resources
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" th:href="@{/resources/papers}">Research Papers</a></li>
+                  <li><a class="dropdown-item" th:href="@{/resources/books}">Books</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" th:href="@{/resources}">All Resources</a></li>
+                </ul>
+              </li>
+              <li class="nav-item"><a class="nav-link" th:href="@{/goals}">Goals</a></li>
+              <li class="nav-item"><a class="nav-link" th:href="@{/about}">About</a></li>
+            </ul>
+            <a th:href="@{/profile}" class="profile-btn ms-3">
+              Profile <i class="bx bx-user"></i>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </body>
+</html>

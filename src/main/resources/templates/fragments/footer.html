@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <div th:fragment="footer">
+      <footer class="bg-dark text-light pt-5">
+        <div class="container">
+          <div class="row gy-4">
+            <!-- Logo & Copyright -->
+            <div class="col-md-3">
+              <a th:href="@{/}" href="/">
+                <img th:src="@{assets/logo2.png}" src="assets/logo2.png" alt="OrganizeU Logo" class="img-fluid mb-2" style="max-height: 40px;">
+              </a>
+              <p class="mb-0">&copy; 2024 OrganizeU, Inc</p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-2">
+              <h5>Quick Links</h5>
+              <ul class="list-unstyled">
+                <li><a class="text-light text-decoration-none" th:href="@{/}">Home</a></li>
+                <li><a class="text-light text-decoration-none" href="#">About</a></li>
+                <li><a class="text-light text-decoration-none" href="#">Services</a></li>
+                <li><a class="text-light text-decoration-none" href="#">Our Goals</a></li>
+              </ul>
+            </div>
+
+            <!-- Customer Support -->
+            <div class="col-md-2">
+              <h5>Customer Support</h5>
+              <ul class="list-unstyled">
+                <li><a class="text-light text-decoration-none" href="#">FAQs</a></li>
+                <li><a class="text-light text-decoration-none" href="#">Contact Us</a></li>
+                <li><a class="text-light text-decoration-none" href="#">Blogs</a></li>
+                <li><a class="text-light text-decoration-none" href="#">Student Queries</a></li>
+              </ul>
+            </div>
+
+            <!-- Team Members -->
+            <div class="col-md-5">
+              <h5>Team Members</h5>
+              <div class="row">
+                <div class="col-6">
+                  <ul class="list-unstyled">
+                    <li><a class="text-light text-decoration-none" href="https://www.linkedin.com/in/mrunal-kulkarni-16b44b314/"><i class="bx bxl-linkedin me-1"></i>Mrunal</a></li>
+                    <li><a class="text-light text-decoration-none" href="https://www.linkedin.com/in/sambhav-sharma-680403324/"><i class="bx bxl-linkedin me-1"></i>Sambhav</a></li>
+                    <li><a class="text-light text-decoration-none" href="https://www.linkedin.com/in/suhani-thakur-2a5365325/"><i class="bx bxl-linkedin me-1"></i>Suhani</a></li>
+                    <li><a class="text-light text-decoration-none" href="https://www.linkedin.com/in/devang-vaishnav-0680a3327?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="bx bxl-linkedin me-1"></i>Devang</a></li>
+                    <li><a class="text-light text-decoration-none" href="https://www.linkedin.com/in/parteek-babal-721735314/"><i class="bx bxl-linkedin me-1"></i>Parteek</a></li>
+                  </ul>
+                </div>
+                <div class="col-6">
+                  <ul class="list-unstyled">
+                    <li><a class="text-light text-decoration-none" href="https://www.linkedin.com/in/janmesh-shewale-8a7389325/"><i class="bx bxl-linkedin me-1"></i>Janmesh</a></li>
+                    <li><a class="text-light text-decoration-none" href="https://www.linkedin.com/in/khushi-singh-b38653323/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="bx bxl-linkedin me-1"></i>Khushi</a></li>
+                    <li><a class="text-light text-decoration-none" href="https://www.linkedin.com/in/surendra-vishnoi-9898481b8?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="bx bxl-linkedin me-1"></i>Surendra</a></li>
+                    <li><a class="text-light text-decoration-none" href="https://www.linkedin.com/in/srushti-vispute-6a4528321"><i class="bx bxl-linkedin me-1"></i>Srushti</a></li>
+                    <li><a class="text-light text-decoration-none" href="https://www.linkedin.com/in/harshita-patel-930287323/"><i class="bx bxl-linkedin me-1"></i>Harshita</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="bg-secondary my-4">
+
+          <!-- Legal Links -->
+          <div class="row">
+            <div class="col text-center">
+              <a class="text-light text-decoration-none me-3" href="#">Legal Stuff</a>
+              <a class="text-light text-decoration-none me-3" href="#">Privacy Policy</a>
+              <a class="text-light text-decoration-none me-3" href="#">Security</a>
+              <a class="text-light text-decoration-none" href="#">Manage Cookies</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

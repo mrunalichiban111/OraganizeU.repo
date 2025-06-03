@@ -1,0 +1,202 @@
+/* Load Batangas Bold */
+@font-face {
+    font-family: 'Batangas';
+    src: url('/assets/Batangas-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+  }
+  
+  :root {
+    --purple-primary: #8c52ff;
+    --purple-secondary: #6a3dba;
+    --dark-bg: #0a0a0a;
+    --text-primary: #ffffff;
+  }
+  
+  body {
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    font-family: 'Source Sans 3', sans-serif;
+  }
+  
+  /* Hero Section */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: 'Batangas', sans-serif;
+  }
+  .hero-video {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%; min-height: 100%;
+    z-index: -1;
+    opacity: 0; /* initially hidden */
+  }
+  .hero-video.animate {
+    animation: videoFade 0.5s ease 1s forwards; /* fade in after 1s */
+  }
+  @keyframes videoFade {
+    from { opacity: 0; }
+    to { opacity: 0.2; }
+  }
+  .hero-heading {
+    font-size: 4rem;
+    line-height: 1.1;
+    text-shadow: 0 4px 15px rgba(140,82,255,0.3);
+  }
+  
+  /* Typewriter Styling */
+  .typewriter p {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: .15em solid white;
+    font-family: 'Batangas', sans-serif;
+  }
+  .typewriter p.caret {
+    animation: blink-caret .75s step-end infinite;
+  }
+  
+  /* Caret Blink */
+  @keyframes blink-caret {
+    0%, 100% { border-color: transparent; }
+    50%      { border-color: white; }
+  }
+  
+  /* Schedule Section Styles */
+  .schedule-time {
+    background: var(--purple-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    min-width: 100px;
+    text-align: center;
+  }
+  .schedule-item {
+    background: rgba(255,255,255,0.03);
+    /* prepare for sliding in */
+    opacity: 0;
+    transform: translateX(-20px);
+    border-left: 0 solid var(--purple-primary);
+    transition: none;
+  }
+  .schedule-item:hover {
+    transform: translateX(10px);
+    border-left: 3px solid var(--purple-primary);
+  }
+  /* Slide-in + purple border indicator on scroll */
+  .schedule-item.animate {
+    animation: slideIn 2s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0s) forwards; /* delay 0.5s after in view */
+  }
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-100%);
+      border-left-width: 0;
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+      border-left-width: 5px;
+    }
+  }
+  
+  /* Feature Section Gradients & Cards */
+  .bg-gradient-black{
+    background: linear-gradient(135deg, #1c1c1c, #000000);
+    background-size: 200% 200%;
+  }
+  .bg-gradient-green {
+    background: radial-gradient(#09ff00,#1c1c1c,#000000);
+    background-size: 200% 200%;
+  }
+  .bg-gradient-purple {
+    background: linear-gradient(135deg, #5f0a87, #a4508b);
+    background-size: 200% 200%;
+  }
+  .bg-gradient-violet {
+    background: linear-gradient(135deg, #8e2de2, #4a00e0);
+    background-size: 200% 200%;
+  }
+  .card-feature {
+    color: #ffffff;
+    border: none;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    /* prepare for drop-in */
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: none;
+  }
+  .card-feature:hover{
+    scale: 1.08;
+  }
+  .card-feature.animate {
+    animation: dropIn 1s ease forwards;
+    animation-delay: 15ms; /* no delay, triggers on scroll */
+  }
+  @keyframes dropIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .feature-card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+  .feature-btn {
+    width: 44px; height: 44px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    background: transparent;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    font-size: 1.25rem;
+    transition: background 1s ease, color 1s ease, transform 1s ease;
+  }
+  .feature-btn:hover {
+    background: #ffffff;
+    color: #000;
+    transform: scale(1.1);
+  }
+  .card-feature h2,
+  .card-feature h3 {
+    position: relative;
+    display: inline-block;
+  }
+  .card-feature h2::after,
+  .card-feature h3::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -6px;
+    height: 3px; width: 40px;
+    background: rgba(255,255,255,0.7);
+    transition: width 0.3s ease;
+  }
+  .card-feature:hover h2::after,
+  .card-feature:hover h3::after {
+    width: 60px;
+  }
+  
+  /* Fade-in Animations for generic use */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+  }
+
+  .schedule-list .schedule-item .text-muted {
+    color: #909090 !important;
+  }

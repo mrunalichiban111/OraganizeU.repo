@@ -1,57 +1,96 @@
-@font-face{
-    font-family: Batangas;
-    src: url(../assets/Batangas-Bold.woff);
+:root {
+    --purple-primary: #8c52ff;
+  }
+  
+.navbar {
+    z-index: 9999; /* Add this line */
+    background: rgba(0,0,0,0.95) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(140,82,255,0.1);
 }
-@font-face {
-  font-family: "San Francisco";
-  font-weight: 400;
-  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
-}
-
-#mynav {
-    font-family: San Francisco;
-    font-weight: 500;
-    background-color: rgba(0,0,0,0.5);
-}
-
-#navcont{
-    /* margin-right: ; */
-    color: #8c52ff !important;
-}
-.nav-link{
-
-    font-size: 1.2vw;
-    color: white;
-    transition: 0.3s ease;
-}
-.nav-link:hover{
-    transform: scale(1.2);
-    color: #8c52ff;
-    border-bottom: 3px solid #8c52ff;
-    text-shadow:0px 0px 25px #8c52ff,
-                0px 0px 50px #8c52ff,
-                0px 0px 100px #8c52ff ;
-}   
-.profilebtn{
-    height: 35px;
-    width: 150px;
-    font-weight: 700;
-    border-top-left-radius: 30px;
-    border-bottom-right-radius: 30px;
-    background-color: blueviolet;
-    color: black;
-    font-size: medium;
-    transition: 0.3s ease-in-out;
+  
+  .nav-link {
+    position: relative;
+    padding: 0.5rem 1.2rem !important;
+    transition: all 0.3s ease;
+    color: #fff !important;
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple-primary) 0%, transparent 100%);
+    transition: width 0.3s ease;
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+  }
+  
+  .profile-btn {
+    background: var(--purple-primary);
+    color: white !important;
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px 0 8px 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
-    justify-content: center;
-}
-.profilebtn:hover{
-    transform: scale(1.1);
-    background-color: black;
-    border: 2px solid #5d17eb;
-    color: #8c52ff;
-    box-shadow: 0px 0px 25px #5d17eb,
-                0px 0px 50px #8c52ff,
-                0px 0px 100px #b477fe;
-}
+    gap: 0.5rem;
+  }
+  
+  .profile-btn:hover {
+    background: transparent;
+    border: 1px solid var(--purple-primary);
+    box-shadow: 0 0 15px rgba(140,82,255,0.4);
+    color: var(--purple-primary) !important;
+  }
+  
+  .profile-btn i {
+    transition: transform 0.3s ease;
+  }
+  
+  .profile-btn:hover i {
+    transform: translateX(3px);
+    filter: drop-shadow(0 0 4px rgba(140,82,255,0.8));
+  }
+  
+  /* Dropdown */
+  .dropdown-menu {
+    background-color: #1a1a1a;
+    border: 1px solid rgba(140,82,255,0.2);
+  }
+  
+  .dropdown-item {
+    color: #ffffff !important;
+    transition: all 0.3s ease;
+  }
+  
+  .dropdown-item:hover {
+    background-color: var(--purple-primary) !important;
+    transform: translateX(5px);
+  }
+  
+  /* Mobile tweaks */
+  @media (max-width: 992px) {
+    .navbar-nav {
+      padding: 1rem 0;
+      text-align: center;
+    }
+    .nav-item {
+      margin: 0.5rem 0;
+    }
+    .profile-btn {
+      margin: 0.5rem auto;
+      border-radius: 30px;
+    }
+  }
+  
+  /* Utility */
+  .text-purple {
+    color: var(--purple-primary) !important;
+  }
+  
