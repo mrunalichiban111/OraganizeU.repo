@@ -18,6 +18,7 @@ public class SectionService {
         return resourceService.getSections();
     }
 
+
     public Section getSectionByName(String sectionName) {
         if (sectionName == null) {
             return null;
@@ -29,3 +30,4 @@ public class SectionService {
                 .orElse(null);
     }
 }
+
