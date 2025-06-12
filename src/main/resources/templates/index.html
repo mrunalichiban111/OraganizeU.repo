@@ -10,9 +10,9 @@
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link th:href="@{/css/navbar.css}"  href="/css/navbar.css"  rel="stylesheet">
-  <link th:href="@{/css/sections.css}" href="/css/sections.css" rel="stylesheet">
-  <link th:href="@{/css/footer.css}"  href="/css/footer.css"  rel="stylesheet">
+  <link th:href="@{../static/css/navbar.css}" rel="stylesheet">
+  <link th:href="@{../static/css/sections.css}" rel="stylesheet">
+  <link th:href="@{../static/css/footer.css}" rel="stylesheet">
 </head>
 <body>
   <!-- Navigation -->
@@ -22,7 +22,7 @@
   <!-- Hero Section -->
   <section id="hero" class="d-flex align-items-center">
     <video autoplay loop muted class="hero-video">
-      <source th:src="@{assets/video3.mp4}" src="assets/video3.mp4" type="video/mp4">
+      <source th:src="@{../static/assets/video3.mp4}" type="video/mp4">
     </video>
     <div class="container">
       <div class="row align-items-center">
@@ -38,7 +38,7 @@
           </div>
         </div>
         <div class="col-lg-6 animate" style="animation-delay: 0.4s;">
-          <img th:src="@{assets/BG22.png}" alt="Visual" class="img-fluid">
+          <img th:src="@{../static/assets/BG22.png}" alt="Visual" class="img-fluid">
         </div>
       </div>
     </div>

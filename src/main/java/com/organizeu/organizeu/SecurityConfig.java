@@ -30,8 +30,8 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/login2?logout")
                 .permitAll()
             )
-            .csrf().and()                           // CSRF enabled (default)
-            .httpBasic();
+            // CSRF protection is enabled by default; no need to call csrf.enable()
+            .httpBasic(httpBasic -> {});            // Enable HTTP Basic authentication
 
         return http.build();
     }

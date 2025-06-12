@@ -5,7 +5,6 @@ import com.organizeu.organizeu.model.Section;
 import com.organizeu.organizeu.service.EventService;
 import com.organizeu.organizeu.service.ResourceService;
 import com.organizeu.organizeu.service.SectionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,7 +31,6 @@ public class PageController {
     private final SectionService sectionService;
     private final EventService eventService;
 
-    @Autowired
     public PageController(ResourceService resourceService,
                           SectionService sectionService,
                           EventService eventService) {
@@ -160,17 +158,6 @@ public class PageController {
         return "redirect:/resources?section=" + sectionName;
     }
 
-    // Add a file by URL
-    @PostMapping("/add-file")
-    public String addFile(@RequestParam String sectionName,
-                          @RequestParam String fileName,
-                          @RequestParam String fileUrl) {
-        Section section = sectionService.getSectionByName(sectionName);
-        if (section != null && fileName != null && fileUrl != null) {
-            section.addFile(fileName.trim(), fileName.trim(), fileUrl.trim());
-        }
-        return "redirect:/resources?section=" + sectionName;
-    }
 
     // Upload a file
     @PostMapping("/upload-file")

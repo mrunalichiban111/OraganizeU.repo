@@ -10,8 +10,8 @@
   integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
   <!-- Favicon -->
-  <link rel="shortcut icon" type="image/png" th:href="@{/assets/favicon%20OU.png}">
-  <link rel="icon" th:href="@{/assets/favicon.png}">
+  <link rel="shortcut icon" type="image/png" href="[[${'../static/assets/favicon%20OU.png'}]]">
+  <link rel="icon" href="[[${'../static/assets/favicon.png'}]]">
 
   <!-- FontAwesome -->
   <script src="https://kit.fontawesome.com/5e711c2383.js" crossorigin="anonymous"></script>
@@ -70,7 +70,7 @@
 </head>
 <body>
 
-  <img th:src="@{/assets/logo2.png}" alt="Logo" id="logo">
+  <img src="[[${'../static/assets/logo2.png'}]]" alt="Logo" id="logo">
 
   <div id="box1">
     <h1 class="h4 text-center mb-3">Sign In</h1>
