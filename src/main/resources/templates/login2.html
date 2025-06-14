@@ -10,8 +10,8 @@
   integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
   <!-- Favicon -->
-  <link rel="shortcut icon" type="image/png" href="[[${'../static/assets/favicon%20OU.png'}]]">
-  <link rel="icon" href="[[${'../static/assets/favicon.png'}]]">
+  <link rel="shortcut icon" type="image/png" th:href="@{/assets/favicon OU.png}">
+  <link rel="icon" th:href="@{/assets/favicon.png}">
 
   <!-- FontAwesome -->
   <script src="https://kit.fontawesome.com/5e711c2383.js" crossorigin="anonymous"></script>
@@ -70,7 +70,7 @@
 </head>
 <body>
 
-  <img src="[[${'../static/assets/logo2.png'}]]" alt="Logo" id="logo">
+  <img th:src="@{/assets/logo2.png}" alt="Logo" id="logo">
 
   <div id="box1">
     <h1 class="h4 text-center mb-3">Sign In</h1>
@@ -110,19 +110,14 @@
         <a href="#" id="forgotpassword">Cookie Policy</a>
       </p>
 
-      <button type="button" id="Google" class="btn d-flex align-items-center justify-content-center">
+      <a th:href="@{/oauth2/authorization/google}" class="btn d-flex align-items-center justify-content-center" id="Google">
         <i class="fa-brands fa-google fa-lg me-2"></i>
         <span>Continue with Google</span>
-      </button>
-
-      <button type="button" id="Google" class="btn d-flex align-items-center justify-content-center">
-        <i class="fa-brands fa-apple fa-lg me-2"></i>
-        <span>Sign in with Apple</span>
-      </button>
+      </a>
     </form>
   </div>
 
-  <div id="new">New to OrganizeU? <a href="#" id="forgotpassword">Join now</a></div>
+  <div id="new">New to OrganizeU? <a th:href="@{/register}" id="forgotpassword">Join now</a></div>
 
   <!-- Bootstrap JS (optional) -->
   <script

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OrganizeU | Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/navbar.css}" rel="stylesheet">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+</head>
+<body>
+    <div th:insert="fragments/navbar :: navbar"></div>
+    <div class="dashboard-center-wrapper" style="background: #000; font-family: 'San Francisco', 'Poppins', Arial, sans-serif;">
+        <div class="container py-5">
+            <div class="row g-4">
+                <!-- Profile Card -->
+                <div class="col-lg-4 animate">
+                    <div class="card card-feature bg-dark p-4 h-100 text-center">
+                        <img th:if="${user.picture != null}" 
+                             th:src="@{/user/profile-image}" 
+                             onerror="this.onerror=null; this.src='/assets/default-profile.svg';"
+                             class="rounded-circle mb-3" 
+                             style="width: 140px; height: 140px; object-fit: cover; border: 4px solid #8c52ff;" 
+                             alt="Profile Picture">
+                        <img th:unless="${user.picture != null}" 
+                             th:src="@{/assets/default-profile.svg}" 
+                             class="rounded-circle mb-3" 
+                             style="width: 140px; height: 140px; object-fit: cover; border: 4px solid #8c52ff;" 
+                             alt="Default Profile Picture">
+                        <h3 class="mb-1" th:text="${user.name}">User Name</h3>
+                        <p class="text-muted mb-2" th:text="${user.email}">user@email.com</p>
+                        <span class="badge bg-purple">Member since <span th:text="${#temporals.format(user.joinDate, 'MMM yyyy')}">Jan 2024</span></span>
+                        
+                        <!-- Quick Actions -->
+                        <div class="mt-4">
+                            <a th:href="@{/calendar}" class="btn btn-outline-light btn-sm me-2">
+                                <i class='bx bx-calendar'></i> Calendar
+                            </a>
+                            <a th:href="@{/resources}" class="btn btn-outline-light btn-sm">
+                                <i class='bx bx-folder'></i> Resources
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Dashboard Content -->
+                <div class="col-lg-8 animate">
+                    <div class="card card-feature bg-dark p-4 h-100">
+                        <h2 class="mb-4" style="font-family: 'Batangas', 'San Francisco', sans-serif;">Welcome, <span style="color: #8c52ff;" th:text="${user.name}">User</span>!</h2>
+                        <!-- Quick Stats -->
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <div class="card bg-dark text-white text-center mb-3 border border-secondary">
+                                    <div class="card-body">
+                                        <i class='bx bx-calendar-event display-5'></i>
+                                        <h5 class="card-title mt-2">Events</h5>
+                                        <p class="display-6" th:text="${totalEvents}">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-dark text-white text-center mb-3 border border-secondary">
+                                    <div class="card-body">
+                                        <i class='bx bx-folder display-5'></i>
+                                        <h5 class="card-title mt-2">Resources</h5>
+                                        <p class="display-6" th:text="${totalResources}">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-dark text-white text-center mb-3 border border-secondary">
+                                    <div class="card-body">
+                                        <i class='bx bx-task display-5'></i>
+                                        <h5 class="card-title mt-2">Tasks</h5>
+                                        <p class="display-6" th:text="${totalTasks}">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Today's Events -->
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100 bg-dark border border-secondary">
+                                    <div class="card-header bg-dark border-secondary">
+                                        <h5 class="card-title mb-0">
+                                            <i class="fas fa-calendar me-2"></i>Today's Events
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div th:if="${todayEvents != null && !todayEvents.isEmpty()}">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item d-flex align-items-center bg-dark border-secondary" th:each="event : ${todayEvents}">
+                                                    <span class="me-3"><i class='bx bx-time-five'></i> <span th:text="${#temporals.format(event.startAt, 'HH:mm')}"></span> - <span th:text="${#temporals.format(event.endAt, 'HH:mm')}"></span></span>
+                                                    <span class="flex-grow-1" th:text="${event.title}"></span>
+                                                    <span class="badge" th:classappend="${event.status == 'COMPLETED' ? 'bg-success' : 'bg-warning'}" th:text="${event.status}"></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div th:unless="${todayEvents != null && !todayEvents.isEmpty()}" class="text-center text-muted">
+                                            <i class="fas fa-calendar fa-3x mb-3"></i>
+                                            <p>No events scheduled for today</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Recent Resources -->
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100 bg-dark border border-secondary">
+                                    <div class="card-header bg-dark border-secondary">
+                                        <h5 class="card-title mb-0">
+                                            <i class="fas fa-folder-open me-2"></i>Recent Resources
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div th:if="${recentResources == null || recentResources.isEmpty()}" class="text-center text-muted">
+                                            <i class="fas fa-folder-open fa-3x mb-3"></i>
+                                            <p>No resources added yet</p>
+                                        </div>
+                                        <div th:if="${recentResources != null && !recentResources.isEmpty()}" th:each="resource : ${recentResources}" class="mb-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-shrink-0">
+                                                    <i class="fas fa-file fa-2x text-purple"></i>
+                                                </div>
+                                                <div class="flex-grow-1 ms-3">
+                                                    <h6 class="mb-0">
+                                                        <a th:href="@{/resources/{id}(id=${resource.id})}" class="text-decoration-none" th:text="${resource.title}">Resource Title</a>
+                                                    </h6>
+                                                    <small class="text-muted" th:text="${#temporals.format(resource.createdAt, 'MMM dd, yyyy')}">Jan 01, 2024</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Recent Activity -->
+                            <div class="col-12">
+                                <div class="card bg-dark border border-secondary">
+                                    <div class="card-header bg-dark border-secondary">
+                                        <h5 class="card-title mb-0">
+                                            <i class="fas fa-history me-2"></i>Recent Activity
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div th:if="${recentActivities == null || recentActivities.isEmpty()}" class="text-center text-muted">
+                                            <i class="fas fa-history fa-3x mb-3"></i>
+                                            <p>No recent activity</p>
+                                        </div>
+                                        <div th:if="${recentActivities != null && !recentActivities.isEmpty()}" th:each="activity : ${recentActivities}" class="activity-item mb-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-shrink-0">
+                                                    <i th:class="${activity.action == 'Added Event' || activity.action == 'Deleted Event' ? 'fas fa-calendar' : 'fas fa-file'}" 
+                                                       class="fa-2x text-purple"></i>
+                                                </div>
+                                                <div class="flex-grow-1 ms-3">
+                                                    <h6 class="mb-0" th:text="${activity.action}">Action</h6>
+                                                    <p class="mb-0 text-muted" th:text="${activity.details}">Details</p>
+                                                    <small class="text-muted" th:text="${#temporals.format(activity.timestamp, 'MMM dd, yyyy HH:mm')}">Jan 01, 2024 12:00</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Scroll-based animation (IntersectionObserver)
+      document.addEventListener('DOMContentLoaded', function() {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+            } else {
+              entry.target.classList.remove('in-view');
+            }
+          });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+      });
+    </script>
+    <style>
+        .activity-item {
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .activity-item:hover {
+            background-color: rgba(140, 82, 255, 0.1);
+        }
+        
+        .text-purple {
+            color: #8c52ff;
+        }
+        
+        .card {
+            background-color: #2d2d2d;
+            border: 1px solid #444;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            background-color: #1a1a1a;
+            border-bottom: 1px solid #444;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .card-title {
+            color: #fff;
+            font-family: Batangas, sans-serif;
+        }
+        
+        .text-muted {
+            color: #888 !important;
+        }
+
+        .animate {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .animate.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .list-group-item {
+            background-color: transparent;
+            border-color: #444;
+            color: #fff;
+        }
+
+        .btn-outline-light {
+            border-color: #8c52ff;
+            color: #8c52ff;
+        }
+
+        .btn-outline-light:hover {
+            background-color: #8c52ff;
+            color: #fff;
+        }
+
+        a {
+            color: #8c52ff;
+        }
+
+        a:hover {
+            color: #9d63ff;
+        }
+
+        .bg-purple {
+            background-color: #8c52ff;
+        }
+    </style>
+</body>
+</html> 

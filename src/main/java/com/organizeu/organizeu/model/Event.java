@@ -1,38 +1,29 @@
 package com.organizeu.organizeu.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "events")
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(nullable = false)
     private String title;
-    
-    @Column(nullable = false)
-    private LocalDate date;
-    
-    private LocalTime startTime;
-    private LocalTime endTime;
-    
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private EventStatus status;
 
-    // Constructors
-    public Event() {}
+    @Column
+    private String description;
 
-    public Event(String title, LocalDate date, LocalTime startTime, LocalTime endTime, EventStatus status) {
-        this.title = title;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.status = status;
-    }
+    @Column(nullable = false)
+    private LocalDateTime startAt;
+
+    @Column(nullable = false)
+    private LocalDateTime endAt;
+
+    @Column
+    private String location;
 
     // Getters and Setters
     public Long getId() {
@@ -51,35 +42,35 @@ public class Event {
         this.title = title;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public LocalTime getStartTime() {
-        return startTime;
+    public LocalDateTime getStartAt() {
+        return startAt;
     }
 
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
+    public void setStartAt(LocalDateTime startAt) {
+        this.startAt = startAt;
     }
 
-    public LocalTime getEndTime() {
-        return endTime;
+    public LocalDateTime getEndAt() {
+        return endAt;
     }
 
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
+    public void setEndAt(LocalDateTime endAt) {
+        this.endAt = endAt;
     }
 
-    public EventStatus getStatus() {
-        return status;
+    public String getLocation() {
+        return location;
     }
 
-    public void setStatus(EventStatus status) {
-        this.status = status;
+    public void setLocation(String location) {
+        this.location = location;
     }
-}
+} 

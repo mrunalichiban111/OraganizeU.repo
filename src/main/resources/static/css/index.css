@@ -4,16 +4,19 @@
 }
 @font-face{
     font-family: Batangas;
-    src: url(../assets/Batangas-Bold.woff);
+    src: url("../assets/Batangas-Bold.woff");
 }
 @font-face {
   font-family: "San Francisco";
   font-weight: 400;
-  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfranciscodisplay-regular-webfont.woff");
 }
 body{
     background-color: black;
 }
+
+/* All navbar-related CSS has been removed from this file. Only non-navbar styles remain. */
+
 .header{
 
         /* overflow: hidden; */
@@ -27,7 +30,6 @@ body{
         backdrop-filter: blur(10px);
         display: flex;
         justify-content: space-between;
-        /* align-items: center; */
         z-index: 5;
     }
     #content{
@@ -289,10 +291,8 @@ body{
         justify-content: space-between;
       }
       img{
-        /* size: 10%; */
         width: 50%;
         height: 50%;
-        /* height: 600px; */
       }
       .typewriter{
         margin-left: 11%;

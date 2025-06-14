@@ -11,6 +11,7 @@
 
 body {
     background-color: black;
+    color: #e0e0e0;
 }
 
 /* About us styling begins */
@@ -20,8 +21,12 @@ body {
     background-image: url('../assets/aboutbg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    
-    color: white;
+    background-color: #181818;
+    color: #e0e0e0;
+}
+
+#aboutus, #aboutus_desc, #abouttext, .tltitle, .tlbody, #ourvision, #testimonials h1, #testimonials h2 {
+    text-shadow: 0 2px 8px #000;
 }
 
 #aboutus {
@@ -31,7 +36,7 @@ body {
 #aboutus_desc {
     font-family: "San Francisco";
     font-weight: 500;
-    color: white;
+    color: #e0e0e0;
     font-size: 1rem;
     max-width: 600px;
     text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
@@ -164,13 +169,22 @@ img.in-view {
 
 #testimonials .card {
     background-color: #5d17eb;
-    color: white;
+    color: #e0e0e0;
 }
 
 #addt {
     background-color: #5d17eb;
-    color: white;
+    color: #e0e0e0;
     font-family: Batangas;
+}
+
+/* Testimonial Section Headings */
+.testimonial-heading, .testimonial-subheading, #testimonial-title, #testimonial-subtitle {
+    color: #e0e0e0 !important;
+}
+
+#testimonials h1, #testimonials h2 {
+    color: #e0e0e0;
 }
 
 /* Testimonials Ends */
@@ -178,10 +192,11 @@ img.in-view {
 /* Our Team Begins */
 .body {
     background-color: black;
+    color: #e0e0e0;
 }
 
 .text-mute {
-    color: rgb(98, 98, 99);
+    color: #e0e0e0;
 }
 
 .flip-box {
@@ -298,7 +313,7 @@ img.in-view {
 }
 
 .backtext {
-    color: black;
+    color: #e0e0e0;
     font-family: sans-serif;
     font-weight: 600;
     white-space: wrap;
@@ -309,37 +324,46 @@ img.in-view {
 /* Timeline Begins */
 #timeblocks {
     overflow-x: scroll;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    padding: 20px 0;
+    position: relative;
 }
 
 #timeblocks::-webkit-scrollbar {
-    width: 1px;
-    height: 1px;
-}
-
-#timeblocks::-webkit-scrollbar-track {
-    background: black;
-}
-
-#timeblocks::-webkit-scrollbar-thumb {
-    background: white;
-}
-
-#timeblocks::-webkit-scrollbar-thumb:hover {
-    background: #8c52ff;
+    display: none;  /* Chrome, Safari and Opera */
 }
 
 #timeblocks .card {
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.8);
     min-width: 80vw;
+    border: none;
+    border-radius: 15px;
+    margin-right: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0.7;
+    transform: scale(0.95);
+}
+
+#timeblocks .card.in-view {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(140, 82, 255, 0.3);
 }
 
 .card-text {
     white-space: wrap;
+    color: #e0e0e0;
+    font-family: "San Francisco";
+    font-size: 1.1rem;
+    line-height: 1.6;
 }
 
 .tltitle {
     font-family: Batangas;
     color: #8c52ff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .tlbody {
@@ -347,24 +371,48 @@ img.in-view {
     white-space: wrap;
     font-family: "San Francisco";
     font-size: larger;
+    color: #e0e0e0;
+    line-height: 1.6;
 }
 
 .card-text.in-view {
-    animation: myFade 2s ease-in-out;
+    animation: fadeInUp 0.8s ease-out forwards;
 }
 
 .card-title.in-view {
-    animation: myFade 2s ease-in-out;
+    animation: fadeInUp 0.8s ease-out forwards;
 }
 
-@keyframes myFade {
+@keyframes fadeInUp {
     0% {
         opacity: 0;
-        transform: translateY(-5%);
+        transform: translateY(20px);
     }
     100% {
         opacity: 1;
-        transform: translateY(0%);
+        transform: translateY(0);
+    }
+}
+
+#subtle {
+    color: #8c52ff;
+    font-family: "San Francisco";
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 20px 0;
+    opacity: 0.7;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.5;
     }
 }
 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Resources</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+    <div th:replace="fragments/navbar :: navbar"/>
+    
+    <div class="container mt-4">
+        <h2>My Resources</h2>
+        
+        <div class="mb-3">
+            <a href="/resources/new" class="btn btn-primary">Add New Resource</a>
+        </div>
+        
+        <div class="row">
+            <div th:if="${resources.empty}" class="col-12">
+                <div class="alert alert-info">No resources found. Add your first resource!</div>
+            </div>
+            
+            <div th:each="resource : ${resources}" class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${resource.title}">Resource Title</h5>
+                        <p class="card-text" th:text="${resource.description}">Description</p>
+                        <p class="card-text">
+                            <small class="text-muted" th:text="${#temporals.format(resource.createdAt, 'dd-MM-yyyy HH:mm')}">Created At</small>
+                        </p>
+                        <div class="btn-group">
+                            <a th:href="@{/resources/{id}(id=${resource.id})}" class="btn btn-info">View</a>
+                            <a th:href="@{/resources/{id}/edit(id=${resource.id})}" class="btn btn-warning">Edit</a>
+                            <form th:action="@{/resources/{id}/delete(id=${resource.id})}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div th:replace="fragments/footer :: footer"/>
+    <div th:replace="fragments/header :: header-js"/>
+</body>
+</html> 

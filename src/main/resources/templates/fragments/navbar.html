@@ -1,50 +1,71 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
   <body>
-    <!-- Define the fragment named “navbar” -->
+    <!-- Define the fragment named "navbar" -->
     <div th:fragment="navbar">
-      <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
           <a class="navbar-brand" th:href="@{/}">
-            <img th:src="@{/assets/logo2.png}"
-                 src="assets/logo2.png"
-                 alt="Logo"
-                 style="height: 40px;">
+            <img th:src="@{/assets/logo2.png}" alt="OrganizeU Logo" height="40">
           </a>
-          <button class="navbar-toggler"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#navbarNav">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav me-auto">
               <li class="nav-item">
                 <a class="nav-link" th:href="@{/}">Home</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" th:href="@{/aboutus}">About Us</a>
+              </li>
+              <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="nav-link" th:href="@{/schedule}">Schedule</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle"
-                   th:href="@{/resources}"
-                   role="button"
-                   data-bs-toggle="dropdown">
-                  Resources
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" th:href="@{/resources/papers}">Research Papers</a></li>
-                  <li><a class="dropdown-item" th:href="@{/resources/books}">Books</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" th:href="@{/resources}">All Resources</a></li>
-                </ul>
+              <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" th:href="@{/resources}">Resources</a>
               </li>
-              <li class="nav-item"><a class="nav-link" th:href="@{/goals}">Goals</a></li>
-              <li class="nav-item"><a class="nav-link" th:href="@{/about}">About</a></li>
             </ul>
-            <a th:href="@{/profile}" class="profile-btn ms-3">
-              Profile <i class="bx bx-user"></i>
-            </a>
+            <div class="d-flex align-items-center">
+              <!-- Show this when user is not logged in -->
+              <div sec:authorize="!isAuthenticated()">
+                <a th:href="@{/login2}" class="btn btn-outline-light me-2">Login</a>
+                <a th:href="@{/register}" class="btn btn-primary">Register</a>
+              </div>
+              <!-- Show this when user is logged in -->
+              <div sec:authorize="isAuthenticated()" class="dropdown">
+                <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" 
+                        type="button" id="profileDropdown" data-bs-toggle="dropdown" 
+                        aria-expanded="false">
+                  <!-- Profile Image -->
+                  <img th:src="${#authentication != null && #authentication.principal != null && #authentication.principal.attributes != null ? (#authentication.principal.attributes['picture'] != null ? #authentication.principal.attributes['picture'] : '/assets/default-profile.svg') : '/assets/default-profile.svg'}"
+                       class="rounded-circle me-2" 
+                       style="width: 32px; height: 32px; object-fit: cover;"
+                       alt="Profile"
+                       onerror="this.onerror=null; this.src='/assets/default-profile.svg';"
+                       crossorigin="anonymous"
+                       referrerpolicy="no-referrer">
+                  <!-- User Name -->
+                  <span class="navbar-username" th:text="${#authentication != null && #authentication.principal != null ? (#authentication.principal.attributes != null ? #authentication.principal.attributes['name'] : 'User') : 'User'}" th:attr="title=${#authentication != null && #authentication.principal != null ? (#authentication.principal.attributes != null ? #authentication.principal.attributes['name'] : 'User') : 'User'}">User Name</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                  <li>
+                    <a class="dropdown-item" th:href="@{/user/dashboard}"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" th:href="@{/user/profile}"><i class="fas fa-cog me-2"></i>Settings</a>
+                  </li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <form th:action="@{/logout}" method="post" class="d-inline">
+                      <button type="submit" class="dropdown-item text-danger">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                      </button>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </nav>

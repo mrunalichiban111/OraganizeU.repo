@@ -1,34 +1,26 @@
 package com.organizeu.organizeu.model;
 
-import java.util.UUID;
+import jakarta.persistence.*;
+import lombok.Data;
 
+@Entity
+@Table(name = "file_resources")
+@Data
 public class FileResource {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private String id;
+    @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String url;
 
-    public FileResource(String title,String name ,String url) {
-        this.id = UUID.randomUUID().toString();
-        this.title = title;
-        this.name = name;
-        this.url = url;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getUrl() {
-        return url;
-    }
+    @ManyToOne
+    @JoinColumn(name = "section_id", nullable = false)
+    private Section section;
 }

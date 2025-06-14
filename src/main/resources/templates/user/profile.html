@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OrganizeU | Profile Settings</title>
+    
+    <!-- Core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link th:href="@{/css/navbar.css}" rel="stylesheet">
+    <link th:href="@{/css/sections.css}" rel="stylesheet">
+    <link th:href="@{/css/profile.css}" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <section class="container profile-section py-5">
+        <div class="row g-5 align-items-stretch" th:if="${user != null}">
+            <!-- Profile Info Card -->
+            <div class="col-lg-5 animate">
+                <div class="card card-feature bg-gradient-green p-4 h-100">
+                    <div class="feature-card-body text-center">
+                        <!-- Profile Image with Thymeleaf conditional -->
+                        <img th:if="${user.profileImage != null}" 
+                             th:src="@{${user.profileImage}}" 
+                             onerror="this.onerror=null; this.src='/assets/default-profile.svg';"
+                             class="rounded-circle mb-3" 
+                             style="width: 120px; height: 120px; object-fit: cover; border: 4px solid #8c52ff;" 
+                             alt="Profile Picture">
+                        <img th:unless="${user.profileImage != null}" 
+                             th:src="@{/assets/default-profile.svg}" 
+                             class="rounded-circle mb-3" 
+                             style="width: 120px; height: 120px; object-fit: cover; border: 4px solid #8c52ff;" 
+                             alt="Default Picture">
+                        
+                        <h2 class="mb-1 mt-2 display-5" style="font-family: 'Batangas', -apple-system, BlinkMacSystemFont, sans-serif; color: #fff;" th:text="${user.name}">User Name</h2>
+                        <p class="text-muted mb-2" th:text="${user.email}">user@email.com</p>
+                        <span class="badge bg-purple mb-2">Member since <span th:text="${#temporals.format(user.joinDate, 'MMM yyyy')}">Jan 2024</span></span>
+                        
+                        <div class="w-100 mt-3">
+                            <div class="mb-2">
+                                <label class="form-label mb-0">Username</label>
+                                <input type="text" class="form-control form-control-sm text-center" th:value="${user.username}" readonly>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label mb-0">Email</label>
+                                <input type="email" class="form-control form-control-sm text-center" th:value="${user.email}" readonly>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label mb-0">Name</label>
+                                <input type="text" class="form-control form-control-sm text-center" th:value="${user.name}" readonly>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label mb-0">Join Date</label>
+                                <input type="text" class="form-control form-control-sm text-center" th:value="${#temporals.format(user.joinDate, 'dd MMM yyyy')}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Settings Card -->
+            <div class="col-lg-7 animate">
+                <div class="card card-feature bg-gradient-violet p-4 h-100">
+                    <div class="feature-card-body">
+                        <h2 class="mb-4 display-6" style="font-family: 'Batangas', -apple-system, BlinkMacSystemFont, sans-serif; color: #fff;">Settings</h2>
+                        <h4 class="mb-3">Notification Settings</h4>
+                        <div class="form-check form-switch mb-3 profile-toggle">
+                            <input class="form-check-input" type="checkbox" id="emailNotifications" checked disabled>
+                            <label class="form-check-label" for="emailNotifications">Email Notifications</label>
+                        </div>
+                        <div class="form-check form-switch mb-3 profile-toggle">
+                            <input class="form-check-input" type="checkbox" id="eventReminders" checked disabled>
+                            <label class="form-check-label" for="eventReminders">Event Reminders</label>
+                        </div>
+                        <div class="alert alert-info mt-4" style="font-size: 0.95rem;">
+                            <i class='bx bx-info-circle'></i> Profile and email are managed through your Google account.<br>
+                            Notification settings are not yet available.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:if="${user == null}" class="w-100">
+            <div class="alert alert-danger mt-5">
+                <strong>Error:</strong> User information could not be loaded. Please log in again.
+            </div>
+        </div>
+    </section>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html> 

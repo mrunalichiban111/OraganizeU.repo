@@ -3,7 +3,7 @@ body {
 }
 
 .dark-theme {
-    background-color: #1a1c23;
+    background-color: black;
     color: #ffffff;
 }
 
@@ -428,6 +428,21 @@ main .insights .progres .number{
     background-color: #9883ff; 
     border-color: #7573f1; 
     
+}
+
+.dashboard-center-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 70px;
+    min-height: unset;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+.container.py-5 {
+    margin-top: 0;
+    position: relative !important;
+    z-index: 1 !important;
 }
 
 

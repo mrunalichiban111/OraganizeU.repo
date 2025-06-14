@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OrganizeU - Calendar</title>
+    <link rel="stylesheet" href="/css/calendar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="calendar-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>OrganizeU Calendar</h3>
+            </div>
+            <div class="sidebar-nav">
+                <a href="/user/dashboard" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="/user/profile" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+                <a href="/calendar" class="nav-item active"><i class="fas fa-calendar"></i> Calendar</a>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="calendar-header">
+                <div class="calendar-nav">
+                    <button id="prevMonth" class="nav-btn"><i class="fas fa-chevron-left"></i></button>
+                    <h2 id="currentMonth">September 2023</h2>
+                    <button id="nextMonth" class="nav-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="calendar-views">
+                    <button class="view-btn active" data-view="month">Month</button>
+                    <button class="view-btn" data-view="week">Week</button>
+                    <button class="view-btn" data-view="day">Day</button>
+                </div>
+                <div class="calendar-actions">
+                    <button id="newEventBtn" class="action-btn">
+                        <i class="fas fa-plus"></i> New Event
+                    </button>
+                </div>
+            </div>
+            <div class="calendar-grid" id="calendarGrid">
+                <!-- Calendar days will be rendered here -->
+            </div>
+        </div>
+        <div class="event-panel">
+            <div class="event-panel-header">
+                <h3>Event Details</h3>
+            </div>
+            <div class="event-panel-content" id="eventDetails">
+                <!-- Event details will be displayed here -->
+            </div>
+        </div>
+    </div>
+    <script src="/js/calendar.js"></script>
+</body>
+</html> 

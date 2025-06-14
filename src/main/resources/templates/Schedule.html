@@ -3,175 +3,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar Dashboard</title>
-      <!-- Core CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-
-  <!-- Custom CSS -->
-  <link th:href="@{../static/assets/navbar.css}"  href="../static/assets/navbar.css"  rel="stylesheet">
-  <link th:href="@{../static/assets/sections.css}" href="../static/assets/sections.css" rel="stylesheet">
-  <link th:href="@{../static/assets/footer.css}"  href="../static/assets/footer.css"  rel="stylesheet">
-
-    <!-- Stylesheets -->
-    <link rel="stylesheet" th:href="@{../static/assets/Schedule.css}" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
-
-    <!-- CSRF tokens for AJAX -->
-    <meta name="_csrf" th:content="${_csrf.token}" />
-    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <title>OrganizeU - Schedule</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/navbar.css}" rel="stylesheet">
+    <link th:href="@{/css/sections.css}" rel="stylesheet">
+    <link th:href="@{/css/footer.css}" rel="stylesheet">
+    <link th:href="@{/css/schedule.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: #18191a;
+            color: #f1f1f1;
+        }
+        .schedule-container {
+            display: flex;
+            min-height: 90vh;
+        }
+        .sidebar {
+            width: 220px;
+            background: #23272f;
+            padding: 2rem 1rem 1rem 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar-header {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 2rem;
+        }
+        .sidebar-nav .nav-item {
+            display: flex;
+            align-items: center;
+            color: #bdbdbd;
+            padding: 0.7rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+        }
+        .sidebar-nav .nav-item.active, .sidebar-nav .nav-item:hover {
+            background: #353a45;
+            color: #8c52ff;
+        }
+        .sidebar-nav .nav-item i {
+            margin-right: 0.7rem;
+        }
+        .main-content {
+            flex: 1;
+            padding: 2rem 2rem 1rem 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .schedule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .schedule-nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .nav-btn {
+            background: none;
+            border: none;
+            color: #8c52ff;
+            font-size: 1.3rem;
+            cursor: pointer;
+            border-radius: 4px;
+            padding: 0.3rem 0.7rem;
+        }
+        .nav-btn:hover {
+            background: #23272f;
+        }
+        #currentPeriod {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #fff;
+        }
+        .schedule-grid {
+            background: #23272f;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            display: grid;
+            grid-template-columns: 60px repeat(7, 1fr);
+            grid-template-rows: 40px repeat(24, 1fr);
+            min-height: 600px;
+            width: 100%;
+        }
+        .schedule-grid .time-label {
+            grid-column: 1 / 2;
+            background: #23272f;
+            color: #888;
+            text-align: right;
+            padding: 0.3rem 0.7rem 0 0.7rem;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #353a45;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        .schedule-grid .day-label {
+            background: #23272f;
+            color: #8c52ff;
+            text-align: center;
+            font-weight: 500;
+            border-bottom: 1px solid #353a45;
+            border-right: 1px solid #353a45;
+            padding: 0.5rem 0;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .schedule-grid .cell {
+            border-right: 1px solid #353a45;
+            border-bottom: 1px solid #353a45;
+            min-height: 28px;
+            position: relative;
+            height: 28px;
+        }
+        .schedule-grid .cell:last-child {
+            border-right: none;
+        }
+        .event-panel {
+            width: 320px;
+            background: #23272f;
+            padding: 2rem 1.2rem 1rem 1.2rem;
+            border-left: 1px solid #353a45;
+            display: flex;
+            flex-direction: column;
+        }
+        .event-panel-header {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 1.2rem;
+        }
+        .event-panel-content {
+            color: #bdbdbd;
+        }
+        .event-block {
+            position: absolute;
+            left: 5px;
+            right: 5px;
+            top: 2px;
+            background: #8c52ff;
+            color: #fff;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 0.95rem;
+            z-index: 2;
+            cursor: pointer;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .event-block:hover {
+            background: #6d3fd4;
+        }
+        .schedule-views {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .view-btn {
+            background: none;
+            border: none;
+            color: #8c52ff;
+            font-size: 1.3rem;
+            cursor: pointer;
+            border-radius: 4px;
+            padding: 0.3rem 0.7rem;
+        }
+        .view-btn:hover {
+            background: #23272f;
+        }
+        .view-btn.active {
+            background: #353a45;
+            color: #8c52ff;
+        }
+        .schedule-views-container {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+        }
+        /* Month view specific styles */
+        #monthGrid {
+            grid-template-columns: repeat(7, 1fr);
+            grid-template-rows: 40px repeat(6, 1fr);
+        }
+        #monthGrid .day-label {
+            height: 40px;
+        }
+        #monthGrid .cell {
+            height: 100px;
+            min-height: 100px;
+        }
+        /* Week view specific styles */
+        #weekGrid {
+            grid-template-columns: 60px repeat(7, 1fr);
+            grid-template-rows: 40px repeat(24, 1fr);
+        }
+        /* Day view specific styles */
+        #dayGrid {
+            grid-template-columns: 60px 1fr;
+            grid-template-rows: 40px repeat(24, 1fr);
+        }
+        #dayGrid .day-label {
+            grid-column: 1 / 3;
+        }
+        #dayGrid .time-label {
+            grid-column: 1 / 2;
+        }
+        #dayGrid .cell {
+            grid-column: 2 / 3;
+        }
+        .form-label {
+            color: #fff !important;
+            margin-bottom: 0.5rem;
+        }
+        .form-control {
+            background-color: #23272f !important;
+            border-color: #353a45 !important;
+            color: #fff !important;
+        }
+        .form-control:focus {
+            background-color: #23272f !important;
+            border-color: #8c52ff !important;
+            color: #fff !important;
+            box-shadow: 0 0 0 0.25rem rgba(140, 82, 255, 0.25);
+        }
+        .btn-primary {
+            background-color: #8c52ff;
+            border-color: #8c52ff;
+        }
+        .btn-primary:hover {
+            background-color: #6d3fd4;
+            border-color: #6d3fd4;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-danger:hover {
+            background-color: #bb2d3b;
+            border-color: #bb2d3b;
+        }
+        #deleteEventBtn {
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        #deleteEventBtn:hover {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
-  <!-- Navigation -->
     <div th:insert="fragments/navbar :: navbar"></div>
-
-  <br>
-    <div class="app-container">
-        <!-- Header Section -->
-        <header class="app-header">
-            <div class="header-left"><h1>Calendar</h1></div>
-            <div class="header-center">
-                <button id="today-btn">Today</button>
-                <div class="nav-arrows">
-                    <button id="prev-btn">&lt;</button>
-                    <button id="next-btn">&gt;</button>
+    <div class="schedule-container mt-5">
+        <div class="main-content">
+            <div class="schedule-header">
+                <div class="schedule-nav">
+                    <button id="prevPeriod" class="nav-btn"><i class="fas fa-chevron-left"></i></button>
+                    <h2 id="currentPeriod">Week of September 1, 2023</h2>
+                    <button id="nextPeriod" class="nav-btn"><i class="fas fa-chevron-right"></i></button>
                 </div>
-                <h2 id="current-date">April 2025</h2>
-            </div>
-            <div class="header-right">
-                <div class="view-selector">
-                    <button class="view-btn active" data-view="month">Month</button>
-                    <button class="view-btn" data-view="week">Week</button>
-                    <button class="view-btn" data-view="day">Day</button>
+                <div class="schedule-views">
+                    <button class="view-btn" id="monthViewBtn">Month</button>
+                    <button class="view-btn active" id="weekViewBtn">Week</button>
+                    <button class="view-btn" id="dayViewBtn">Day</button>
                 </div>
             </div>
-        </header>
-
-        <main class="calendar-container">
-            <!-- Month View -->
-            <div class="calendar-view month-view active">
-                <div class="weekdays">
-                    <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div>
-                    <div>Thu</div><div>Fri</div><div>Sat</div>
-                </div>
-                <div class="days-grid" id="days-grid"></div>
+            <div class="schedule-views-container">
+                <div class="schedule-grid" id="monthGrid" style="display:none;"></div>
+                <div class="schedule-grid" id="weekGrid"></div>
+                <div class="schedule-grid" id="dayGrid" style="display:none;"></div>
             </div>
-
-            <!-- Week View -->
-            <div class="calendar-view week-view">
-                <div class="time-column">
-                    <div class="time-slot">12 AM</div>
-                    <div class="time-slot">1 AM</div>
-                    <div class="time-slot">2 AM</div>
-                    <div class="time-slot">3 AM</div>
-                    <div class="time-slot">4 AM</div>
-                    <div class="time-slot">5 AM</div>
-                    <div class="time-slot">6 AM</div>
-                    <div class="time-slot">7 AM</div>
-                    <div class="time-slot">8 AM</div>
-                    <div class="time-slot">9 AM</div>
-                    <div class="time-slot">10 AM</div>
-                    <div class="time-slot">11 AM</div>
-                    <div class="time-slot">12 PM</div>
-                    <div class="time-slot">1 PM</div>
-                    <div class="time-slot">2 PM</div>
-                    <div class="time-slot">3 PM</div>
-                    <div class="time-slot">4 PM</div>
-                    <div class="time-slot">5 PM</div>
-                    <div class="time-slot">6 PM</div>
-                    <div class="time-slot">7 PM</div>
-                    <div class="time-slot">8 PM</div>
-                    <div class="time-slot">9 PM</div>
-                    <div class="time-slot">10 PM</div>
-                    <div class="time-slot">11 PM</div>
-                </div>
-                <div class="week-days" id="week-days"></div>
-            </div>
-
-            <!-- Day View -->
-            <div class="calendar-view day-view">
-                <div class="time-column">
-                    <div class="time-slot">12 AM</div>
-                    <div class="time-slot">1 AM</div>
-                    <div class="time-slot">2 AM</div>
-                    <div class="time-slot">3 AM</div>
-                    <div class="time-slot">4 AM</div>
-                    <div class="time-slot">5 AM</div>
-                    <div class="time-slot">6 AM</div>
-                    <div class="time-slot">7 AM</div>
-                    <div class="time-slot">8 AM</div>
-                    <div class="time-slot">9 AM</div>
-                    <div class="time-slot">10 AM</div>
-                    <div class="time-slot">11 AM</div>
-                    <div class="time-slot">12 PM</div>
-                    <div class="time-slot">1 PM</div>
-                    <div class="time-slot">2 PM</div>
-                    <div class="time-slot">3 PM</div>
-                    <div class="time-slot">4 PM</div>
-                    <div class="time-slot">5 PM</div>
-                    <div class="time-slot">6 PM</div>
-                    <div class="time-slot">7 PM</div>
-                    <div class="time-slot">8 PM</div>
-                    <div class="time-slot">9 PM</div>
-                    <div class="time-slot">10 PM</div>
-                    <div class="time-slot">11 PM</div>
-                </div>
-                <div class="day-column" id="day-column"></div>
-            </div>
-        </main>
-
-        <!-- Event Modal -->
-        <div class="modal-overlay" id="event-modal-overlay">
-            <div class="event-modal">
-                <div class="modal-header">
-                    <h3 id="modal-title">Add Event</h3>
-                    <button id="close-modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <form id="event-form">
-                        <div class="form-group">
-                            <label for="event-title">Event Title</label>
-                            <input type="text" id="event-title" placeholder="Add title" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="event-date">Date</label>
-                            <input type="date" id="event-date" required />
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="event-start">Start Time</label>
-                                <input type="time" id="event-start" required />
-                            </div>
-                            <div class="form-group">
-                                <label for="event-end">End Time</label>
-                                <input type="time" id="event-end" required />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="event-status">Status</label>
-                            <select id="event-status" required>
-                                <option value="upcoming">Upcoming</option>
-                                <option value="in-progress">In Progress</option>
-                                <option value="completed">Completed</option>
-                            </select>
-                        </div>
-                        <input type="hidden" id="event-id" />
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button id="delete-event" class="btn delete-btn">Delete</button>
-                    <div>
-                        <button id="cancel-event" class="btn cancel-btn">Cancel</button>
-                        <button id="save-event" class="btn save-btn">Save</button>
+        </div>
+        <div class="event-panel" id="eventDetails" style="display:none;">
+            <div class="event-panel-header">Event Details</div>
+            <div class="event-panel-content">
+                <form id="eventForm" class="text-light">
+                    <input type="hidden" id="eventId">
+                    <div class="mb-3">
+                        <label for="eventTitle" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="eventTitle" required 
+                               minlength="1" maxlength="100" placeholder="Enter event title">
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label for="eventDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="eventDescription" rows="3" 
+                                  maxlength="500" placeholder="Enter event description"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eventStart" class="form-label">Start Time</label>
+                        <input type="datetime-local" class="form-control" id="eventStart" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eventEnd" class="form-label">End Time</label>
+                        <input type="datetime-local" class="form-control" id="eventEnd" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eventLocation" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="eventLocation" 
+                               maxlength="200" placeholder="Enter event location">
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-danger" id="deleteEventBtn">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-<br>
-  <!-- Footer -->
-  <div th:insert="fragments/footer :: footer"></div>
-
+    <div th:insert="fragments/footer :: footer"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script th:src="@{/js/Schedule.js}"></script>
 </body>
 </html>

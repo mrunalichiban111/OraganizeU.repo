@@ -10,9 +10,41 @@
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link th:href="@{../static/css/navbar.css}" rel="stylesheet">
-  <link th:href="@{../static/css/sections.css}" rel="stylesheet">
-  <link th:href="@{../static/css/footer.css}" rel="stylesheet">
+  <link th:href="@{/css/navbar.css}" rel="stylesheet">
+  <link th:href="@{/css/sections.css}" rel="stylesheet">
+  <link th:href="@{/css/footer.css}" rel="stylesheet">
+
+  <style>
+    .typewriter {
+      overflow: hidden;
+      border-right: .15em solid #8B5CF6;
+      white-space: nowrap;
+      margin: 0 auto;
+      letter-spacing: .15em;
+      animation: 
+        typing 3.5s steps(40, end),
+        blink-caret .75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #8B5CF6 }
+    }
+
+    .fade-in {
+      animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
 </head>
 <body>
   <!-- Navigation -->
@@ -22,7 +54,7 @@
   <!-- Hero Section -->
   <section id="hero" class="d-flex align-items-center">
     <video autoplay loop muted class="hero-video">
-      <source th:src="@{../static/assets/video3.mp4}" type="video/mp4">
+      <source th:src="@{/assets/video3.mp4}" type="video/mp4">
     </video>
     <div class="container">
       <div class="row align-items-center">
@@ -31,14 +63,15 @@
             Stay <span style="color: #8c52ff;">Organized</span>.<br>
             Stay <span style="color: #8c52ff;">Ahead</span>.
           </h1>
-          <div class="typewriter">
-            <p class="h3 mb-3">Hello <span class="text-purple">User</span></p>
-            <br>
+          <div class="hero-content text-center">
+            <h1 class="display-4 mb-4 text-white">
+              <span class="typewriter" th:text="${#authentication.principal.name != null ? 'Hello ' + #authentication.principal.name + '!' : 'Welcome to OrganizeU!'}">Welcome to OrganizeU!</span>
+            </h1>
             <p class="lead">Let's get started</p>
           </div>
         </div>
         <div class="col-lg-6 animate" style="animation-delay: 0.4s;">
-          <img th:src="@{../static/assets/BG22.png}" alt="Visual" class="img-fluid">
+          <img th:src="@{/assets/BG22.png}" alt="Visual" class="img-fluid">
         </div>
       </div>
     </div>
@@ -52,79 +85,140 @@
           <h2 class="text-uppercase text-purple mb-0">Today's<br>Schedule</h2>
         </div>
         <div class="col-md-9">
-          <div class="schedule-list">
-            <!-- 1. DBMS Class -->
-            <div class="schedule-item p-3 mb-3 animate">
-              <div class="d-flex align-items-center gap-4">
-                <div class="schedule-time">09:00 AM – 10:00 AM</div>
-                <div class="flex-grow-1">
-                  <h5 class="mb-1">DBMS Class</h5>
-                  <small class="text-muted">Virtual Classroom</small>
-                </div>
-                <i class='bx bx-chevron-right'></i>
-              </div>
-            </div>
-            <!-- 2. Computer Org Lecture -->
-            <div class="schedule-item p-3 mb-3 animate">
-              <div class="d-flex align-items-center gap-4">
-                <div class="schedule-time">10:30 AM – 11:30 AM</div>
-                <div class="flex-grow-1">
-                  <h5 class="mb-1">Computer Org Lecture</h5>
-                  <small class="text-muted">Lecture Hall</small>
-                </div>
-                <i class='bx bx-chevron-right'></i>
-              </div>
-            </div>
-            <!-- 3. Choir Practice -->
-            <div class="schedule-item p-3 mb-3 animate">
-              <div class="d-flex align-items-center gap-4">
-                <div class="schedule-time">12:00 PM – 01:30 PM</div>
-                <div class="flex-grow-1">
-                  <h5 class="mb-1">Choir Practice</h5>
-                  <small class="text-muted">Music Room</small>
-                </div>
-                <i class='bx bx-chevron-right'></i>
-              </div>
-            </div>
-            <!-- 4. Bitcoin Protocol Dev -->
-            <div class="schedule-item p-3 mb-3 animate">
-              <div class="d-flex align-items-center gap-4">
-                <div class="schedule-time">02:00 PM – 04:00 PM</div>
-                <div class="flex-grow-1">
-                  <h5 class="mb-1">Bitcoin Protocol Dev</h5>
-                  <small class="text-muted">Lab Session</small>
-                </div>
-                <i class='bx bx-chevron-right'></i>
-              </div>
-            </div>
-            <!-- 5. COA Study Session -->
-            <div class="schedule-item p-3 mb-3 animate">
-              <div class="d-flex align-items-center gap-4">
-                <div class="schedule-time">04:30 PM – 06:00 PM</div>
-                <div class="flex-grow-1">
-                  <h5 class="mb-1">COA Study Session</h5>
-                  <small class="text-muted">Library</small>
-                </div>
-                <i class='bx bx-chevron-right'></i>
-              </div>
-            </div>
-            <!-- 6. C++ Optimization Task -->
-            <div class="schedule-item p-3 mb-3 animate">
-              <div class="d-flex align-items-center gap-4">
-                <div class="schedule-time">06:30 PM – 08:00 PM</div>
-                <div class="flex-grow-1">
-                  <h5 class="mb-1">C++ Optimization Task</h5>
-                  <small class="text-muted">Home Office</small>
-                </div>
-                <i class='bx bx-chevron-right'></i>
-              </div>
-            </div>
+          <div class="schedule-list" id="todaySchedule">
+            <!-- Events will be loaded here dynamically -->
           </div>
         </div>
       </div>
     </div>
   </section>
-  
+
+  <script>
+    // Function to format time in 12-hour format
+    function formatTime(dateTimeStr) {
+      const date = new Date(dateTimeStr);
+      return date.toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: true 
+      });
+    }
+
+    // Function to load today's schedule
+    async function loadTodaySchedule() {
+      try {
+        console.log('Loading today\'s schedule...');
+        const today = new Date();
+        // Set time to start of today (00:00:00)
+        const start = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        // Set time to end of today (23:59:59)
+        const end = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
+        
+        console.log('Fetching events for date range:', {
+          start: start.toISOString(),
+          end: end.toISOString()
+        });
+        
+        const response = await fetch(`/api/events?start=${start.toISOString()}&end=${end.toISOString()}`, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include' // Include cookies for authentication
+        });
+
+        console.log('Response status:', response.status);
+        
+        if (!response.ok) {
+          if (response.status === 401) {
+            console.log('User is not authenticated');
+            document.getElementById('todaySchedule').innerHTML = `
+              <div class="schedule-item p-3 mb-3 animate">
+                <div class="d-flex align-items-center">
+                  <div class="flex-grow-1 text-center text-muted">
+                    <p class="mb-0">Please log in to view your schedule</p>
+                    <a href="/login2" class="btn btn-outline-purple mt-2">Login</a>
+                  </div>
+                </div>
+              </div>
+            `;
+            return;
+          }
+          const errorText = await response.text();
+          console.error('Server error:', errorText);
+          throw new Error(`Failed to fetch events: ${response.status} ${response.statusText}`);
+        }
+        
+        const events = await response.json();
+        console.log('Fetched events:', events);
+        const scheduleList = document.getElementById('todaySchedule');
+        
+        if (!events || events.length === 0) {
+          console.log('No events found for today');
+          scheduleList.innerHTML = `
+            <div class="schedule-item p-3 mb-3 animate">
+              <div class="d-flex align-items-center">
+                <div class="flex-grow-1 text-center text-muted">
+                  <p class="mb-0">No tasks scheduled for today</p>
+                  <a href="/schedule?view=day" class="btn btn-outline-purple mt-2">View Full Schedule</a>
+                </div>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        // Filter events to only include those that start or end today
+        const todayEvents = events.filter(event => {
+          const eventStart = new Date(event.startAt);
+          const eventEnd = new Date(event.endAt);
+          return (
+            (eventStart.getDate() === today.getDate() && 
+             eventStart.getMonth() === today.getMonth() && 
+             eventStart.getFullYear() === today.getFullYear()) ||
+            (eventEnd.getDate() === today.getDate() && 
+             eventEnd.getMonth() === today.getMonth() && 
+             eventEnd.getFullYear() === today.getFullYear())
+          );
+        });
+
+        console.log('Filtered events for today:', todayEvents);
+
+        // Sort events by start time
+        todayEvents.sort((a, b) => new Date(a.startAt) - new Date(b.startAt));
+        console.log('Sorted events:', todayEvents);
+
+        scheduleList.innerHTML = todayEvents.map(event => `
+          <div class="schedule-item p-3 mb-3 animate" style="cursor: pointer;" onclick="window.location.href='/schedule?view=day'">
+            <div class="d-flex align-items-center gap-4">
+              <div class="schedule-time">${formatTime(event.startAt)} – ${formatTime(event.endAt)}</div>
+              <div class="flex-grow-1">
+                <h5 class="mb-1">${event.title}</h5>
+                <small class="text-muted">${event.location || 'No location specified'}</small>
+              </div>
+              <i class='bx bx-chevron-right'></i>
+            </div>
+          </div>
+        `).join('');
+      } catch (error) {
+        console.error('Error loading schedule:', error);
+        document.getElementById('todaySchedule').innerHTML = `
+          <div class="schedule-item p-3 mb-3 animate">
+            <div class="d-flex align-items-center">
+              <div class="flex-grow-1 text-center text-danger">
+                <p class="mb-0">Failed to load schedule: ${error.message}</p>
+                <a href="/schedule?view=day" class="btn btn-outline-purple mt-2">View Full Schedule</a>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // Load schedule when page loads
+    document.addEventListener('DOMContentLoaded', loadTodaySchedule);
+  </script>
 
   <!-- Features Section -->
   <section class="container py-5">

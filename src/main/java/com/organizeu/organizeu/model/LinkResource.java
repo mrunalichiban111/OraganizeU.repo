@@ -1,28 +1,23 @@
 package com.organizeu.organizeu.model;
 
-import java.util.UUID;
+import jakarta.persistence.*;
+import lombok.Data;
 
+@Entity
+@Table(name = "link_resources")
+@Data
 public class LinkResource {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private String id;
+    @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
     private String url;
 
-    public LinkResource(String title, String url) {
-        this.id = UUID.randomUUID().toString();
-        this.title = title;
-        this.url = url;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getUrl() {
-        return url;
-    }
+    @ManyToOne
+    @JoinColumn(name = "section_id", nullable = false)
+    private Section section;
 }

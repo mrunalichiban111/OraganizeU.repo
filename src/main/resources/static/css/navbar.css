@@ -2,37 +2,96 @@
     --purple-primary: #8c52ff;
   }
   
-.navbar {
-    z-index: 9999; /* Add this line */
-    background: rgba(0,0,0,0.95) !important;
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(140,82,255,0.1);
+.navbar, .navbar > .container {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
   
-  .nav-link {
-    position: relative;
-    padding: 0.5rem 1.2rem !important;
-    transition: all 0.3s ease;
+.navbar {
+    background: #000 !important;
+    font-family: 'San Francisco', Arial, sans-serif;
+    font-weight: 500;
     color: #fff !important;
-  }
-  
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
+    position: fixed !important;
+    top: 0;
     left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--purple-primary) 0%, transparent 100%);
-    transition: width 0.3s ease;
-  }
-  
-  .nav-link:hover::after {
     width: 100%;
-  }
+    z-index: 9999;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid rgba(140,82,255,0.1);
+    backdrop-filter: blur(10px);
+    min-height: 64px;
+}
   
-  .profile-btn {
-    background: var(--purple-primary);
+.navbar-brand img {
+    height: 48px;
+    max-height: 48px;
+}
+  
+.navbar-brand {
+    font-size: 1rem;
+    color: #fff !important;
+    font-weight: 700;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    font-family: 'San Francisco', Arial, sans-serif;
+}
+  
+.navbar-nav .nav-link {
+    color: #fff !important;
+    font-size: 0.875rem;
+    margin-right: 1.5rem;
+    letter-spacing: 1px;
+    transition: color 0.2s, border-bottom 0.2s;
+    font-family: 'San Francisco', Arial, sans-serif;
+    font-weight: 500;
+    background: transparent !important;
+    position: relative;
+}
+  
+.navbar-nav .nav-link::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #8c52ff 0%, #5d17eb 100%);
+    border-radius: 2px;
+    transition: width 0.3s;
+}
+  
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    width: 100%;
+}
+  
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: #a084ff !important;
+    background: transparent !important;
+}
+  
+@media (max-width: 991px) {
+    .navbar-nav .nav-link {
+        font-size: 1rem;
+        margin-right: 1rem;
+    }
+    .navbar-brand img, .navbar-brand {
+        max-height: 32px;
+        font-size: 1.1rem;
+    }
+}
+  
+.profile-btn {
+    background: var(--purple-primary, #8c52ff);
     color: white !important;
     padding: 0.5rem 1.5rem;
     border-radius: 8px 0 8px 0;
@@ -40,57 +99,68 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-  }
+    font-size: 1rem;
+    font-family: 'San Francisco', Arial, sans-serif;
+}
   
-  .profile-btn:hover {
+.profile-btn:hover {
     background: transparent;
-    border: 1px solid var(--purple-primary);
+    border: 1px solid var(--purple-primary, #8c52ff);
     box-shadow: 0 0 15px rgba(140,82,255,0.4);
-    color: var(--purple-primary) !important;
-  }
+    color: var(--purple-primary, #8c52ff) !important;
+}
   
-  .profile-btn i {
+.profile-btn i {
     transition: transform 0.3s ease;
-  }
+}
   
-  .profile-btn:hover i {
+.profile-btn:hover i {
     transform: translateX(3px);
     filter: drop-shadow(0 0 4px rgba(140,82,255,0.8));
-  }
+}
   
-  /* Dropdown */
-  .dropdown-menu {
+/* Dropdown */
+.dropdown-menu {
     background-color: #1a1a1a;
     border: 1px solid rgba(140,82,255,0.2);
-  }
+}
   
-  .dropdown-item {
+.dropdown-item {
     color: #ffffff !important;
     transition: all 0.3s ease;
-  }
+}
   
-  .dropdown-item:hover {
+.dropdown-item:hover {
     background-color: var(--purple-primary) !important;
     transform: translateX(5px);
-  }
+}
   
-  /* Mobile tweaks */
-  @media (max-width: 992px) {
+/* Mobile tweaks */
+@media (max-width: 992px) {
     .navbar-nav {
-      padding: 1rem 0;
-      text-align: center;
+        padding: 1rem 0;
+        text-align: center;
     }
     .nav-item {
-      margin: 0.5rem 0;
+        margin: 0.5rem 0;
     }
     .profile-btn {
-      margin: 0.5rem auto;
-      border-radius: 30px;
+        margin: 0.5rem auto;
+        border-radius: 30px;
     }
-  }
+}
   
-  /* Utility */
-  .text-purple {
+/* Utility */
+.text-purple {
     color: var(--purple-primary) !important;
-  }
+}
+  
+.navbar-username {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle;
+}
   

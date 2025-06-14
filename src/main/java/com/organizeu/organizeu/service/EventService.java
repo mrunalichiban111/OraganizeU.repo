@@ -1,55 +1,72 @@
 package com.organizeu.organizeu.service;
 
+import com.organizeu.organizeu.dto.EventDTO;
 import com.organizeu.organizeu.model.Event;
 import com.organizeu.organizeu.repository.EventRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService {
 
-    private final EventRepository eventRepository;
+    @Autowired
+    private EventRepository eventRepository;
 
-    public EventService(EventRepository eventRepository) {
-        this.eventRepository = eventRepository;
+    public List<EventDTO> getEvents(LocalDateTime start, LocalDateTime end) {
+        List<Event> events = eventRepository.findByStartAtBetween(start, end);
+        return events.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
-    public List<Event> getEventsBetween(LocalDate start, LocalDate end) {
-        return eventRepository.findByDateBetween(start, end);
+    public EventDTO createEvent(EventDTO eventDTO) {
+        Event event = convertToEntity(eventDTO);
+        Event savedEvent = eventRepository.save(event);
+        return convertToDTO(savedEvent);
     }
 
-    public Event createEvent(Event event) {
-        if (event.getStartTime() != null && event.getEndTime() != null && event.getStartTime().isAfter(event.getEndTime())) {
-            throw new IllegalArgumentException("Start time must be before end time");
-        }
-        return eventRepository.save(event);
+    public EventDTO updateEvent(Long id, EventDTO eventDTO) {
+        Event existingEvent = eventRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Event not found"));
+        
+        // Update fields
+        existingEvent.setTitle(eventDTO.getTitle());
+        existingEvent.setDescription(eventDTO.getDescription());
+        existingEvent.setStartAt(eventDTO.getStartAt());
+        existingEvent.setEndAt(eventDTO.getEndAt());
+        existingEvent.setLocation(eventDTO.getLocation());
+        
+        Event updatedEvent = eventRepository.save(existingEvent);
+        return convertToDTO(updatedEvent);
     }
 
-    public Optional<Event> updateEvent(Long id, Event eventDetails) {
-        return eventRepository.findById(id)
-            .map(event -> {
-                event.setTitle(eventDetails.getTitle());
-                event.setDate(eventDetails.getDate());
-                event.setStartTime(eventDetails.getStartTime());
-                event.setEndTime(eventDetails.getEndTime());
-                event.setStatus(eventDetails.getStatus());
-
-                if (event.getStartTime() != null && event.getEndTime() != null && event.getStartTime().isAfter(event.getEndTime())) {
-                    throw new IllegalArgumentException("Start time must be before end time");
-                }
-
-                return eventRepository.save(event);
-            });
+    public void deleteEvent(Long id) {
+        eventRepository.deleteById(id);
     }
 
-    public boolean deleteEvent(Long id) {
-        return eventRepository.findById(id)
-            .map(event -> {
-                eventRepository.delete(event);
-                return true;
-            })
-            .orElse(false);
+    private EventDTO convertToDTO(Event event) {
+        EventDTO dto = new EventDTO();
+        dto.setId(event.getId());
+        dto.setTitle(event.getTitle());
+        dto.setDescription(event.getDescription());
+        dto.setStartAt(event.getStartAt());
+        dto.setEndAt(event.getEndAt());
+        dto.setLocation(event.getLocation());
+        return dto;
     }
-}
+
+    private Event convertToEntity(EventDTO dto) {
+        Event event = new Event();
+        event.setId(dto.getId());
+        event.setTitle(dto.getTitle());
+        event.setDescription(dto.getDescription());
+        event.setStartAt(dto.getStartAt());
+        event.setEndAt(dto.getEndAt());
+        event.setLocation(dto.getLocation());
+        return event;
+    }
+} 

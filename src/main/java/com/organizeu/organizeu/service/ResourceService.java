@@ -1,56 +1,34 @@
 package com.organizeu.organizeu.service;
 
+import com.organizeu.organizeu.model.Resource;
 import com.organizeu.organizeu.model.Section;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
+import com.organizeu.organizeu.model.User;
 import java.util.List;
+import java.util.Optional;
 
-@Service
-public class ResourceService {
+public interface ResourceService {
+    List<Resource> getRecentResources(User user, int limit);
+    long getTotalResources(User user);
+    Resource saveResource(Resource resource);
+    void deleteResource(Long id);
+    Optional<Resource> findById(Long id);
+    
+    // Section management
+    List<Section> getAllSections(User user);
+    Section getSectionByName(String name, User user);
+    void addSection(String name, User user);
+    void selectSection(String name);
+    
+    // Link management
+    void addLink(String title, String url, String sectionName, User user);
+    void deleteLink(Long linkId, User user);
+    
+    // File management
+    void addFile(String title, String fileName, String filePath, String sectionName, User user);
+    void deleteFile(Long fileId, User user);
 
-    private final List<Section> sections = new ArrayList<>();
-    private Section selectedSection = null;
-
-    public List<Section> getSections() {
-        return sections;
-    }
-
-    public void addSection(String name) {
-        if (name == null || name.trim().isEmpty()) return;
-
-        String trimmedName = name.trim();
-
-
-        for (Section section : sections) {
-            if (section.getName().equalsIgnoreCase(trimmedName)) {
-                selectedSection = section;
-                return;
-            }
-        }
-
-        Section newSection = new Section(trimmedName);
-        sections.add(newSection);
-        selectedSection = newSection;
-    }
-
-    public Section getSelectedSection() {
-        return selectedSection;
-    }
-
-    public void selectSection(String name) {
-        if (name == null || name.trim().isEmpty()) return;
-
-        for (Section section : sections) {
-            if (section.getName().equalsIgnoreCase(name.trim())) {
-                selectedSection = section;
-                return;
-            }
-        }
-    }
-
-    public boolean hasSections() {
-        return !sections.isEmpty();
-    }
-}
-
+    List<Resource> findByOwner(User owner);
+    long countByOwner(User owner);
+    List<Resource> findTop3ByOwnerOrderByCreatedAtDesc(User owner);
+    List<Resource> findByOwnerOrderByCreatedAtDesc(User owner);
+} 

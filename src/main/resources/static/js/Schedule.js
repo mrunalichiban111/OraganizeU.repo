@@ -1,224 +1,715 @@
-// static/js/Schedule.js
+console.log("Schedule.js loaded!");
 
-// Entry point
-document.addEventListener("DOMContentLoaded", () => {
-  // CSRF
-  const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute("content");
-  const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute("content");
+document.addEventListener('DOMContentLoaded', function() {
+    // DOM Elements
+    const monthGrid = document.getElementById('monthGrid');
+    const weekGrid = document.getElementById('weekGrid');
+    const dayGrid = document.getElementById('dayGrid');
+    const currentPeriodDisplay = document.getElementById('currentPeriod');
+    const prevPeriodBtn = document.getElementById('prevPeriod');
+    const nextPeriodBtn = document.getElementById('nextPeriod');
+    const monthViewBtn = document.getElementById('monthViewBtn');
+    const weekViewBtn = document.getElementById('weekViewBtn');
+    const dayViewBtn = document.getElementById('dayViewBtn');
+    const eventForm = document.getElementById('eventForm');
+    const eventIdInput = document.getElementById('eventId');
+    const eventTitleInput = document.getElementById('eventTitle');
+    const eventDescriptionInput = document.getElementById('eventDescription');
+    const eventStartInput = document.getElementById('eventStart');
+    const eventEndInput = document.getElementById('eventEnd');
+    const eventLocationInput = document.getElementById('eventLocation');
+    const deleteEventBtn = document.getElementById('deleteEventBtn');
+    const eventDetails = document.getElementById('eventDetails');
 
-  // DOM
-  const daysGrid = document.getElementById("days-grid");
-  const weekDays = document.getElementById("week-days");
-  const dayColumn = document.getElementById("day-column");
-  const currentDateElement = document.getElementById("current-date");
-  const prevBtn = document.getElementById("prev-btn");
-  const nextBtn = document.getElementById("next-btn");
-  const todayBtn = document.getElementById("today-btn");
-  const viewBtns = document.querySelectorAll(".view-btn");
-  const calendarViews = document.querySelectorAll(".calendar-view");
+    // State
+    let currentView = 'week';
+    let currentDate = new Date();
+    let events = [];
+    let selectedEvent = null;
+    const API_BASE = '/api/events';
 
-  // Modal
-  const modalOverlay = document.getElementById("event-modal-overlay");
-  const closeModalBtn = document.getElementById("close-modal");
-  const eventForm = document.getElementById("event-form");
-  const eventTitleInput = document.getElementById("event-title");
-  const eventDateInput = document.getElementById("event-date");
-  const eventStartInput = document.getElementById("event-start");
-  const eventEndInput = document.getElementById("event-end");
-  const eventStatusInput = document.getElementById("event-status");
-  const eventIdInput = document.getElementById("event-id");
-  const saveEventBtn = document.getElementById("save-event");
-  const cancelEventBtn = document.getElementById("cancel-event");
-  const deleteEventBtn = document.getElementById("delete-event");
-  const modalTitle = document.getElementById("modal-title");
+    // Initialize the view
+    renderCurrentView();
 
-  // State
-  let currentDate = new Date();
-  let currentView = "month";
-  let events = [];
+    // Event Listeners
+    prevPeriodBtn.addEventListener('click', () => {
+        if (currentView === 'month') {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+        } else if (currentView === 'week') {
+            currentDate.setDate(currentDate.getDate() - 7);
+        } else {
+            currentDate.setDate(currentDate.getDate() - 1);
+        }
+        renderCurrentView();
+    });
 
-  const API_BASE = "/api/events";
+    nextPeriodBtn.addEventListener('click', () => {
+        if (currentView === 'month') {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+        } else if (currentView === 'week') {
+            currentDate.setDate(currentDate.getDate() + 7);
+        } else {
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+        renderCurrentView();
+    });
 
-  // INITIALIZATION
-  async function initCalendar() {
-    await renderCalendar();
-    setupEventListeners();
-  }
+    monthViewBtn.addEventListener('click', () => {
+        currentView = 'month';
+        updateViewButtons();
+        renderCurrentView();
+    });
 
-  // HELPERS
-  function formatDate(date) { return date.toISOString().split('T')[0]; }
-  function formatTime(ts) {
-    const [h, m] = ts.split(':').map(Number);
-    const period = h >= 12 ? 'PM' : 'AM';
-    const hh = h % 12 || 12;
-    return `${hh}:${m.toString().padStart(2, '0')} ${period}`;
-  }
-  function getStartOfWeek(d) { const dt = new Date(d); dt.setDate(dt.getDate() - dt.getDay()); return dt; }
-  function isSameDay(a, b) { return formatDate(a) === formatDate(b); }
-  function isInSameWeek(d, s) { const e = new Date(s); e.setDate(e.getDate() + 6); return d >= s && d <= e; }
-  function getDayDifference(a, b) { return Math.floor((b - a) / (1000 * 60 * 60 * 24)); }
-  function getViewStartDate() {
-    if (currentView === 'month') return new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-    if (currentView === 'week') return getStartOfWeek(currentDate);
-    return currentDate;
-  }
-  function getViewEndDate() {
-    if (currentView === 'month') return new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-    if (currentView === 'week') { const e = new Date(getStartOfWeek(currentDate)); e.setDate(e.getDate() + 6); return e; }
-    return currentDate;
-  }
+    weekViewBtn.addEventListener('click', () => {
+        currentView = 'week';
+        updateViewButtons();
+        renderCurrentView();
+    });
 
-  // DATA
-  async function loadEvents() {
-    const start = getViewStartDate(), end = getViewEndDate();
-    const qs = `?start=${formatDate(start)}&end=${formatDate(end)}`;
-    try {
-      const res = await fetch(API_BASE + qs, { method: 'GET', credentials: 'same-origin', headers: { [csrfHeader]: csrfToken } });
-      if (!res.ok) throw new Error(`Status ${res.status}`);
-      events = await res.json();
-    } catch (e) { console.error('Error loading events:', e); events = []; }
-  }
+    dayViewBtn.addEventListener('click', () => {
+        currentView = 'day';
+        updateViewButtons();
+        renderCurrentView();
+    });
 
-  // RENDER
-  async function renderCalendar() {
-    await loadEvents();
-    if (currentView === 'month') renderMonthView();
-    if (currentView === 'week') renderWeekView();
-    if (currentView === 'day') renderDayView();
-    updateCurrentDateDisplay();
-  }
+    // Event Form Logic
+    if (eventForm) {
+        eventForm.onsubmit = async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(eventForm);
+            const eventData = {
+                id: eventIdInput ? eventIdInput.value : null,
+                title: formData.get('title'),
+                description: formData.get('description'),
+                location: formData.get('location'),
+                startAt: fromLocalDateTime(formData.get('startAt')),
+                endAt: fromLocalDateTime(formData.get('endAt')),
+                status: 'UPCOMING'
+            };
 
-  function updateCurrentDateDisplay() {
-    const opts = { year: 'numeric', month: 'long' };
-    if (currentView === 'week') {
-      const ws = getStartOfWeek(currentDate), we = new Date(ws); we.setDate(we.getDate() + 6);
-      const sm = ws.toLocaleString('default', { month: 'short' }), em = we.toLocaleString('default', { month: 'short' });
-      currentDateElement.textContent = sm === em ? `${sm} ${ws.getDate()} - ${we.getDate()}, ${ws.getFullYear()}` : `${sm} ${ws.getDate()} - ${em} ${we.getDate()}, ${ws.getFullYear()}`;
-    } else if (currentView === 'day') {
-      currentDateElement.textContent = currentDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-    } else {
-      currentDateElement.textContent = currentDate.toLocaleDateString('en-US', opts);
-    }
-  }
-
-  // Month View
-  function renderMonthView() {
-    daysGrid.innerHTML = '';
-    const y = currentDate.getFullYear(), m = currentDate.getMonth();
-    const fd = new Date(y, m, 1), ld = new Date(y, m + 1, 0), sd = fd.getDay(), dm = ld.getDate(), pld = new Date(y, m, 0).getDate();
-    for (let i = sd - 1; i >= 0; i--) daysGrid.appendChild(createDayCell(pld - i, 'other-month'));
-    const today = new Date();
-    for (let d = 1; d <= dm; d++) {
-      const isT = d === today.getDate() && m === today.getMonth() && y === today.getFullYear();
-      const cell = createDayCell(d, isT ? 'today' : '');
-      const dt = new Date(y, m, d); cell.dataset.date = formatDate(dt);
-      addEventsToDayCell(cell, dt); daysGrid.appendChild(cell);
-    }
-    const total = Math.ceil((sd + dm) / 7) * 7, nd = total - (sd + dm);
-    for (let i = 1; i <= nd; i++) daysGrid.appendChild(createDayCell(i, 'other-month'));
-  }
-  function createDayCell(day, cls) { const c = document.createElement('div'); c.className = `day-cell ${cls}`; const n = document.createElement('div'); n.className = 'day-number'; n.textContent = day; c.appendChild(n); return c; }
-  function addEventsToDayCell(cell, date) { const ds = formatDate(date); events.filter(e => e.date === ds).forEach(evt => { const el = document.createElement('div'); el.className = `event ${evt.status}`; el.textContent = evt.title; el.dataset.id = evt.id; if (evt.startTime) { const ts = document.createElement('span'); ts.className = 'event-time'; ts.textContent = ` (${formatTime(evt.startTime)})`; el.appendChild(ts); } cell.appendChild(el); }); }
-
-  // Week View
-  function renderWeekView() {
-    weekDays.innerHTML = '';
-    const start = getStartOfWeek(currentDate);
-    for (let i = 0; i < 7; i++) {
-      const dt = new Date(start); dt.setDate(dt.getDate() + i);
-      const col = document.createElement('div'); col.className = 'week-day-column';
-      const hdr = document.createElement('div'); hdr.className = 'week-day-header';
-      const nm = dt.toLocaleDateString('en-US', { weekday: 'short' }), num = dt.getDate();
-      hdr.innerHTML = `<div>${nm}</div><div class='${isSameDay(dt, new Date()) ? 'today' : ''}'>${num}</div>`;
-      col.appendChild(hdr);
-      const slots = document.createElement('div'); slots.className = 'week-day-slots';
-      for (let h = 0; h < 24; h++) { const s = document.createElement('div'); s.className = 'week-time-slot'; s.dataset.hour = h; s.dataset.date = formatDate(dt); slots.appendChild(s); }
-      col.appendChild(slots); weekDays.appendChild(col);
-    }
-    addEventsToWeekView();
-  }
-  function addEventsToWeekView() { const start = getStartOfWeek(currentDate); events.forEach(evt => { const d = new Date(evt.date); if (isInSameWeek(d, start) && evt.startTime && evt.endTime) { const di = getDayDifference(start, d); const col = weekDays.children[di]; const slots = col.querySelector('.week-day-slots'); const [sh, sm] = evt.startTime.split(':').map(Number), [eh, em] = evt.endTime.split(':').map(Number); const slot = slots.children[sh]; if (slot) { const el = document.createElement('div'); el.className = `event ${evt.status}`; el.textContent = evt.title; el.dataset.id = evt.id; const top = (sm / 60) * 100; height = (eh - sh + (em - sm) / 60) * 60; el.style.top = `${top}%`; el.style.height = `${height}px`; slot.appendChild(el); } } }); }
-
-  // Day View
-  function renderDayView() {
-    dayColumn.innerHTML = '';
-    const hdr = document.createElement('div'); hdr.className = 'day-header';
-    const nm = currentDate.toLocaleDateString('en-US', { weekday: 'long' }), num = currentDate.getDate();
-    hdr.innerHTML = `<div>${nm}</div><div class='${isSameDay(currentDate, new Date()) ? 'today' : ''}'>${num}</div>`;
-    dayColumn.appendChild(hdr);
-    const slots = document.createElement('div'); slots.className = 'day-slots';
-    for (let h = 0; h < 24; h++) { const s = document.createElement('div'); s.className = 'day-time-slot'; s.dataset.hour = h; s.dataset.date = formatDate(currentDate); slots.appendChild(s); }
-    dayColumn.appendChild(slots);
-    addEventsToDayView();
-  }
-  function addEventsToDayView() { const ds = formatDate(currentDate), slots = dayColumn.querySelector('.day-slots'); events.filter(e => e.date === ds && e.startTime && e.endTime).forEach(evt => { const [sh, sm] = evt.startTime.split(':').map(Number), [eh, em] = evt.endTime.split(':').map(Number); const slot = slots.children[sh]; if (slot) { const el = document.createElement('div'); el.className = `event ${evt.status}`; el.textContent = evt.title; el.dataset.id = evt.id; const top = (sm / 60) * 100; height = (eh - sh + (em - sm) / 60) * 60; el.style.top = `${top}%`; el.style.height = `${height}px`; slot.appendChild(el); } }); }
-
-  // MODAL
-  function openAddEventModal(date, hour = null) { modalTitle.textContent = 'Add Event'; eventForm.reset(); eventDateInput.value = date; if (hour !== null) { const h = hour.toString().padStart(2, '0'); eventStartInput.value = `${h}:00`; eventEndInput.value = `${((+hour + 1) % 24).toString().padStart(2, '0')}:00`; } eventIdInput.value = ''; deleteEventBtn.style.display = 'none'; modalOverlay.classList.add('active'); }
-  function openEditEventModal(evt) { modalTitle.textContent = 'Edit Event'; eventTitleInput.value = evt.title; eventDateInput.value = evt.date; eventStartInput.value = evt.startTime || ''; eventEndInput.value = evt.endTime || ''; eventStatusInput.value = evt.status; eventIdInput.value = evt.id; deleteEventBtn.style.display = 'block'; modalOverlay.classList.add('active'); }
-  function closeModal() { modalOverlay.classList.remove('active'); selectedEvent = null; }
-
-  // CRUD
-  async function saveEvent(e) {
-    e.preventDefault();
-    if (!eventForm.checkValidity()) return;
-
-    const startTime = eventStartInput.value;
-    const endTime = eventEndInput.value;
-
-    // Validate that startTime is before endTime
-    if (startTime && endTime) {
-      const start = new Date(`1970-01-01T${startTime}:00`);
-      const end = new Date(`1970-01-01T${endTime}:00`);
-      if (start >= end) {
-        alert("Start time must be before end time");
-        return;
-      }
+            await saveEvent(eventData);
+        };
     }
 
-    const dto = {
-      id: eventIdInput.value || null,
-      title: eventTitleInput.value,
-      date: eventDateInput.value,
-      startTime: startTime,
-      endTime: endTime,
-      status: eventStatusInput.value.toUpperCase()
-    };
+    // Delete event handler
+    deleteEventBtn.addEventListener('click', async () => {
+        if (!eventIdInput.value) return;
+        
+        if (confirm('Are you sure you want to delete this event?')) {
+            try {
+                await deleteEvent(eventIdInput.value);
+                events = events.filter(evt => evt.id !== parseInt(eventIdInput.value));
+                renderCurrentView();
+                closeEventForm();
+            } catch (error) {
+                console.error('Error deleting event:', error);
+                alert('Failed to delete event. Please try again.');
+            }
+        }
+    });
 
-    const method = dto.id ? 'PUT' : 'POST';
-    const url = dto.id ? `${API_BASE}/${dto.id}` : API_BASE;
-
-    try {
-      const res = await fetch(url, {
-        method,
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          [csrfHeader]: csrfToken
-        },
-        body: JSON.stringify(dto)
-      });
-
-      if (!res.ok) {
-        const errorMessage = await res.text();
-        throw new Error(`Status ${res.status}: ${errorMessage}`);
-      }
-
-      closeModal();
-      await renderCalendar();
-    } catch (err) {
-      console.error('Error saving event:', err);
-      alert(`Save failed: ${err.message}`);
+    // Helper Functions
+    async function fetchEvents(rangeStart, rangeEnd) {
+        // Convert local dates to UTC while preserving the intended time
+        const start = new Date(rangeStart);
+        const end = new Date(rangeEnd);
+        
+        // Format dates to ISO strings
+        const startISO = start.toISOString();
+        const endISO = end.toISOString();
+        
+        const url = `${API_BASE}?start=${encodeURIComponent(startISO)}&end=${encodeURIComponent(endISO)}`;
+        console.log('Fetching events from:', url);
+        
+        try {
+            const res = await fetch(url);
+            if (!res.ok) {
+                throw new Error(`Failed to fetch events: ${res.status} ${res.statusText}`);
+            }
+            events = await res.json();
+            // Convert UTC dates back to local time for display
+            events = events.map(evt => ({
+                ...evt,
+                startAt: new Date(evt.startAt).toISOString(),
+                endAt: new Date(evt.endAt).toISOString()
+            }));
+            console.log('Fetched events:', events);
+        } catch (error) {
+            console.error('Error fetching events:', error);
+            throw error;
+        }
     }
-  }
 
-  async function deleteEvent() { const id = eventIdInput.value; if (!id) return; try { const res = await fetch(`${API_BASE}/${id}`, { method: 'DELETE', credentials: 'same-origin', headers: { [csrfHeader]: csrfToken } }); if (!res.ok) throw new Error(`Status ${res.status}`); closeModal(); await renderCalendar(); } catch (err) { console.error('Error deleting event:', err); alert(`Delete failed: ${err.message}`); } }
+    async function saveEvent(eventData) {
+        if (!eventData || !eventData.startAt || !eventData.endAt) {
+            console.error('Invalid event data:', eventData);
+            alert('Invalid event data. Please check all fields.');
+            return;
+        }
 
-  // EVENTS
-  function setupEventListeners() { prevBtn.addEventListener('click', () => navigate('prev')); nextBtn.addEventListener('click', () => navigate('next')); todayBtn.addEventListener('click', () => { currentDate = new Date(); renderCalendar(); }); viewBtns.forEach(btn => btn.addEventListener('click', () => { currentView = btn.dataset.view; viewBtns.forEach(b => b.classList.remove('active')); btn.classList.add('active'); calendarViews.forEach(v => v.classList.remove('active')); document.querySelector(`.${currentView}-view`).classList.add('active'); renderCalendar(); })); daysGrid.addEventListener('click', onGridClick); weekDays.addEventListener('click', onGridClick); dayColumn.addEventListener('click', onGridClick); closeModalBtn.addEventListener('click', closeModal); modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeModal(); }); cancelEventBtn.addEventListener('click', closeModal); saveEventBtn.addEventListener('click', saveEvent); deleteEventBtn.addEventListener('click', deleteEvent); }
-  function onGridClick(e) { const ev = e.target.closest('.event'), cell = e.target.closest('.day-cell, .week-time-slot, .day-time-slot'); if (ev) { selectedEvent = events.find(x => x.id === ev.dataset.id); if (selectedEvent) openEditEventModal(selectedEvent); } else if (cell && cell.dataset.date) { selectedDate = cell.dataset.date; openAddEventModal(selectedDate, cell.dataset.hour || null); } }
-  function navigate(dir) { if (currentView === 'month') currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + (dir === 'prev' ? -1 : 1), 1); else if (currentView === 'week') currentDate.setDate(currentDate.getDate() + (dir === 'prev' ? -7 : 7)); else currentDate.setDate(currentDate.getDate() + (dir === 'prev' ? -1 : 1)); renderCalendar(); }
+        if (eventData.startAt >= eventData.endAt) {
+            alert('Start time must be before end time');
+            return;
+        }
 
-  // Start
-  initCalendar();
+        const url = eventData.id ? `${API_BASE}/${eventData.id}` : API_BASE;
+        const method = eventData.id ? 'PUT' : 'POST';
+        
+        console.log('Sending event data to server:', eventData);
+
+        try {
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    id: eventData.id,
+                    title: eventData.title,
+                    description: eventData.description || '',
+                    location: eventData.location || '',
+                    startAt: toLocalDateTime(eventData.startAt),
+                    endAt: toLocalDateTime(eventData.endAt),
+                    status: eventData.status || 'UPCOMING'
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || `Failed to save event: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log('Server response:', data);
+            
+            await loadEvents();
+            
+            if (eventDetails) {
+                eventDetails.style.display = 'none';
+            }
+            
+            if (eventForm) {
+                eventForm.reset();
+            }
+            
+            selectedEvent = null;
+        } catch (error) {
+            console.error('Error saving event:', error);
+            alert(error.message || 'Failed to save event. Please try again.');
+        }
+    }
+
+    async function deleteEvent(eventId) {
+        if (!eventId) {
+            console.error('Invalid event ID');
+            return;
+        }
+
+        if (!confirm('Are you sure you want to delete this event?')) {
+            return;
+        }
+
+        const url = `${API_BASE}/${eventId}`;
+        console.log('Deleting event:', url);
+
+        try {
+            const response = await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || `Failed to delete event: ${response.status}`);
+            }
+
+            console.log('Event deleted successfully');
+            
+            await loadEvents();
+            
+            if (eventDetails) {
+                eventDetails.style.display = 'none';
+            }
+            
+            if (eventForm) {
+                eventForm.reset();
+            }
+            
+            selectedEvent = null;
+        } catch (error) {
+            console.error('Error deleting event:', error);
+            alert(error.message || 'Failed to delete event. Please try again.');
+        }
+    }
+
+    function renderEvent(evt, cell) {
+        if (!evt || !cell) return;
+        
+        console.log('Rendering event block:', {
+            title: evt.title,
+            start: evt.startAt,
+            end: evt.endAt
+        });
+        
+        const block = document.createElement('div');
+        block.className = 'event-block';
+        
+        const startTime = new Date(evt.startAt);
+        const endTime = new Date(evt.endAt);
+        
+        // Calculate duration in hours
+        const duration = (endTime - startTime) / (1000 * 60 * 60);
+        
+        // Set block height based on duration
+        block.style.height = `${Math.max(30, duration * 60)}px`; // Minimum 30px height
+        block.style.minHeight = '30px';
+        
+        // Format time for display
+        const startTimeStr = formatTime(startTime);
+        const endTimeStr = formatTime(endTime);
+        block.textContent = `${evt.title}\n${startTimeStr} - ${endTimeStr}`;
+        block.style.backgroundColor = '#8c52ff';
+        block.style.color = 'white';
+        block.style.padding = '4px';
+        block.style.borderRadius = '4px';
+        block.style.margin = '2px';
+        block.style.overflow = 'hidden';
+        block.style.whiteSpace = 'nowrap';
+        block.style.textOverflow = 'ellipsis';
+        
+        block.onclick = (e) => {
+            e.stopPropagation();
+            selectedEvent = evt;
+            if (eventIdInput) eventIdInput.value = evt.id;
+            if (eventTitleInput) eventTitleInput.value = evt.title;
+            if (eventDescriptionInput) eventDescriptionInput.value = evt.description || '';
+            if (eventStartInput) eventStartInput.value = evt.startAt.slice(0, 16);
+            if (eventEndInput) eventEndInput.value = evt.endAt.slice(0, 16);
+            if (eventLocationInput) eventLocationInput.value = evt.location || '';
+            if (deleteEventBtn) {
+                deleteEventBtn.style.display = 'block';
+            }
+            if (eventDetails) eventDetails.style.display = 'block';
+        };
+        
+        cell.appendChild(block);
+    }
+
+    function closeEventForm() {
+        if (eventForm) {
+            eventForm.reset();
+            if (eventIdInput) eventIdInput.value = '';
+            if (deleteEventBtn) deleteEventBtn.style.display = 'none';
+            if (eventDetails) eventDetails.style.display = 'none';
+            selectedEvent = null;
+        }
+    }
+
+    function updateViewButtons() {
+        monthViewBtn.classList.toggle('active', currentView === 'month');
+        weekViewBtn.classList.toggle('active', currentView === 'week');
+        dayViewBtn.classList.toggle('active', currentView === 'day');
+        
+        monthGrid.style.display = currentView === 'month' ? 'grid' : 'none';
+        weekGrid.style.display = currentView === 'week' ? 'grid' : 'none';
+        dayGrid.style.display = currentView === 'day' ? 'grid' : 'none';
+    }
+
+    async function renderCurrentView() {
+        let startDate, endDate;
+        
+        if (currentView === 'month') {
+            startDate = getStartOfMonth(currentDate);
+            endDate = getEndOfMonth(currentDate);
+        } else if (currentView === 'week') {
+            startDate = getStartOfWeek(currentDate);
+            endDate = getEndOfWeek(currentDate);
+        } else { // day view
+            startDate = new Date(currentDate);
+            startDate.setHours(0, 0, 0, 0);
+            endDate = new Date(currentDate);
+            endDate.setHours(23, 59, 59, 999);
+        }
+
+        try {
+            await fetchEvents(startDate, endDate);
+            
+            if (currentView === 'month' && monthGrid) {
+                const dates = getMonthDates(currentDate);
+                createGridCells(monthGrid, dates);
+                renderEvents(monthGrid, dates);
+                if (currentPeriodDisplay) {
+                    currentPeriodDisplay.textContent = currentDate.toLocaleDateString('en-US', { 
+                        month: 'long',
+                        year: 'numeric'
+                    });
+                }
+            } else if (currentView === 'week' && weekGrid) {
+                const dates = getWeekDates(currentDate);
+                createGridCells(weekGrid, dates);
+                renderEvents(weekGrid, dates);
+                if (currentPeriodDisplay) {
+                    const weekStart = dates[0];
+                    const weekEnd = dates[dates.length - 1];
+                    currentPeriodDisplay.textContent = `${weekStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${weekEnd.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+                }
+            } else if (currentView === 'day' && dayGrid) {
+                const dates = [currentDate];
+                createGridCells(dayGrid, dates);
+                renderEvents(dayGrid, dates);
+                if (currentPeriodDisplay) {
+                    currentPeriodDisplay.textContent = currentDate.toLocaleDateString('en-US', { 
+                        weekday: 'long',
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric'
+                    });
+                }
+            }
+            
+            updateViewButtons();
+        } catch (error) {
+            console.error('Error rendering view:', error);
+            alert('Failed to load events. Please try again.');
+        }
+    }
+
+    // Date helper functions
+    function getStartOfWeek(date) {
+        const start = new Date(date);
+        start.setDate(start.getDate() - start.getDay());
+        return start;
+    }
+
+    function getEndOfWeek(date) {
+        const end = new Date(date);
+        end.setDate(end.getDate() + (6 - end.getDay()));
+        return end;
+    }
+
+    function getStartOfMonth(date) {
+        return new Date(date.getFullYear(), date.getMonth(), 1);
+    }
+
+    function getEndOfMonth(date) {
+        return new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    }
+
+    function formatTime(date) {
+        return date.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true,
+            timeZone: 'Asia/Kolkata' // Use IST
+        });
+    }
+
+    function getWeekDates(date) {
+        const start = getStartOfWeek(date);
+        const dates = [];
+        for (let i = 0; i < 7; i++) {
+            const current = new Date(start);
+            current.setDate(start.getDate() + i);
+            dates.push(current);
+        }
+        return dates;
+    }
+
+    function getMonthDates(date) {
+        const year = date.getFullYear();
+        const month = date.getMonth();
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        const dates = [];
+        
+        // Add days from previous month
+        const firstDayOfWeek = firstDay.getDay();
+        for (let i = firstDayOfWeek - 1; i >= 0; i--) {
+            const prevDate = new Date(year, month, -i);
+            dates.push(prevDate);
+        }
+        
+        // Add days of current month
+        for (let i = 1; i <= lastDay.getDate(); i++) {
+            dates.push(new Date(year, month, i));
+        }
+        
+        // Add days from next month
+        const remainingDays = 42 - dates.length; // 6 rows * 7 days
+        for (let i = 1; i <= remainingDays; i++) {
+            dates.push(new Date(year, month + 1, i));
+        }
+        
+        return dates;
+    }
+
+    function createGridCells(grid, dates) {
+        if (!grid) return;
+        grid.innerHTML = '';
+
+        if (currentView === 'month') {
+            grid.style.gridTemplateColumns = 'repeat(7, 1fr)';
+            grid.style.gridTemplateRows = '40px repeat(6, 1fr)';
+            
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            days.forEach(day => {
+                const dayLabel = document.createElement('div');
+                dayLabel.className = 'day-label';
+                dayLabel.textContent = day;
+                grid.appendChild(dayLabel);
+            });
+            
+            dates.forEach(date => {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.dataset.date = date.toISOString();
+                
+                const dateNum = document.createElement('div');
+                dateNum.className = 'date-number';
+                dateNum.textContent = date.getDate();
+                cell.appendChild(dateNum);
+                
+                cell.onclick = () => {
+                    // Create dates in IST
+                    const startDate = new Date(date);
+                    startDate.setHours(0, 0, 0, 0);
+                    const endDate = new Date(date);
+                    endDate.setHours(23, 59, 59);
+                    
+                    // Clear any existing event selection
+                    selectedEvent = null;
+                    if (eventIdInput) eventIdInput.value = '';
+                    
+                    // Set form values
+                    if (eventTitleInput) eventTitleInput.value = '';
+                    if (eventDescriptionInput) eventDescriptionInput.value = '';
+                    if (eventLocationInput) eventLocationInput.value = '';
+                    if (eventStartInput) eventStartInput.value = startDate.toISOString().slice(0, 16);
+                    if (eventEndInput) eventEndInput.value = endDate.toISOString().slice(0, 16);
+                    
+                    // Show form
+                    if (deleteEventBtn) deleteEventBtn.style.display = 'none';
+                    if (eventDetails) eventDetails.style.display = 'block';
+                };
+                
+                grid.appendChild(cell);
+            });
+        } else {
+            // Create empty cell for top-left corner
+            const emptyCell = document.createElement('div');
+            emptyCell.className = 'empty-cell';
+            grid.appendChild(emptyCell);
+
+            // Create day labels
+            dates.forEach(date => {
+                const dayLabel = document.createElement('div');
+                dayLabel.className = 'day-label';
+                dayLabel.textContent = date.toLocaleDateString('en-US', { weekday: 'short' });
+                grid.appendChild(dayLabel);
+            });
+
+            // Create time labels and cells
+            for (let hour = 0; hour < 24; hour++) {
+                // Time label
+                const timeLabel = document.createElement('div');
+                timeLabel.className = 'time-label';
+                const time = new Date();
+                time.setHours(hour, 0, 0, 0);
+                timeLabel.textContent = formatTime(time);
+                grid.appendChild(timeLabel);
+
+                // Event cells for each day
+                dates.forEach(date => {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    
+                    // Create date in IST
+                    const cellDate = new Date(date);
+                    cellDate.setHours(hour, 0, 0, 0);
+                    cell.dataset.date = cellDate.toISOString();
+                    cell.dataset.hour = hour;
+                    
+                    // Add visual styling to cells
+                    cell.style.border = '1px solid #ddd';
+                    cell.style.minHeight = '60px';
+                    cell.style.position = 'relative';
+                    
+                    cell.onclick = () => {
+                        // Create dates in IST
+                        const startDate = new Date(date);
+                        startDate.setHours(hour, 0, 0, 0);
+                        const endDate = new Date(date);
+                        endDate.setHours(hour + 1, 0, 0, 0);
+                        
+                        // Clear any existing event selection
+                        selectedEvent = null;
+                        if (eventIdInput) eventIdInput.value = '';
+                        
+                        // Set form values
+                        if (eventTitleInput) eventTitleInput.value = '';
+                        if (eventDescriptionInput) eventDescriptionInput.value = '';
+                        if (eventLocationInput) eventLocationInput.value = '';
+                        if (eventStartInput) eventStartInput.value = startDate.toISOString().slice(0, 16);
+                        if (eventEndInput) eventEndInput.value = endDate.toISOString().slice(0, 16);
+                        
+                        // Show form
+                        if (deleteEventBtn) deleteEventBtn.style.display = 'none';
+                        if (eventDetails) eventDetails.style.display = 'block';
+                    };
+                    
+                    grid.appendChild(cell);
+                });
+            }
+        }
+    }
+
+    function renderEvents(grid, dates) {
+        if (!grid || !events) return;
+        
+        console.log('Rendering events for dates:', dates);
+        console.log('Available events:', events);
+        
+        const cells = grid.querySelectorAll('.cell');
+        cells.forEach(cell => {
+            const cellDate = new Date(cell.dataset.date);
+            const cellHour = parseInt(cell.dataset.hour) || 0;
+            
+            console.log('Processing cell:', {
+                date: cellDate.toISOString(),
+                hour: cellHour
+            });
+            
+            events.forEach(event => {
+                const eventStart = new Date(event.startAt);
+                const eventEnd = new Date(event.endAt);
+                
+                console.log('Checking event:', {
+                    title: event.title,
+                    start: eventStart.toISOString(),
+                    end: eventEnd.toISOString()
+                });
+                
+                if (currentView === 'month') {
+                    if (isSameDay(eventStart, cellDate)) {
+                        console.log('Rendering event in month view:', event.title);
+                        renderEvent(event, cell);
+                    }
+                } else {
+                    // For week and day views, check if the event overlaps with this hour
+                    if (isSameDay(eventStart, cellDate)) {
+                        const eventStartHour = eventStart.getHours();
+                        const eventEndHour = eventEnd.getHours();
+                        
+                        console.log('Event hours:', {
+                            startHour: eventStartHour,
+                            endHour: eventEndHour,
+                            cellHour: cellHour
+                        });
+                        
+                        // Check if the event overlaps with this hour
+                        if ((cellHour >= eventStartHour && cellHour < eventEndHour) || 
+                            (eventStartHour === cellHour)) {
+                            console.log('Rendering event in week/day view:', event.title);
+                            renderEvent(event, cell);
+                        }
+                    }
+                }
+            });
+        });
+    }
+
+    function isSameDay(a, b) {
+        return a.getFullYear() === b.getFullYear() &&
+               a.getMonth() === b.getMonth() &&
+               a.getDate() === b.getDate();
+    }
+
+    // Add date utility functions
+    function toLocalDateTime(date) {
+        return date.toLocaleString('en-US', {
+            timeZone: 'Asia/Kolkata',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        }).replace(/(\d+)\/(\d+)\/(\d+),\s(\d+):(\d+):(\d+)/, '$3-$1-$2T$4:$5:$6');
+    }
+
+    function fromLocalDateTime(dateStr) {
+        const [datePart, timePart] = dateStr.split('T');
+        const [year, month, day] = datePart.split('-');
+        const [hour, minute] = timePart.split(':');
+        return new Date(year, month - 1, day, hour, minute);
+    }
+
+    // Update loadEvents function
+    async function loadEvents() {
+        const start = new Date();
+        start.setHours(0, 0, 0, 0);
+        const end = new Date(start);
+        end.setDate(end.getDate() + 7);
+
+        const url = `${API_BASE}?start=${toLocalDateTime(start)}&end=${toLocalDateTime(end)}`;
+        console.log('Fetching events from:', url);
+        
+        try {
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || `Failed to fetch events: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log('Fetched events:', data);
+            
+            if (Array.isArray(data)) {
+                events = data.map(event => ({
+                    ...event,
+                    startAt: fromLocalDateTime(event.startAt),
+                    endAt: fromLocalDateTime(event.endAt)
+                }));
+                renderCurrentView();
+            } else {
+                console.error('Invalid response format:', data);
+                events = [];
+                renderCurrentView();
+            }
+        } catch (error) {
+            console.error('Error fetching events:', error);
+            events = [];
+            renderCurrentView();
+            if (events.length > 0) {
+                alert(error.message || 'Failed to load events. Please refresh the page.');
+            }
+        }
+    }
+
+    // Initialize calendar
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('Schedule.js loaded!');
+        try {
+            loadEvents();
+        } catch (error) {
+            console.error('Error initializing calendar:', error);
+            alert('Failed to initialize calendar. Please refresh the page.');
+        }
+    });
 });
