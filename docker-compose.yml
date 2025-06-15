@@ -1,20 +1,18 @@
 version: '3.8'
 
 services:
-  mysql:
-    image: mysql:8.0
-    container_name: organizeu-mysql
+  postgres:
+    image: postgres:16
+    container_name: organizeu-postgres
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: organizeu_db
-      MYSQL_USER: organizeu
-      MYSQL_PASSWORD: organizeu123
+      POSTGRES_DB: organizeudb
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: Sambhav70+
     ports:
-      - "3307:3306"
+      - "5432:5432"
     volumes:
-      - mysql_data:/var/lib/mysql
-    command: --default-authentication-plugin=mysql_native_password
+      - pg_data:/var/lib/postgresql/data
     restart: unless-stopped
 
 volumes:
-  mysql_data: 
+  pg_data:
