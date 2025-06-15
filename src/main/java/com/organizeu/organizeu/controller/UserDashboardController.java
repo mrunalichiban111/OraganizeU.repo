@@ -48,7 +48,7 @@ public class UserDashboardController {
         try {
             if (principal == null) {
                 logger.warn("No authenticated user found");
-                return "redirect:/login";
+                return "redirect:/login2";
             }
 
             String email = principal.getAttribute("email");
@@ -58,7 +58,7 @@ public class UserDashboardController {
             
             if (userOpt.isEmpty()) {
                 logger.warn("User not found for email: {}", email);
-                return "redirect:/login";
+                return "redirect:/login2";
             }
 
             User user = userOpt.get();
@@ -105,4 +105,16 @@ public class UserDashboardController {
             return "redirect:/error";
         }
     }
-} 
+
+    @GetMapping("/schedule")
+    public String showSchedulePage(@AuthenticationPrincipal OAuth2User principal, Model model) {
+        if (principal == null) {
+            return "redirect:/login2";
+        }
+        String email = principal.getAttribute("email");
+        User user = userService.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found for email: " + email));
+        model.addAttribute("user", user);
+        return "schedule";
+    }
+}
