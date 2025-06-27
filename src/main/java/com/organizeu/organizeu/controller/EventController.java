@@ -2,7 +2,6 @@ package com.organizeu.organizeu.controller;
 
 import com.organizeu.organizeu.dto.CalendarEventDTO;
 import com.organizeu.organizeu.model.CalendarEvent;
-import com.organizeu.organizeu.model.EventStatus;
 import com.organizeu.organizeu.model.User;
 import com.organizeu.organizeu.service.CalendarEventService;
 import com.organizeu.organizeu.service.UserService;
@@ -233,4 +232,4 @@ public class EventController {
             return ResponseEntity.badRequest().body(error);
         }
     }
-} 
+}
