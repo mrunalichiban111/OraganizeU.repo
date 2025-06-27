@@ -1,13 +1,9 @@
 package com.organizeu.organizeu.controller;
 
 import com.organizeu.organizeu.model.Resource;
-import com.organizeu.organizeu.model.User;
 import com.organizeu.organizeu.service.ResourceService;
-import com.organizeu.organizeu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,19 +23,12 @@ public class ResourceController {
     @Autowired
     private ResourceService resourceService;
 
-    @Autowired
-    private UserService userService;
-
     private final Path fileStorageLocation = Paths.get("uploads").toAbsolutePath().normalize();
 
     @GetMapping
-    public String listResources(@AuthenticationPrincipal OAuth2User principal, Model model) {
-        if (principal == null) {
-            return "redirect:/login2";
-        }
-        String email = principal.getAttribute("email");
-        User user = userService.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
-        List<Resource> resources = resourceService.findByOwner(user);
+    public String listResources(Model model) {
+        // No authentication or user filtering
+        List<Resource> resources = resourceService.findAll();
         model.addAttribute("resources", resources);
         return "resource_management";
     }
@@ -54,14 +43,7 @@ public class ResourceController {
     public String createResource(@RequestParam("file") MultipartFile file,
                                @RequestParam("title") String title,
                                @RequestParam("description") String description,
-                               @RequestParam("category") String category,
-                               @AuthenticationPrincipal OAuth2User principal) {
-        if (principal == null) {
-            return "redirect:/login2";
-        }
-        String email = principal.getAttribute("email");
-        User user = userService.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
-
+                               @RequestParam("category") String category) {
         try {
             String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
             Path targetLocation = fileStorageLocation.resolve(fileName);
@@ -73,7 +55,7 @@ public class ResourceController {
             resource.setCategory(category);
             resource.setFilePath(fileName);
             resource.setCreatedAt(LocalDateTime.now());
-            resource.setOwner(user);
+            // No owner set
 
             resourceService.saveResource(resource);
             return "redirect:/resources";
@@ -83,35 +65,15 @@ public class ResourceController {
     }
 
     @GetMapping("/{id}")
-    public String viewResource(@PathVariable Long id, @AuthenticationPrincipal OAuth2User principal, Model model) {
-        if (principal == null) {
-            return "redirect:/login2";
-        }
-        String email = principal.getAttribute("email");
-        User user = userService.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+    public String viewResource(@PathVariable Long id, Model model) {
         Resource resource = resourceService.findById(id).orElseThrow(() -> new RuntimeException("Resource not found"));
-        
-        if (!resource.getOwner().getId().equals(user.getId())) {
-            return "redirect:/resources";
-        }
-        
         model.addAttribute("resource", resource);
         return "resource_management";
     }
 
     @GetMapping("/{id}/edit")
-    public String showEditForm(@PathVariable Long id, @AuthenticationPrincipal OAuth2User principal, Model model) {
-        if (principal == null) {
-            return "redirect:/login2";
-        }
-        String email = principal.getAttribute("email");
-        User user = userService.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+    public String showEditForm(@PathVariable Long id, Model model) {
         Resource resource = resourceService.findById(id).orElseThrow(() -> new RuntimeException("Resource not found"));
-        
-        if (!resource.getOwner().getId().equals(user.getId())) {
-            return "redirect:/resources";
-        }
-        
         model.addAttribute("resource", resource);
         return "resource_management";
     }
@@ -121,20 +83,10 @@ public class ResourceController {
                                @RequestParam("file") MultipartFile file,
                                @RequestParam("title") String title,
                                @RequestParam("description") String description,
-                               @RequestParam("category") String category,
-                               @AuthenticationPrincipal OAuth2User principal) {
-        if (principal == null) {
-            return "redirect:/login2";
-        }
-        String email = principal.getAttribute("email");
-        User user = userService.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
-        Resource resource = resourceService.findById(id).orElseThrow(() -> new RuntimeException("Resource not found"));
-        
-        if (!resource.getOwner().getId().equals(user.getId())) {
-            return "redirect:/resources";
-        }
-
+                               @RequestParam("category") String category) {
         try {
+            Resource resource = resourceService.findById(id).orElseThrow(() -> new RuntimeException("Resource not found"));
+            
             if (!file.isEmpty()) {
                 String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
                 Path targetLocation = fileStorageLocation.resolve(fileName);
@@ -145,7 +97,6 @@ public class ResourceController {
             resource.setTitle(title);
             resource.setDescription(description);
             resource.setCategory(category);
-            resource.setOwner(user);
 
             resourceService.saveResource(resource);
             return "redirect:/resources";
@@ -155,34 +106,14 @@ public class ResourceController {
     }
 
     @PostMapping("/{id}/delete")
-    public String deleteResource(@PathVariable Long id, @AuthenticationPrincipal OAuth2User principal) {
-        if (principal == null) {
-            return "redirect:/login2";
-        }
-        String email = principal.getAttribute("email");
-        User user = userService.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
-        Resource resource = resourceService.findById(id).orElseThrow(() -> new RuntimeException("Resource not found"));
-        
-        if (!resource.getOwner().getId().equals(user.getId())) {
-            return "redirect:/resources";
-        }
-        
+    public String deleteResource(@PathVariable Long id) {
         resourceService.deleteResource(id);
         return "redirect:/resources";
     }
 
     @GetMapping("/download/{id}")
-    public ResponseEntity<byte[]> downloadResource(@PathVariable Long id, @AuthenticationPrincipal OAuth2User principal) {
-        if (principal == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        String email = principal.getAttribute("email");
-        User user = userService.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+    public ResponseEntity<byte[]> downloadResource(@PathVariable Long id) {
         Resource resource = resourceService.findById(id).orElseThrow(() -> new RuntimeException("Resource not found"));
-        
-        if (!resource.getOwner().getId().equals(user.getId())) {
-            return ResponseEntity.badRequest().build();
-        }
         
         try {
             Path filePath = fileStorageLocation.resolve(resource.getFilePath());
