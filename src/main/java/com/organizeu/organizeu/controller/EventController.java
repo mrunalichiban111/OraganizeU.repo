@@ -6,8 +6,6 @@ import com.organizeu.organizeu.service.CalendarEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -66,7 +64,6 @@ public class EventController {
     @GetMapping("/events")
     @ResponseBody
     public ResponseEntity<?> getEvents(
-            @AuthenticationPrincipal OAuth2User principal,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) String start,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) String end) {
         try {
@@ -88,7 +85,7 @@ public class EventController {
     }
 
     @GetMapping("/calendar")
-    public String showCalendar(@AuthenticationPrincipal OAuth2User principal, Model model) {
+    public String showCalendar(Model model) {
         // REMOVED: if (principal == null) { ... }
         // REMOVED: User lookup by principal
         // Just return the calendar view
@@ -98,7 +95,6 @@ public class EventController {
     @PostMapping("/events")
     @ResponseBody
     public ResponseEntity<?> createEvent(
-            @AuthenticationPrincipal OAuth2User principal,
             @RequestBody CalendarEventDTO eventDTO) {
         try {
             if (eventDTO.getStartAt() != null) {
@@ -129,7 +125,6 @@ public class EventController {
     @PutMapping("/events/{id}")
     @ResponseBody
     public ResponseEntity<?> updateEvent(
-            @AuthenticationPrincipal OAuth2User principal,
             @PathVariable Long id,
             @RequestBody CalendarEventDTO eventDTO) {
         try {
@@ -164,7 +159,6 @@ public class EventController {
     @DeleteMapping("/events/{id}")
     @ResponseBody
     public ResponseEntity<?> deleteEvent(
-            @AuthenticationPrincipal OAuth2User principal,
             @PathVariable Long id) {
         try {
             // REMOVED: if (principal == null) { ... }
