@@ -157,4 +157,9 @@ public class ResourceServiceImpl implements ResourceService {
     public List<Resource> findByOwnerOrderByCreatedAtDesc(User owner) {
         return resourceRepository.findByOwnerOrderByCreatedAtDesc(owner);
     }
-} 
+
+    @Override
+    public List<Resource> findAll() {
+        return resourceRepository.findAll();
+    }
+}

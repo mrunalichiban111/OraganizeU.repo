@@ -31,4 +31,5 @@ public interface ResourceService {
     long countByOwner(User owner);
     List<Resource> findTop3ByOwnerOrderByCreatedAtDesc(User owner);
     List<Resource> findByOwnerOrderByCreatedAtDesc(User owner);
-} 
+    List<Resource> findAll();
+}
