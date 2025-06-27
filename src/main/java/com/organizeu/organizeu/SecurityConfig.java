@@ -28,17 +28,17 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/assets/**", "/error", "/access-denied").permitAll()
-                .requestMatchers("/user/**", "/resources/**", "/schedule").authenticated()
+                .requestMatchers("/user/**", "/resources/**", "/schedule").permitAll()
                 .anyRequest().permitAll()
             )
             .formLogin(form -> form
                 .loginPage("/login2")
-                .defaultSuccessUrl("/schedule", true)
+                .defaultSuccessUrl("/", true)
                 .permitAll()
             )
             .oauth2Login(oauth2 -> oauth2
                 .loginPage("/login2")
-                .defaultSuccessUrl("/schedule", true)
+                .defaultSuccessUrl("/", true)
                 .userInfoEndpoint(userInfo -> userInfo
                     .userService(customOAuth2UserService)
                 )
