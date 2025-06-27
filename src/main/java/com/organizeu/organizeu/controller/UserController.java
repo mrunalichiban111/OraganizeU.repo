@@ -1,5 +1,6 @@
 package com.organizeu.organizeu.controller;
 
+import com.organizeu.organizeu.model.User;
 import com.organizeu.organizeu.service.ProfileImageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,13 +21,14 @@ public class UserController {
 
     @GetMapping("/profile")
     public String showProfile(Model model) {
-        // No authentication or user lookup
+        // Always add a user object (real or generic)
+        model.addAttribute("user", getCurrentOrGenericUser());
         return "user/profile";
     }
 
     @GetMapping("/settings")
     public String showSettings(Model model) {
-        // No authentication or user lookup
+        model.addAttribute("user", getCurrentOrGenericUser());
         return "user/settings";
     }
 
@@ -39,5 +41,14 @@ public class UserController {
     @GetMapping("/api/profile-image/{filename}")
     public ResponseEntity<Resource> serveProfileImage(@PathVariable String filename) {
         return profileImageService.serveProfileImage(filename);
+    }
+
+    private User getCurrentOrGenericUser() {
+        User user = new User();
+        user.setName("Guest");
+        user.setEmail("guest@organizeu.com");
+        user.setPicture("/assets/default-profile.svg");
+        user.setJoinDate(java.time.LocalDateTime.now());
+        return user;
     }
 }
