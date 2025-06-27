@@ -34,8 +34,8 @@
     <!-- Main Content -->
     <div class="container">
         <div class="error-container">
-            <h1>Oops!</h1>
-            <p>Something went wrong on our end.</p>
+            <h1>Oops! Something went wrong</h1>
+            <p th:text="${error} ?: 'Unknown error'"></p>
             <p>We're sorry for the inconvenience. Please try again later or go back to the homepage.</p>
             <a th:href="@{/}" class="btn btn-primary">Go to Homepage</a>
         </div>

@@ -65,7 +65,10 @@
           </h1>
           <div class="hero-content text-center">
             <h1 class="display-4 mb-4 text-white">
-              <span class="typewriter" th:text="${#authentication.authenticated and #authentication.principal instanceof T(com.organizeu.organizeu.security.CustomOAuth2User)} ? 'Hello ' + #authentication.principal.name + '!' : 'Welcome to OrganizeU!'">Welcome to OrganizeU!</span>
+              <span class="typewriter"
+                    th:text="${#authentication.authenticated} ? 'Hello ' + #authentication.name + '!' : 'Welcome to OrganizeU!'">
+                Welcome to OrganizeU!
+              </span>
             </h1>
             <p class="lead">Let's get started</p>
           </div>
