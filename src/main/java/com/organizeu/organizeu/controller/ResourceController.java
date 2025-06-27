@@ -35,7 +35,7 @@ public class ResourceController {
     @GetMapping
     public String listResources(@AuthenticationPrincipal OAuth2User principal, Model model) {
         if (principal == null) {
-            return "redirect:/login";
+            return "redirect:/login2";
         }
         String email = principal.getAttribute("email");
         User user = userService.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
@@ -57,7 +57,7 @@ public class ResourceController {
                                @RequestParam("category") String category,
                                @AuthenticationPrincipal OAuth2User principal) {
         if (principal == null) {
-            return "redirect:/login";
+            return "redirect:/login2";
         }
         String email = principal.getAttribute("email");
         User user = userService.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
@@ -85,7 +85,7 @@ public class ResourceController {
     @GetMapping("/{id}")
     public String viewResource(@PathVariable Long id, @AuthenticationPrincipal OAuth2User principal, Model model) {
         if (principal == null) {
-            return "redirect:/login";
+            return "redirect:/login2";
         }
         String email = principal.getAttribute("email");
         User user = userService.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
@@ -102,7 +102,7 @@ public class ResourceController {
     @GetMapping("/{id}/edit")
     public String showEditForm(@PathVariable Long id, @AuthenticationPrincipal OAuth2User principal, Model model) {
         if (principal == null) {
-            return "redirect:/login";
+            return "redirect:/login2";
         }
         String email = principal.getAttribute("email");
         User user = userService.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
@@ -124,7 +124,7 @@ public class ResourceController {
                                @RequestParam("category") String category,
                                @AuthenticationPrincipal OAuth2User principal) {
         if (principal == null) {
-            return "redirect:/login";
+            return "redirect:/login2";
         }
         String email = principal.getAttribute("email");
         User user = userService.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
@@ -157,7 +157,7 @@ public class ResourceController {
     @PostMapping("/{id}/delete")
     public String deleteResource(@PathVariable Long id, @AuthenticationPrincipal OAuth2User principal) {
         if (principal == null) {
-            return "redirect:/login";
+            return "redirect:/login2";
         }
         String email = principal.getAttribute("email");
         User user = userService.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
