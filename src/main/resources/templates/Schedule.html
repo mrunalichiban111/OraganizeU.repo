@@ -268,6 +268,10 @@
 </head>
 <body>
     <div th:insert="fragments/navbar :: navbar"></div>
+    <!-- Error message display -->
+    <div th:if="${errorMessage}" class="alert alert-danger text-center" role="alert" style="margin-top: 1rem;">
+        <span th:text="${errorMessage}"></span>
+    </div>
     <div class="schedule-container mt-5">
         <div class="main-content">
             <div class="schedule-header">
@@ -281,10 +285,24 @@
                     <button class="view-btn active" id="weekViewBtn">Week</button>
                     <button class="view-btn" id="dayViewBtn">Day</button>
                 </div>
+                <!-- User info display -->
+                <div th:if="${user != null}" class="d-flex align-items-center ms-3">
+                    <img th:src="${user.profileImageUrl}" alt="Profile" class="rounded-circle me-2" style="width:32px;height:32px;object-fit:cover;">
+                    <span th:text="${user.name}"></span>
+                </div>
             </div>
             <div class="schedule-views-container">
                 <div class="schedule-grid" id="monthGrid" style="display:none;"></div>
-                <div class="schedule-grid" id="weekGrid"></div>
+                <div class="schedule-grid" id="weekGrid">
+                    <!-- Fallback for no events (if server-side rendering) -->
+                    <div th:if="${#lists.isEmpty(events)}" class="text-center text-muted" style="grid-column: 1 / -1; padding: 2rem;">
+                        No events scheduled for this period.
+                    </div>
+                    <!-- Example event rendering (if events are passed from backend) -->
+                    <div th:each="event : ${events}" class="event-block"
+                         th:style="'top:' + ${event.top} + 'px; left:' + ${event.left} + 'px; height:' + ${event.height} + 'px; width:' + ${event.width} + 'px;'"
+                         th:text="${event.title}"></div>
+                </div>
                 <div class="schedule-grid" id="dayGrid" style="display:none;"></div>
             </div>
         </div>

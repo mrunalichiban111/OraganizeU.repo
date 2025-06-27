@@ -32,9 +32,14 @@ public class PageController implements ErrorController {
         return "notes";
     }
 
+    @GetMapping("/access-denied")
+    public String accessDenied() {
+        return "access-denied";
+    }
+
     @RequestMapping("/error")
     public String handleError() {
         // This will render the error.html page
         return "error";
     }
-} 
+}

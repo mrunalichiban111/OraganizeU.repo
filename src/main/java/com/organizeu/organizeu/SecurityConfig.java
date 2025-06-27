@@ -27,24 +27,19 @@ public class SecurityConfig {
         
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/assets/**").permitAll()
-                .requestMatchers("/api/events/**").permitAll()
-                .requestMatchers(
-                    "/", "/aboutus", "/login", "/login2", "/register",
-                    "/Schedule", "/schedule", "/resource_management",
-                    "/resources/**", "/calendar", "/user/**", "/tasks", "/notes"
-                ).permitAll()
-                .anyRequest().permitAll() // Make everything public
+                .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/assets/**", "/error").permitAll()
+                .requestMatchers("/", "/aboutus", "/login2", "/register").permitAll()
+                .requestMatchers("/schedule", "/resource_management", "/resources/**", "/calendar", "/tasks", "/notes", "/user/**").authenticated()
+                .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login2")
-                .loginProcessingUrl("/do-login")
-                .defaultSuccessUrl("/", true)
+                .defaultSuccessUrl("/schedule", true)
                 .permitAll()
             )
             .oauth2Login(oauth2 -> oauth2
                 .loginPage("/login2")
-                .defaultSuccessUrl("/", true)
+                .defaultSuccessUrl("/schedule", true)
                 .userInfoEndpoint(userInfo -> userInfo
                     .userService(customOAuth2UserService)
                 )
@@ -53,6 +48,9 @@ public class SecurityConfig {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login2?logout")
                 .permitAll()
+            )
+            .exceptionHandling(ex -> ex
+                .accessDeniedPage("/access-denied")
             )
             .csrf(csrf -> csrf
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
