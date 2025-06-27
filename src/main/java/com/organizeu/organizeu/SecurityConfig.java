@@ -30,9 +30,12 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/assets/**").permitAll()
                 .requestMatchers("/api/events/**").permitAll()
-                .requestMatchers("/", "/aboutus", "/login", "/login2", "/register","/Schedule","/resource_management").permitAll()
-                .requestMatchers("/user/**", "/resources/**", "/calendar", "/tasks", "/notes").authenticated()
-                .anyRequest().authenticated()
+                .requestMatchers(
+                    "/", "/aboutus", "/login", "/login2", "/register",
+                    "/Schedule", "/schedule", "/resource_management",
+                    "/resources/**", "/calendar", "/user/**", "/tasks", "/notes"
+                ).permitAll()
+                .anyRequest().permitAll() // Make everything public
             )
             .formLogin(form -> form
                 .loginPage("/login2")
