@@ -19,7 +19,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/resources")
@@ -195,4 +194,4 @@ public class ResourceController {
             throw new RuntimeException("Failed to download file", e);
         }
     }
-} 
+}
