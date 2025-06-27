@@ -4,6 +4,9 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import com.organizeu.organizeu.security.CustomOAuth2User;
+import org.springframework.ui.Model;
 
 @Controller
 public class PageController implements ErrorController {
@@ -28,17 +31,32 @@ public class PageController implements ErrorController {
     }
 
     @GetMapping("/notes")
-    public String notes() {
+    public String notes(Model model, @AuthenticationPrincipal CustomOAuth2User principal) {
+        if (principal != null) {
+            model.addAttribute("user", principal);
+        } else {
+            model.addAttribute("user", null);
+        }
         return "notes";
     }
 
     @GetMapping("/access-denied")
-    public String accessDenied() {
+    public String accessDenied(Model model, @AuthenticationPrincipal CustomOAuth2User principal) {
+        if (principal != null) {
+            model.addAttribute("user", principal);
+        } else {
+            model.addAttribute("user", null);
+        }
         return "access-denied";
     }
 
     @RequestMapping("/error")
-    public String handleError() {
+    public String handleError(Model model, @AuthenticationPrincipal CustomOAuth2User principal) {
+        if (principal != null) {
+            model.addAttribute("user", principal);
+        } else {
+            model.addAttribute("user", null);
+        }
         // This will render the error.html page
         return "error";
     }
