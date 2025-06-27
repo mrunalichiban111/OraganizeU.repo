@@ -28,7 +28,7 @@ public class UserController {
     @GetMapping("/profile")
     public String showProfile(@AuthenticationPrincipal OAuth2User principal, Model model) {
         if (principal == null) {
-            return "redirect:/login";
+            return "redirect:/login2";
         }
 
         String email = principal.getAttribute("email");
@@ -42,7 +42,7 @@ public class UserController {
     @GetMapping("/settings")
     public String showSettings(@AuthenticationPrincipal OAuth2User principal, Model model) {
         if (principal == null) {
-            return "redirect:/login";
+            return "redirect:/login2";
         }
 
         String email = principal.getAttribute("email");
