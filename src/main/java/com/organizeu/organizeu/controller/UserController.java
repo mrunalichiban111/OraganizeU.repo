@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.Resource;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 @Controller
 @RequestMapping("/user")
@@ -19,16 +21,16 @@ public class UserController {
     @Autowired
     private ProfileImageService profileImageService;
 
+
     @GetMapping("/profile")
-    public String showProfile(Model model) {
-        // Always add a user object (real or generic)
-        model.addAttribute("user", getCurrentOrGenericUser());
+    public String showProfile(Model model, @AuthenticationPrincipal Object principal) {
+        model.addAttribute("user", getUserFromPrincipal(principal));
         return "user/profile";
     }
 
     @GetMapping("/settings")
-    public String showSettings(Model model) {
-        model.addAttribute("user", getCurrentOrGenericUser());
+    public String showSettings(Model model, @AuthenticationPrincipal Object principal) {
+        model.addAttribute("user", getUserFromPrincipal(principal));
         return "user/settings";
     }
 
@@ -43,7 +45,24 @@ public class UserController {
         return profileImageService.serveProfileImage(filename);
     }
 
-    private User getCurrentOrGenericUser() {
+    private User getUserFromPrincipal(Object principal) {
+        if (principal == null) {
+            User user = new User();
+            user.setName("Guest");
+            user.setEmail("guest@organizeu.com");
+            user.setPicture("/assets/default-profile.svg");
+            user.setJoinDate(java.time.LocalDateTime.now());
+            return user;
+        }
+        if (principal instanceof OAuth2User oAuth2User) {
+            User user = new User();
+            user.setName((String) oAuth2User.getAttribute("name"));
+            user.setEmail((String) oAuth2User.getAttribute("email"));
+            user.setPicture((String) oAuth2User.getAttribute("picture"));
+            user.setJoinDate(java.time.LocalDateTime.now());
+            return user;
+        }
+        // fallback guest
         User user = new User();
         user.setName("Guest");
         user.setEmail("guest@organizeu.com");

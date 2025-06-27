@@ -27,8 +27,12 @@ public class SecurityConfig {
         
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/assets/**", "/error", "/access-denied").permitAll()
-                .requestMatchers("/user/**", "/resources/**", "/schedule").permitAll()
+                .requestMatchers(
+                    "/css/**", "/js/**", "/images/**", "/webjars/**", "/assets/**", "/error", "/access-denied", "/aboutus", "/calendar", "/tasks", "/notes", "/register", "/login2", "/health", "/"
+                ).permitAll()
+                .requestMatchers(
+                    "/user/**", "/resources/**", "/schedule"
+                ).authenticated()
                 .anyRequest().permitAll()
             )
             .formLogin(form -> form
