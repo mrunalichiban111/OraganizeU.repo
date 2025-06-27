@@ -27,9 +27,7 @@ public class ResourceController {
 
     @GetMapping
     public String listResources(Model model) {
-        // No authentication or user filtering
-        List<Resource> resources = resourceService.findAll();
-        model.addAttribute("resources", resources);
+        model.addAttribute("resources", resourceService.findAll());
         return "resource_management";
     }
 

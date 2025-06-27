@@ -1,5 +1,4 @@
 package com.organizeu.organizeu;
-
 import com.organizeu.organizeu.service.CustomOAuth2UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +58,6 @@ public class SecurityConfig {
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .ignoringRequestMatchers("/api/**")
             );
-
         logger.info("Security filter chain configured successfully");
         return http.build();
     }
