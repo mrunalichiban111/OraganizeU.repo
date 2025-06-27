@@ -22,12 +22,7 @@ public class UserDashboardController {
         return "user/dashboard";
     }
 
-    @GetMapping("/schedule")
-    public String showSchedulePage(Model model, @AuthenticationPrincipal Object principal) {
-        User user = getUserFromPrincipal(principal);
-        model.addAttribute("user", user);
-        return "schedule";
-    }
+    // Removed redundant /user/schedule mapping. Use /schedule from ScheduleController only.
 
     private User getUserFromPrincipal(Object principal) {
         if (principal == null) {
