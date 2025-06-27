@@ -37,12 +37,12 @@ public class SecurityConfig {
             .formLogin(form -> form
                 .loginPage("/login2")
                 .loginProcessingUrl("/do-login")
-                .defaultSuccessUrl("/user/dashboard", true)
+                .defaultSuccessUrl("/", true)
                 .permitAll()
             )
             .oauth2Login(oauth2 -> oauth2
                 .loginPage("/login2")
-                .defaultSuccessUrl("/user/dashboard", true)
+                .defaultSuccessUrl("/", true)
                 .userInfoEndpoint(userInfo -> userInfo
                     .userService(customOAuth2UserService)
                 )
