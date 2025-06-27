@@ -2,9 +2,7 @@ package com.organizeu.organizeu.controller;
 
 import com.organizeu.organizeu.dto.CalendarEventDTO;
 import com.organizeu.organizeu.model.CalendarEvent;
-import com.organizeu.organizeu.model.User;
 import com.organizeu.organizeu.service.CalendarEventService;
-import com.organizeu.organizeu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +17,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.stream.Collectors;
 
 @Controller
@@ -31,9 +29,6 @@ public class EventController {
 
     @Autowired
     private CalendarEventService calendarEventService;
-
-    @Autowired
-    private UserService userService;
 
     private static final ZoneId ZONE_ID = ZoneId.of("Asia/Kolkata");
 
@@ -74,20 +69,12 @@ public class EventController {
             @AuthenticationPrincipal OAuth2User principal,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) String start,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) String end) {
-        
         try {
-            if (principal == null) {
-                return ResponseEntity.badRequest().body(Map.of("error", "User not authenticated"));
-            }
-
-            String email = principal.getAttribute("email");
-            User user = userService.findByEmail(email)
-                    .orElseThrow(() -> new RuntimeException("User not found"));
-
             LocalDateTime startDateTime = parseDateTime(start);
             LocalDateTime endDateTime = parseDateTime(end);
 
-            List<CalendarEvent> events = calendarEventService.getEventsForDateRange(user, startDateTime, endDateTime);
+            // Instead, fetch all events for the date range (no user filtering)
+            List<CalendarEvent> events = calendarEventService.getEventsForDateRange(null, startDateTime, endDateTime);
             List<CalendarEventDTO> dtos = events.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -102,15 +89,9 @@ public class EventController {
 
     @GetMapping("/calendar")
     public String showCalendar(@AuthenticationPrincipal OAuth2User principal, Model model) {
-        if (principal == null) {
-            return "redirect:/login";
-        }
-
-        String email = principal.getAttribute("email");
-        User user = userService.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        model.addAttribute("user", user);
+        // REMOVED: if (principal == null) { ... }
+        // REMOVED: User lookup by principal
+        // Just return the calendar view
         return "calendar";
     }
 
@@ -119,16 +100,7 @@ public class EventController {
     public ResponseEntity<?> createEvent(
             @AuthenticationPrincipal OAuth2User principal,
             @RequestBody CalendarEventDTO eventDTO) {
-        
         try {
-            if (principal == null) {
-                return ResponseEntity.badRequest().body(Map.of("error", "User not authenticated"));
-            }
-
-            String email = principal.getAttribute("email");
-            User user = userService.findByEmail(email)
-                    .orElseThrow(() -> new RuntimeException("User not found"));
-
             if (eventDTO.getStartAt() != null) {
                 LocalDateTime startDateTime = parseDateTime(eventDTO.getStartAt().toString());
                 eventDTO.setStartAt(startDateTime);
@@ -145,7 +117,7 @@ public class EventController {
                 }
             }
 
-            CalendarEventDTO savedEvent = calendarEventService.createEvent(eventDTO, user);
+            CalendarEventDTO savedEvent = calendarEventService.createEvent(eventDTO, null);
             return ResponseEntity.ok(savedEvent);
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
@@ -160,23 +132,10 @@ public class EventController {
             @AuthenticationPrincipal OAuth2User principal,
             @PathVariable Long id,
             @RequestBody CalendarEventDTO eventDTO) {
-        
         try {
-            if (principal == null) {
-                return ResponseEntity.badRequest().body(Map.of("error", "User not authenticated"));
-            }
-
-            String email = principal.getAttribute("email");
-            User user = userService.findByEmail(email)
-                    .orElseThrow(() -> new RuntimeException("User not found"));
-
-            // Verify ownership
-            CalendarEvent existingEvent = calendarEventService.findById(id)
-                    .orElseThrow(() -> new RuntimeException("Event not found"));
-            if (!existingEvent.getOwner().getId().equals(user.getId())) {
-                return ResponseEntity.status(403).body(Map.of("error", "Not authorized to update this event"));
-            }
-
+            // REMOVED: if (principal == null) { ... }
+            // REMOVED: User lookup by principal
+            // REMOVED: Ownership check
             if (eventDTO.getStartAt() != null) {
                 LocalDateTime startDateTime = parseDateTime(eventDTO.getStartAt().toString());
                 eventDTO.setStartAt(startDateTime);
@@ -193,7 +152,7 @@ public class EventController {
                 }
             }
 
-            CalendarEventDTO updatedEvent = calendarEventService.updateEvent(id, eventDTO, user);
+            CalendarEventDTO updatedEvent = calendarEventService.updateEvent(id, eventDTO, null);
             return ResponseEntity.ok(updatedEvent);
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
@@ -207,24 +166,11 @@ public class EventController {
     public ResponseEntity<?> deleteEvent(
             @AuthenticationPrincipal OAuth2User principal,
             @PathVariable Long id) {
-        
         try {
-            if (principal == null) {
-                return ResponseEntity.badRequest().body(Map.of("error", "User not authenticated"));
-            }
-
-            String email = principal.getAttribute("email");
-            User user = userService.findByEmail(email)
-                    .orElseThrow(() -> new RuntimeException("User not found"));
-
-            // Verify ownership
-            CalendarEvent event = calendarEventService.findById(id)
-                    .orElseThrow(() -> new RuntimeException("Event not found"));
-            if (!event.getOwner().getId().equals(user.getId())) {
-                return ResponseEntity.status(403).body(Map.of("error", "Not authorized to delete this event"));
-            }
-
-            calendarEventService.deleteEvent(id, user);
+            // REMOVED: if (principal == null) { ... }
+            // REMOVED: User lookup by principal
+            // REMOVED: Ownership check
+            calendarEventService.deleteEvent(id, null);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
