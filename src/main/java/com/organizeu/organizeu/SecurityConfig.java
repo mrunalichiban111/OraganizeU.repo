@@ -31,7 +31,7 @@ public class SecurityConfig {
                     "/css/**", "/js/**", "/images/**", "/webjars/**", "/assets/**", "/error", "/access-denied", "/aboutus", "/calendar", "/tasks", "/notes", "/register", "/login2", "/health", "/"
                 ).permitAll()
                 .requestMatchers(
-                    "/user/**", "/resources/**", "/schedule"
+                    "/user/**", "/resources/**", "/schedule", "/resource_management"
                 ).authenticated()
                 .anyRequest().permitAll()
             )
