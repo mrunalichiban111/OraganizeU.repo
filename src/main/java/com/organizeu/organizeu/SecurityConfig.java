@@ -33,16 +33,16 @@ public class SecurityConfig {
                 .requestMatchers(
                     "/user/**", "/resources/**", "/schedule", "/resource_management"
                 ).authenticated()
-                .anyRequest().permitAll()
+                .anyRequest().authenticated() // Change from permitAll() to authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login2")
-                .defaultSuccessUrl("/", true)
+                .defaultSuccessUrl("/user/dashboard", true) // Update success URL to a protected page
                 .permitAll()
             )
             .oauth2Login(oauth2 -> oauth2
                 .loginPage("/login2")
-                .defaultSuccessUrl("/", true)
+                .defaultSuccessUrl("/user/dashboard", true) // Update success URL to a protected page
                 .userInfoEndpoint(userInfo -> userInfo
                     .userService(customOAuth2UserService)
                 )
