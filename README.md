@@ -58,7 +58,7 @@ Technologies used in the project:
 | **Srushti** | Contact Us Module, Site Layout, Testing and Debugging |
 
 
-
+<h3>Special Thanks to Sambhav for Leading us through</h3>
 
 
 # OrganizeU - Student Productivity Suite
