@@ -38,24 +38,24 @@ Technologies used in the project:
 *   HTML
 *   CSS
 *   Javascript
-*   Spring Boot
+*   Spring Boot (Java)
+*   SQL
 
 <br><br>
 
-<h2>👥 Team Members</h2> 
+## 👥 Team Members & Contributions
 
-Contributions:
-
-*   Mrunal:  Schedule Page , AboutUs Page , Frontend Integration , Spring Security
-*   Sambhav: Spring Boot Backend Logic , Overall Integration , Deployment
-*   Khushi:  Resource Page, Page routing , Content Enhancements
-*   Suhani:  SpringBoot Models , Resource page backend, Overall site design
-*   Surendra:DB Integration ,DB error Fixes and home page , Profile Setiings
-*   Parteek: Forms Backend , navbar, footer , UI Refactor for forms 
-*   Janmesh: Schedule Page Backend,Welcome Page , Login and Register page
-*   Harshita:Javascript Functionality , User Dashboard, Final UI enhancement , Design
-*   Srushti: Contact Us module, Site Layout , Site Testing and Debugging
-
+| Name       | Contributions |
+|------------|---------------|
+| **Mrunal** | Schedule Page, About Us Page, Frontend Integration, Spring Security |
+| **Sambhav** | Spring Boot Backend Logic, Overall Integration, Deployment |
+| **Khushi** | Resource Page, Page Routing, Content Enhancements |
+| **Suhani** | Spring Boot Models, Resource Page Backend, Overall Site Design |
+| **Surendra** | DB Integration, DB Error Fixes, Home Page, Profile Settings |
+| **Parteek** | Forms Backend, Navbar, Footer, UI Refactor for Forms |
+| **Janmesh** | Schedule Page Backend, Welcome Page, Login and Register Page |
+| **Harshita** | JavaScript Functionality, User Dashboard, Final UI Enhancements, Design |
+| **Srushti** | Contact Us Module, Site Layout, Testing and Debugging |
 
 
 
